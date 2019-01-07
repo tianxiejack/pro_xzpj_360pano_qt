@@ -192,13 +192,14 @@ void MainWindowgl::playback()
 
 void MainWindowgl::panorama_auto_show()
 {
+    if(panorama_auto_edit->text().operator==("1234"))
+    {
     value = 0;
     reset();
     this->openStack[4]->setChecked(false);
     this->openStack[5]->setChecked(false);
    // QString a = this->panorama_auto_edit->text();
-    if(panorama_auto_edit->text().operator==("1234"))
-    {
+
         panorama_auto_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAAUTOSHOW);
         panorama_auto_password_w->close();
@@ -207,6 +208,9 @@ void MainWindowgl::panorama_auto_show()
 
 void MainWindowgl::PTZ_hand_show()
 {
+    QString a = PTZ_hand_edit->text();
+    if(a=="1234")
+    {
     value = 1;
     reset();
 
@@ -214,9 +218,7 @@ void MainWindowgl::PTZ_hand_show()
     this->openStack[5]->setChecked(false);
     g->addWidget(w2,0,1);
     ui->openGLWidget->resize(1500,1200);
-    QString a = PTZ_hand_edit->text();
-    if(a=="1234")
-    {
+
         PTZ_hand_edit->clear();
         emit slotssendprotocol(Protocol::PTZHANDSHOW);
         PTZ_hand_password_w->close();
@@ -225,6 +227,9 @@ void MainWindowgl::PTZ_hand_show()
 
 void MainWindowgl::panorama_hand_show()
 {
+    QString a = panorama_hand_edit->text();
+    if(a=="1234")
+    {
     value = 2;
     reset();
 
@@ -232,9 +237,7 @@ void MainWindowgl::panorama_hand_show()
     this->openStack[4]->setChecked(false);
     g->addWidget(w1,0,1);
     ui->openGLWidget->resize(1500,1200);
-    QString a = panorama_hand_edit->text();
-    if(a=="1234")
-    {
+
         panorama_hand_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAHANDSHOW);
         panorama_hand_password_w->close();
