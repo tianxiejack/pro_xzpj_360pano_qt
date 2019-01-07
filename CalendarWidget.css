@@ -1,0 +1,181 @@
+QPushButton#CalendarLeftYearBtn {
+    border-image:url(:/Resources/Rsouces/previousyear.png);
+}
+
+QPushButton#CalendarLeftYearBtn:pressed,  QPushButton#CalendarLeftYearBtn:hover{
+    border-image:url(:/Resources/Rsouces/previousyear-hover.png);
+}
+
+QPushButton#CalendarLeftMonthBtn {
+    border-image:url(:/Resources/Rsouces/previousmonth.png);
+}
+
+QPushButton#CalendarLeftMonthBtn:pressed,  QPushButton#CalendarLeftMonthBtn:hover{
+    border-image:url(:/Resources/Rsouces/previous-hover.png);
+}
+
+QPushButton#CalendarRightYearBtn {
+    border-image:url(:/Resources/Rsouces/nextyear.png);
+}
+
+QPushButton#CalendarRightYearBtn:pressed,  QPushButton#CalendarRightYearBtn:hover{
+    border-image:url(:/Resources/Rsouces/nextyear-hover.png);
+}
+
+QPushButton#CalendarRightMonthBtn {
+    border-image:url(:/Resources/Rsouces/nextmonth.png);
+}
+
+QPushButton#CalendarRightMonthBtn:pressed,  QPushButton#CalendarRightMonthBtn:hover{
+    border-image:url(:/Resources/Rsouces/nextmonth-hover.png);
+}
+QPushButton#left_up {
+   border:none;
+   background-image:url(:/Resources/Rsouces/left_up.png);
+   background-position:center;
+}
+QPushButton#left_up:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/left_up.png);
+}
+QPushButton#up {
+   border:none;
+   background-image:url(:/Resources/Rsouces/up.png);
+   background-position:center;
+}
+QPushButton#up:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/up.png);
+}
+QPushButton#right_up {
+   border:none;
+   background-image:url(:/Resources/Rsouces/right_up.png);
+   background-position:center;
+}
+QPushButton#right_up:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/right_up.png);
+}
+QPushButton#left {
+   border:none;
+   background-image:url(:/Resources/Rsouces/left2.png);
+   background-position:center;
+}
+QPushButton#left:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/left2.png);
+}
+QPushButton#pause {
+   border:none;
+   background-image:url(:/Resources/Rsouces/pause2.png);
+   background-position:center;
+}
+QPushButton#pause:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/pause2.png);
+}
+QPushButton#right {
+   border:none;
+   background-image:url(:/Resources/Rsouces/right.png);
+   background-position:center;
+}
+QPushButton#right:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/right.png);
+}
+QPushButton#left_down {
+   border:none;
+   background-image:url(:/Resources/Rsouces/left_down.png);
+   background-position:center;
+}
+QPushButton#left_down:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/left_down.png);
+}
+QPushButton#down {
+   border:none;
+   background-image:url(:/Resources/Rsouces/down.png);
+   background-position:center;
+}
+QPushButton#down:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/down.png);
+}
+QPushButton#right_down {
+   border:none;
+   background-image:url(:/Resources/Rsouces/right_down.png);
+   background-position:center;
+}
+QPushButton#right_down:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/right_down.png);
+}
+QPushButton#focallength_min {
+   border:none;
+   background-image:url(:/Resources/Rsouces/focallength_min.png);
+   background-position:center;
+}
+QPushButton#focallength_min:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/focallength_min.png);
+}
+QPushButton#focallength_plus {
+   border:none;
+   background-image:url(:/Resources/Rsouces/focallength_plus.png);
+   background-position:center;
+}
+QPushButton#focallength_plus:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/focallength_plus.png);
+}
+QPushButton#focusing_min {
+   border:none;
+   background-image:url(:/Resources/Rsouces/focusing_min.png);
+   background-position:center;
+}
+QPushButton#focusing_min:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/focusing_min.png);
+}
+QPushButton#focusing_plus {
+   border:none;
+   background-image:url(:/Resources/Rsouces/focusing_plus.png);
+   background-position:center;
+}
+QPushButton#focusing_plus:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/focusing_plus.png);
+}
+QPushButton#aperture_min {
+   border:none;
+   background-image:url(:/Resources/Rsouces/aperture_min.png);
+   background-position:center;
+}
+QPushButton#aperture_min:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/aperture_min.png);
+}
+QPushButton#aperture_plus {
+   border:none;
+   background-image:url(:/Resources/Rsouces/aperture_plus.png);
+   background-position:center;
+}
+QPushButton#aperture_plus:pressed{
+
+  border:1px solid black;
+  background-image:url(:/Resources/Rsouces/aperture_plus.png);
+}

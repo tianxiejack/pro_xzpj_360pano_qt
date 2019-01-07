@@ -1,0 +1,45 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>CalendarWidget.css</file>
+    </qresource>
+    <qresource prefix="/Resources">
+        <file>Rsouces/camera.png</file>
+        <file>Rsouces/clip.png</file>
+        <file>Rsouces/left.png</file>
+        <file>Rsouces/nextmonth.png</file>
+        <file>Rsouces/nextmonth-hover.png</file>
+        <file>Rsouces/nextyear.png</file>
+        <file>Rsouces/nextyear-hover.png</file>
+        <file>Rsouces/pause.png</file>
+        <file>Rsouces/previous-hover.png</file>
+        <file>Rsouces/previousmonth.png</file>
+        <file>Rsouces/previousyear.png</file>
+        <file>Rsouces/previousyear-hover.png</file>
+        <file>Rsouces/right.jpg</file>
+        <file>Rsouces/aperture_min.png</file>
+        <file>Rsouces/aperture_plus.png</file>
+        <file>Rsouces/down.png</file>
+        <file>Rsouces/focallength_min.png</file>
+        <file>Rsouces/focallength_plus.png</file>
+        <file>Rsouces/focusing_min.png</file>
+        <file>Rsouces/focusing_plus.png</file>
+        <file>Rsouces/left_down.png</file>
+        <file>Rsouces/left_up.png</file>
+        <file>Rsouces/right.png</file>
+        <file>Rsouces/right_down.png</file>
+        <file>Rsouces/right_up.png</file>
+        <file>Rsouces/up.png</file>
+        <file>Rsouces/left2.png</file>
+        <file>Rsouces/pause2.png</file>
+        <file>Rsouces/plus.png</file>
+        <file>Rsouces/play.png</file>
+    </qresource>
+    <qresource prefix="/Resources2">
+        <file>Rsouces2/2.jpg</file>
+        <file>Rsouces2/3.jpg</file>
+        <file>Rsouces2/4.jpg</file>
+        <file>Rsouces2/5.png</file>
+        <file>Rsouces2/1.jpg</file>
+        <file>Rsouces2/6.png</file>
+    </qresource>
+</RCC>
