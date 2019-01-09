@@ -86,6 +86,47 @@ public:
     int Monday_08 = 0;
     int Monday_916 = 0;
     int Monday_1724 = 0;
+    int Tuesday_08 = 0;
+    int Tuesday_916 = 0;
+    int Tuesday_1724 = 0;
+    int Wednesday_08 = 0;
+    int Wednesday_916 = 0;
+    int Wednesday_1724 = 0;
+    int Thursday_08 = 0;
+    int Thursday_916 = 0;
+    int Thursday_1724 = 0;
+    int Friday_08 = 0;
+    int Friday_916 = 0;
+    int Friday_1724 = 0;
+    int Saturday_08 = 0;
+    int Saturday_916 = 0;
+    int Saturday_1724 = 0;
+    int Sunday_08 = 0;
+    int Sunday_916 = 0;
+    int Sunday_1724 = 0;
+
+    int Monday_08_move = 0;
+    int Monday_916_move = 0;
+    int Monday_1724_move = 0;
+    int Tuesday_08_move = 0;
+    int Tuesday_916_move = 0;
+    int Tuesday_1724_move = 0;
+    int Wednesday_08_move = 0;
+    int Wednesday_916_move = 0;
+    int Wednesday_1724_move = 0;
+    int Thursday_08_move = 0;
+    int Thursday_916_move = 0;
+    int Thursday_1724_move = 0;
+    int Friday_08_move = 0;
+    int Friday_916_move = 0;
+    int Friday_1724_move = 0;
+    int Saturday_08_move = 0;
+    int Saturday_916_move = 0;
+    int Saturday_1724_move = 0;
+    int Sunday_08_move = 0;
+    int Sunday_916_move = 0;
+    int Sunday_1724_move = 0;
+
     int Select_configure;
 
     QVector<QuerryDate> querrydate;

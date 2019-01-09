@@ -10,7 +10,7 @@
 #include <QPainter>
 #include <QInputDialog>
 #include <QGridLayout>
-#include "protocol.h"
+//#include "protocol.h"
 #include "netcom.h"
 #include "CGlobalDate.h"
 
@@ -27,7 +27,7 @@ public:
     float r_x, r_x1, r_y, r_y1;
     int r_x2,r_y2;
 
-private slots:
+public slots:
     void slotssendprotocol(Protocol::PROTOCOL protocol);
 protected:
     void mousePressEvent(QMouseEvent *event);        //单击

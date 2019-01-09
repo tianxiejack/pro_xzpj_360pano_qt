@@ -90,6 +90,9 @@ public:
         MOVECONFIRM=0x62,
 
         SELECTCONFIGURE=0x63,
+
+        VEDIOTIMEING=0x64,
+        VEDIOMOVE=0x65,
     }PROTOCOL;
 
     typedef enum

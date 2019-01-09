@@ -25,7 +25,8 @@
 #include <QCalendarWidget>
 #include "vediosliderwidget.h"
 #include "mytablewidget.h"
-
+#include <QDialog>
+#include "closeeventwidget.h"
 
 namespace Ui {
 class MainWindowgl;
@@ -77,7 +78,7 @@ public:
     QSpinBox *pSpinBox,*pSpinBox1;
     QPushButton  *therm_confirm;
     /*零位配置*/
-    QWidget *Zero;
+    closeeventwidget *Zero;
     QPushButton *zero_btn;
     QPushButton *zero_confirm_btn;
     QPushButton *zero_close_btn;
@@ -128,6 +129,7 @@ public:
     QPushButton *montage_confirm;
     QGroupBox *gbox_montage;
     /*录像配置*/
+    QPushButton *Video_clear;
     QWidget *Video;
     mytablewidget *s4;
     QCheckBox *check_time,*check_move;
@@ -137,10 +139,14 @@ public:
     QLabel *sw_version,*sw_update,*sw_import,*sw_export,*label_tishi;
     QLineEdit *sw_version_edit,*sw_update_edit,*sw_import_edit,*sw_export_edit;
     QPushButton *sw_update_btn,*sw_import_btn,*sw_export_btn;
+    QPushButton *sw_update_btn1,*sw_import_btn1,*sw_export_btn1;
     QString filePath_sw_update;
     QString filePath_sw_import;
     QString filePath_sw_export;
-
+    /*系统升级*/
+    QDialog *update_dialog;
+    QLabel *lab1,*lab2,*lab3;
+    QPushButton *sw_update_confirm,*sw_update_exit;
 
     void init_Turntable();
     void init_Thermalimage();
@@ -256,7 +262,6 @@ private slots:
     void delete_image(int num);
 
     void zero_emit();
-    void zero_exit();
 
     void ppi_confirm_click();
 
@@ -278,7 +283,12 @@ private slots:
     void sw_update_click();
     void sw_import_click();
     void sw_export_click();
+    void sw_update_click1();
+    void sw_import_click1();
+    void sw_export_click1();
     void vedio_color_click(int row, int column);
+    void vedio_clear_click();
+    void vedio_confirm_click();
 
 signals:
     void signalSetCalendarTime(const QDate& data);

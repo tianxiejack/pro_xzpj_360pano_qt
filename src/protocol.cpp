@@ -583,9 +583,63 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
 }
     else if(id==0x63)
     {
-        send_arr[4]=0x88;
+        send_arr[4]=0x90;
         send_arr[5]=m_GlobalDate->Select_configure;
         return formatoneframe(2);
+}
+    else if(id==0x64)
+    {
+        send_arr[4]=0x83;
+        send_arr[5]=0;
+        send_arr[6]=m_GlobalDate->Monday_08;
+        send_arr[7]=m_GlobalDate->Monday_916;
+        send_arr[8]=m_GlobalDate->Monday_1724;
+        send_arr[9]=m_GlobalDate->Tuesday_08;
+        send_arr[10]=m_GlobalDate->Tuesday_916;
+        send_arr[11]=m_GlobalDate->Tuesday_1724;
+        send_arr[12]=m_GlobalDate->Wednesday_08;
+        send_arr[13]=m_GlobalDate->Wednesday_916;
+        send_arr[14]=m_GlobalDate->Wednesday_1724;
+        send_arr[15]=m_GlobalDate->Thursday_08;
+        send_arr[16]=m_GlobalDate->Thursday_916;
+        send_arr[17]=m_GlobalDate->Thursday_1724;
+        send_arr[18]=m_GlobalDate->Friday_08;
+        send_arr[19]=m_GlobalDate->Friday_916;
+        send_arr[20]=m_GlobalDate->Friday_1724;
+        send_arr[21]=m_GlobalDate->Saturday_08;
+        send_arr[22]=m_GlobalDate->Saturday_916;
+        send_arr[23]=m_GlobalDate->Saturday_1724;
+        send_arr[24]=m_GlobalDate->Sunday_08;
+        send_arr[25]=m_GlobalDate->Sunday_916;
+        send_arr[26]=m_GlobalDate->Sunday_1724;
+        return formatoneframe(23);
+}
+    else if(id==0x65)
+    {
+        send_arr[4]=0x83;
+        send_arr[5]=1;
+        send_arr[6]=m_GlobalDate->Monday_08_move;
+        send_arr[7]=m_GlobalDate->Monday_916_move;
+        send_arr[8]=m_GlobalDate->Monday_1724_move;
+        send_arr[9]=m_GlobalDate->Tuesday_08_move;
+        send_arr[10]=m_GlobalDate->Tuesday_916_move;
+        send_arr[11]=m_GlobalDate->Tuesday_1724_move;
+        send_arr[12]=m_GlobalDate->Wednesday_08_move;
+        send_arr[13]=m_GlobalDate->Wednesday_916_move;
+        send_arr[14]=m_GlobalDate->Wednesday_1724_move;
+        send_arr[15]=m_GlobalDate->Thursday_08_move;
+        send_arr[16]=m_GlobalDate->Thursday_916_move;
+        send_arr[17]=m_GlobalDate->Thursday_1724_move;
+        send_arr[18]=m_GlobalDate->Friday_08_move;
+        send_arr[19]=m_GlobalDate->Friday_916_move;
+        send_arr[20]=m_GlobalDate->Friday_1724_move;
+        send_arr[21]=m_GlobalDate->Saturday_08_move;
+        send_arr[22]=m_GlobalDate->Saturday_916_move;
+        send_arr[23]=m_GlobalDate->Saturday_1724_move;
+        send_arr[24]=m_GlobalDate->Sunday_08_move;
+        send_arr[25]=m_GlobalDate->Sunday_916_move;
+        send_arr[26]=m_GlobalDate->Sunday_1724_move;
+        return formatoneframe(23);
 }
 }
 
