@@ -33,6 +33,11 @@
         <file>Rsouces/pause2.png</file>
         <file>Rsouces/plus.png</file>
         <file>Rsouces/play.png</file>
+        <file>Rsouces/rli.png</file>
+        <file>Rsouces/blue.png</file>
+        <file>Rsouces/blue2.png</file>
+        <file>Rsouces/green.png</file>
+        <file>Rsouces/green2..png</file>
     </qresource>
     <qresource prefix="/Resources2">
         <file>Rsouces2/2.jpg</file>

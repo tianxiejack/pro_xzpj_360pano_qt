@@ -11,6 +11,8 @@ locationcollectwidget::locationcollectwidget(QWidget *parent) : QWidget(parent),
     this->resize(289, 573);
     Turntable_control2 = new QPushButton("转台控制");
     location_collect2 = new QPushButton("位置收藏");
+    location_collect2->setStyleSheet("QPushButton{background-color:rgb(84,141,212);}");
+    Turntable_control2->setStyleSheet("QPushButton{background-color:rgb(182,221,232);}");
     Turntable_control2->setGeometry(65,530,80,30);
     location_collect2->setGeometry(145,530,80,30);
     test = new QPushButton();

@@ -5,6 +5,7 @@
 #include <QGroupBox>
 #include <QPushButton>
 #include <QSlider>
+#include <QSpinBox>
 
 class Turntable_widget : public QWidget
 {
@@ -14,7 +15,7 @@ public:
     QPushButton *Turntable_control;
     QPushButton *location_collect;
     QSlider *slider;
-
+    QSpinBox *pSpinbox;
 
     QGroupBox *box1;
     QGroupBox *box2;

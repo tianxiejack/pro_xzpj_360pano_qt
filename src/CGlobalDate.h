@@ -62,6 +62,31 @@ public:
     int year_select;
     int mouth_select;
     int day_select;
+    int ppi;
+    int swiveltable_speed;
+    int pixfocus;
+    int imagerate;
+
+    int current_year;
+    int current_mouth;
+    int current_day;
+    int current_hour;
+    int current_minute;
+    int current_second;
+
+    int move_enable_;
+    int sensitivity_;
+    int move_speed_grade_;
+    int max_width;
+    int max_height;
+    int min_width;
+    int min_height;
+    int area_;
+    int delay_time_;
+    int Monday_08 = 0;
+    int Monday_916 = 0;
+    int Monday_1724 = 0;
+    int Select_configure;
 
     QVector<QuerryDate> querrydate;
 public:

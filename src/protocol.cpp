@@ -541,6 +541,52 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->day_select;
         return formatoneframe(5);
 }
+    else if(id==0x59)
+    {
+        send_arr[4]=0x86;
+        send_arr[5]=m_GlobalDate->ppi;
+        return formatoneframe(2);
+}
+    else if(id==0x60)
+    {
+        send_arr[4]=0x88;
+        send_arr[5]=m_GlobalDate->swiveltable_speed;
+        send_arr[6]=(m_GlobalDate->pixfocus>>8)&0xff;
+        send_arr[7]=m_GlobalDate->pixfocus&0xff;
+        send_arr[8]=m_GlobalDate->imagerate;
+        return formatoneframe(5);
+}
+    else if(id==0x61)
+    {
+        send_arr[4]=0x87;
+        send_arr[5]=(m_GlobalDate->current_year>>8)&0xff;
+        send_arr[6]=m_GlobalDate->current_year&0xff;
+        send_arr[7]=m_GlobalDate->current_mouth;
+        send_arr[8]=m_GlobalDate->current_day;
+        send_arr[9]=m_GlobalDate->current_hour;
+        send_arr[10]=m_GlobalDate->current_minute;
+        send_arr[11]=m_GlobalDate->current_second;
+        return formatoneframe(8);
+}
+    else if(id==0x62)
+    {
+        send_arr[4]=0x84;
+        send_arr[5]=m_GlobalDate->move_enable_;
+        send_arr[6]=m_GlobalDate->sensitivity_;
+        send_arr[7]=m_GlobalDate->move_speed_grade_;
+        send_arr[8]=m_GlobalDate->max_width;
+        send_arr[9]=m_GlobalDate->max_height;
+        send_arr[10]=m_GlobalDate->min_width;
+        send_arr[11]=m_GlobalDate->min_height;
+        send_arr[12]=m_GlobalDate->delay_time_;
+        return formatoneframe(9);
+}
+    else if(id==0x63)
+    {
+        send_arr[4]=0x88;
+        send_arr[5]=m_GlobalDate->Select_configure;
+        return formatoneframe(2);
+}
 }
 
 

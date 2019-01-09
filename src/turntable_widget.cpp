@@ -95,14 +95,25 @@ Turntable_widget::Turntable_widget(QWidget *parent) : QWidget(parent)
     box2->setParent(this);
 
     slider = new QSlider(Qt::Horizontal);
-    slider->setGeometry(20,153,230,17);
+    slider->setGeometry(20,153,190,17);
     slider->setParent(this);
     slider->setMinimum(0x00);      // 设置滑动条的最小值
     slider->setMaximum(0x64);
     slider->setValue(0x20);
 
+    pSpinbox = new QSpinBox;
+    pSpinbox->setGeometry(210,153,40,20);
+    pSpinbox->setMinimum(0);  // 最小值
+    pSpinbox->setMaximum(0x64);  // 最大值
+    pSpinbox->setValue(0x20);
+    pSpinbox->setParent(this);
+    connect(pSpinbox, SIGNAL(valueChanged(int)), slider, SLOT(setValue(int)));
+    connect(slider, SIGNAL(valueChanged(int)), pSpinbox, SLOT(setValue(int)));
+
     Turntable_control = new QPushButton("转台控制");
     location_collect = new QPushButton("位置收藏");
+    Turntable_control->setStyleSheet("QPushButton{background-color:rgb(84,141,212);}");
+    location_collect->setStyleSheet("QPushButton{background-color:rgb(182,221,232);}");
     Turntable_control->setGeometry(65,350,80,30);
     location_collect->setGeometry(145,350,80,30);
 

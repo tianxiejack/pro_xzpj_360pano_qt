@@ -3,41 +3,31 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QDate>
 #include <QButtonGroup>
-
-
+#include <QFileDialog>
+#include <QColor>
 void MainWindowgl::menuinit()
 {
     menubar = new QMenuBar;
     menu[0]= new QMenu("显示内容");
     openStack[0] = new QAction("实时预览");
-    openStack[0]->setChecked(true);
 
     menu[0]->addAction(openStack[0]);
     openStack[1] = new QAction("录像回放");
-    //openStack[1]->setChecked(false);
     menu[0]->addAction(openStack[1]);
-    openStack[0]->setCheckable(true);
-    openStack[1]->setCheckable(true);
+
     menubar->addMenu(menu[0]);
     menu[1]= new QMenu("工作模式");
     openStack[3] = new QAction("全景自动监测");
-    openStack[3]->setChecked(true);
     menu[1]->addAction(openStack[3]);
 
     openStack[4] = new QAction("PTZ手动控制");
-    openStack[4]->setChecked(true);
     menu[1]->addAction(openStack[4]);
 
     openStack[5] = new QAction("全景图手动控制");
-    openStack[5]->setChecked(true);
     menu[1]->addAction(openStack[5]);
     menubar->addMenu(menu[1]);
-
-    openStack[3]->setCheckable(true);
-    openStack[4]->setCheckable(true);
-    openStack[5]->setCheckable(true);
-
 
     menu[2]= new QMenu("配置");
     openStack[6] = new QAction("转台配置");
@@ -57,9 +47,13 @@ void MainWindowgl::menuinit()
 
     openStack[9] = new QAction("系统维护配置");
     menu[2]->addAction(openStack[9]);
+    init_system();
+    connect(openStack[9], SIGNAL(triggered(bool)), this, SLOT(showSystem()));
 
     openStack[10] = new QAction("录像配置");
     menu[2]->addAction(openStack[10]);
+    init_video();
+    connect(openStack[10], SIGNAL(triggered(bool)), this, SLOT(showVideo()));
 
     openStack[11] = new QAction("移动目标检测配置");
     menu[2]->addAction(openStack[11]);
@@ -68,20 +62,43 @@ void MainWindowgl::menuinit()
 
     openStack[12] = new QAction("输出分辨率配置");
     menu[2]->addAction(openStack[12]);
+    init_ppi();
+    connect(openStack[12], SIGNAL(triggered(bool)), this, SLOT(showPPI()));
 
     openStack[13] = new QAction("设定时间配置");
     menu[2]->addAction(openStack[13]);
+    init_time();
+    connect(openStack[13], SIGNAL(triggered(bool)), this, SLOT(showTime()));
 
     openStack[14] = new QAction("抓图和剪辑保存路径配置");
     menu[2]->addAction(openStack[14]);
+    init_roadsave();
+    connect(openStack[14], SIGNAL(triggered(bool)), this, SLOT(showRoadsave()));
+
+    openStack[15] = new QAction("拼接配置");
+    menu[2]->addAction(openStack[15]);
+    init_montage();
+    connect(openStack[15], SIGNAL(triggered(bool)), this, SLOT(showMontage()));
 
     menubar->addMenu(menu[2]);
-
-
     setMenuBar(menubar);
-
-
+    openStack[0]->setCheckable(true);
+    openStack[1]->setCheckable(true);
+    openStack[3]->setCheckable(true);
+    openStack[4]->setCheckable(true);
+    openStack[5]->setCheckable(true);
+    openStack[6]->setCheckable(true);
+    openStack[7]->setCheckable(true);
+    openStack[8]->setCheckable(true);
+    openStack[9]->setCheckable(true);
+    openStack[10]->setCheckable(true);
+    openStack[11]->setCheckable(true);
+    openStack[12]->setCheckable(true);
+    openStack[13]->setCheckable(true);
+    openStack[14]->setCheckable(true);
+    openStack[15]->setCheckable(true);
 }
+
 void MainWindowgl::panorama_auto_password_init()
 {
     panorama_auto_password_w = new QWidget();
@@ -172,8 +189,8 @@ void MainWindowgl::init_Turntable()
 {
    Turntable = new QWidget();
    Turntable->setWindowTitle("转台配置");
-   Turntable->setMaximumSize(300,200);
-   Turntable->setMinimumSize(300,200);
+   Turntable->setMaximumSize(300,160);
+   Turntable->setMinimumSize(300,160);
 
    addresschoose = new QComboBox();
    addresschoose->addItem("地址0");
@@ -260,12 +277,12 @@ void MainWindowgl::init_Turntable()
    f2->addRow(tur_s[2],baud_rate);
    f2->addRow(tur_s[3],speed);
    gbox_tur->setLayout(f2);
-   gbox_tur->setGeometry(20,20,200,130);
+   gbox_tur->setGeometry(40,15,210,120);
    gbox_tur->setStyleSheet("QGroupBox{border:none;}");
 
    tur_btn = new QPushButton();
    tur_btn->setText("确认");
-   tur_btn->setGeometry(200,170,40,20);
+   tur_btn->setGeometry(200,130,40,20);
    gbox_tur->setParent(Turntable);
    //->setParent(Turntable);
    tur_btn->setParent(Turntable);
@@ -319,7 +336,7 @@ void MainWindowgl::init_Thermalimage()
      gbox_the1->setLayout(f2);
      gbox_the1->setGeometry(20,20,250,130);
      gbox_the1->setStyleSheet("QGroupBox{border:none;}");
-     white->setGeometry(200,102,60,20);
+     white->setGeometry(200,96,60,20);
 
      correct = new QCheckBox;
      noice_reduce = new QCheckBox;
@@ -369,7 +386,7 @@ void MainWindowgl::init_Zero()
     zero_confirm_btn->setText("确认");
     zero_confirm_btn->setGeometry(360,120,40,20);
     zero_close_btn = new QPushButton("取消");
-    zero_close_btn->setGeometry(160,120,40,20);
+    zero_close_btn->setGeometry(260,120,40,20);
     zero_btn->setParent(Zero);
     zero_confirm_btn->setParent(Zero);
     zero_close_btn->setParent(Zero);
@@ -379,12 +396,97 @@ void MainWindowgl::init_Zero()
     connect(zero_close_btn,SIGNAL(clicked(bool)),this,SLOT(zero_exit()));
 }
 
+void MainWindowgl::init_system()
+{
+    QFont ft;
+    System = new QWidget;
+    System->setWindowTitle("系统维护配置");
+    System->setMaximumSize(520,230);
+    System->setMinimumSize(520,230);
+    sw_version = new QLabel("软件版本：");
+    sw_update = new QLabel("软件升级：");
+    sw_import = new QLabel("参数导入：");
+    sw_export = new QLabel("参数导出：");
+    label_tishi = new QLabel("提示：软件升级、导入导出参数等过程需要1-20分钟，请不要关闭电源，软件升级、导入参数完成后请断电重启。");
+    sw_version_edit = new QLineEdit;
+    sw_update_edit = new QLineEdit;
+    sw_import_edit = new QLineEdit;
+    sw_export_edit = new QLineEdit;
+    sw_update_btn = new QPushButton("选择文件");
+    sw_import_btn = new QPushButton("选择文件");
+    sw_export_btn = new QPushButton("选择路径");
+    sw_version->setGeometry(10,30,60,20);
+    sw_update->setGeometry(10,70,60,20);
+    sw_import->setGeometry(10,110,60,20);
+    sw_export->setGeometry(10,150,60,20);
+    sw_version_edit->setGeometry(73,27,200,30);
+    sw_update_edit->setGeometry(73,67,150,30);
+    sw_import_edit->setGeometry(73,107,150,30);
+    sw_export_edit->setGeometry(73,147,150,30);
+    sw_update_btn->setGeometry(245,67,80,30);
+    sw_import_btn->setGeometry(245,107,80,30);
+    sw_export_btn->setGeometry(245,147,80,30);
+    ft.setPointSize(7);
+    label_tishi->setFont(ft);
+    label_tishi->setGeometry(10,195,500,20);
+    sw_version->setParent(System);
+    sw_update->setParent(System);
+    sw_import->setParent(System);
+    sw_export->setParent(System);
+    sw_version_edit->setParent(System);
+    sw_update_edit->setParent(System);
+    sw_import_edit->setParent(System);
+    sw_export_edit->setParent(System);
+    sw_update_btn->setParent(System);
+    sw_import_btn->setParent(System);
+    sw_export_btn->setParent(System);
+    label_tishi->setParent(System);
+    connect(sw_update_btn,SIGNAL(clicked(bool)),this,SLOT(sw_update_click()));
+    connect(sw_import_btn,SIGNAL(clicked(bool)),this,SLOT(sw_import_click()));
+    connect(sw_export_btn,SIGNAL(clicked(bool)),this,SLOT(sw_export_click()));
+}
+
+void MainWindowgl::init_video()
+{
+    QLabel *label = new QLabel("录像布防");
+    label->setGeometry(3,1,60,17);
+    Video = new QWidget;
+    Video->setWindowTitle("录像配置");
+    Video->setMaximumSize(800,350);
+    Video->setMinimumSize(600,350);
+    check_time = new QCheckBox("定时");
+    check_time->setChecked(true);
+    check_move = new QCheckBox("移动目标检测");
+    QButtonGroup* pButtonGroup = new QButtonGroup(this);
+        pButtonGroup->addButton(check_time,1);
+        pButtonGroup->addButton(check_move,2);
+    Video_confirm = new QPushButton("确认");
+    Video_confirm->setGeometry(695,280,40,20);
+    check_time->setGeometry(695,80,80,17);
+    check_move->setGeometry(695,110,100,17);
+    check_time->setStyleSheet("QCheckBox::indicator::checked {background-image: url(:/Resources/Rsouces/blue2.png);}"
+                              "QCheckBox::indicator::unchecked{background-image: url(:/Resources/Rsouces/blue.png);}"
+                              );
+
+    check_move->setStyleSheet("QCheckBox::indicator::checked {background-image: url(:/Resources/Rsouces/green2..png);}"
+                              "QCheckBox::indicator::unchecked{background-image: url(:/Resources/Rsouces/green.png);}"
+                              );
+    s4 = new mytablewidget;
+    s4->setGeometry(3,20,680,240);
+    check_time->setParent(Video);
+    check_move->setParent(Video);
+    label->setParent(Video);
+    s4->setParent(Video);
+    Video_confirm->setParent(Video);
+    connect(s4,SIGNAL(cellClicked(int, int)),this,SLOT(vedio_color_click(int, int)));
+}
+
 void MainWindowgl::init_move()
 {
     Move = new QWidget;
     Move->setWindowTitle("移动目标检测配置");
-    Move->setMaximumSize(350,320);
-    Move->setMinimumSize(350,320);
+    Move->setMaximumSize(350,330);
+    Move->setMinimumSize(350,330);
     move_enable = new QLabel("移动目标检测使能：  ");
     move_speed_grade = new QLabel("移动目标检测速度等级：");
     sensitivity = new QLabel("灵敏度：  ");
@@ -401,46 +503,466 @@ void MainWindowgl::init_move()
     QHBoxLayout *h0 = new QHBoxLayout;
     h0->addWidget(move_enable);
     h0->addWidget(move_enable_checkbox);
+    QHBoxLayout *h8 = new QHBoxLayout;
+    h8->addWidget(move_speed_grade);
     QHBoxLayout *h1 = new QHBoxLayout;
     h1->addWidget(sensitivity);
     h1->addWidget(sen_high);
     h1->addWidget(sen_middle);
     h1->addWidget(sen_low);
+    QButtonGroup* pButtonGroup1 = new QButtonGroup(this);
+        pButtonGroup1->addButton(sen_high,1);
+        pButtonGroup1->addButton(sen_middle, 2);
+        pButtonGroup1->addButton(sen_low, 3);
     QHBoxLayout *h2 = new QHBoxLayout;
     h2->addWidget(speed_very_high);
     h2->addWidget(speed_high);
     h2->addWidget(speed_middle);
     h2->addWidget(speed_low);
     h2->addWidget(speed_very_low);
+    QButtonGroup* pButtonGroup2 = new QButtonGroup(this);
+        pButtonGroup2->addButton(speed_very_high,1);
+        pButtonGroup2->addButton(speed_high, 2);
+        pButtonGroup2->addButton(speed_middle, 3);
+        pButtonGroup2->addButton(speed_low, 4);
+        pButtonGroup2->addButton(speed_very_low, 5);
+    gbox_move1 = new QGroupBox;
+    gbox_move1->setTitle("检测目标尺寸设置");
+    QLabel *label1 = new QLabel("最大检测目标：  ");
+    QLabel *label2 = new QLabel("最小检测目标：  ");
+    QLabel *label3 = new QLabel("*");
+    QLabel *label4 = new QLabel("像素");
+    QLabel *label5 = new QLabel("*");
+    QLabel *label6 = new QLabel("像素");
+    comb_max_width = new QLineEdit;
+    comb_max_height = new QLineEdit;
+    comb_min_width = new QLineEdit;
+    comb_min_height = new QLineEdit;
+    QHBoxLayout *h3 = new QHBoxLayout;
+    h3->addWidget(label1);
+    h3->addWidget(comb_max_width);
+    h3->addWidget(label3);
+    h3->addWidget(comb_max_height);
+    h3->addWidget(label4);
+
+    QHBoxLayout *h4 = new QHBoxLayout;
+    h4->addWidget(label2);
+    h4->addWidget(comb_min_width);
+    h4->addWidget(label5);
+    h4->addWidget(comb_min_height);
+    h4->addWidget(label6);
+    QVBoxLayout *v1 = new QVBoxLayout;
+    v1->addLayout(h3);
+    v1->addLayout(h4);
+
+    gbox_move2 = new QGroupBox;
+    gbox_move2->setTitle("检测区域设置（1~16）：");
+    QLabel *label7 = new QLabel("区域：               ");
+    area = new QComboBox;
+    area->addItem("1");
+    area->addItem("2");
+    area->addItem("3");
+    area->addItem("4");
+    area->addItem("5");
+    area->addItem("6");
+    area->addItem("7");
+    area->addItem("8");
+    area->addItem("9");
+    area->addItem("10");
+    area->addItem("11");
+    area->addItem("12");
+    area->addItem("13");
+    area->addItem("14");
+    area->addItem("15");
+    area->addItem("16");
+
+    clear = new QPushButton("清除");
+    draw_area = new QPushButton("绘制区域");
+
+    QLabel *label8 = new QLabel("移动目标延时录像时间:");
+    QLabel *label9 = new QLabel("秒 ");
+    QHBoxLayout *h5 = new QHBoxLayout;
+    h5->addWidget(label7);
+    h5->addWidget(area);
+    QHBoxLayout *h6 = new QHBoxLayout;
+    h6->addWidget(draw_area);
+    h6->addWidget(clear);
+    QVBoxLayout *v2 = new QVBoxLayout;
+    v2->addLayout(h5);
+    v2->addLayout(h6);
+
+    delay_time = new QLineEdit;
+    move_confirm =new QPushButton("确认");
+    QHBoxLayout *h7 = new QHBoxLayout;
+    h7->addWidget(label8);
+    h7->addWidget(delay_time);
+    h7->addWidget(label9);
+    h7->addWidget(move_confirm);
+
+    gbox_move1->setStyleSheet("QGroupBox{border:1px solid black;}");
+    gbox_move2->setStyleSheet("QGroupBox{border:1px solid black;}");
+    gbox_move1->setLayout(v1);
+    gbox_move2->setLayout(v2);
     QVBoxLayout *v = new QVBoxLayout;
+     v->setSpacing(10);
      v->addLayout(h0);
      v->addLayout(h1);
-     v->addWidget(move_speed_grade);
-
+     v->addLayout(h8);
      v->addLayout(h2);
+     v->addWidget(gbox_move1);
+     v->addWidget(gbox_move2);
+     v->addLayout(h7);
      Move->setLayout(v);
-
+    connect(move_confirm,SIGNAL(clicked(bool)),this,SLOT(move_confirm_click()));
+    connect(draw_area,SIGNAL(clicked(bool)),this,SLOT(draw_area_click()));
+    connect(clear,SIGNAL(clicked(bool)),this,SLOT(clear_click()));
 }
+
+void MainWindowgl::init_ppi()
+{
+    PPI = new QWidget;
+    PPI->setWindowTitle("输出分辨率配置");
+    PPI->setMaximumSize(300,150);
+    PPI->setMinimumSize(300,150);
+    ppi_choose = new QLabel("输出分辨率设置：");
+    ppi_choose_comb = new QComboBox;
+    ppi_choose_comb->addItem("1920×1080@60hz");
+    ppi_choose_comb->addItem("1920×1080@30hz");
+    current_ppi = new QLabel("当前输出分辨率：");
+    current_ppi_edit = new QLineEdit;
+    ppi_confirm = new QPushButton;
+    ppi_confirm->setText("确认");
+    ppi_confirm->setGeometry(230,110,40,20);
+
+
+    gbox_ppi = new QGroupBox();
+    QFormLayout *f2=new QFormLayout();
+    f2->addRow(current_ppi,current_ppi_edit);
+    f2->addRow(ppi_choose,ppi_choose_comb);
+    gbox_ppi->setLayout(f2);
+    gbox_ppi->setGeometry(25,30,250,120);
+    gbox_ppi->setStyleSheet("QGroupBox{border:none;}");
+    gbox_ppi->setParent(PPI);
+    ppi_confirm->setParent(PPI);
+    connect(ppi_confirm,SIGNAL(clicked(bool)),this,SLOT(ppi_confirm_click()));
+}
+
+void MainWindowgl::init_time()
+{
+    Time = new QWidget;
+    Time->setWindowTitle("设定时间配置");
+    Time->setMaximumSize(300,150);
+    Time->setMinimumSize(300,150);
+    time_confirm = new QPushButton("确认");
+    time_setting = new QPushButton("设定时间");
+    tishi = new QLabel("提示：请确保终端计算机时间的正确性");
+
+    tishi->setGeometry(30,70,260,20);
+    tishi->setParent(Time);
+    time_setting->setGeometry(40,30,80,22);
+    time_setting->setParent(Time);
+    time_confirm->setText("确认");
+    time_confirm->setGeometry(230,110,40,20);
+    time_confirm->setParent(Time);
+    connect(time_confirm,SIGNAL(clicked(bool)),this,SLOT(time_confirm_click()));
+}
+
+void MainWindowgl::init_roadsave()
+{
+    Roadsave = new QWidget;
+    Roadsave->setWindowTitle("抓图和剪辑保存路径配置");
+    Roadsave->setMaximumSize(460,200);
+    Roadsave->setMinimumSize(460,200);
+
+    screenshot = new QLabel("录像回放抓图保存路径：");
+    screenshot->setGeometry(15,20,200,30);
+    clip_image = new QLabel("录像回放剪辑保存路径：");
+    clip_image->setGeometry(15,80,200,30);
+    screenshot_edit = new QLineEdit;
+    screenshot_edit->setGeometry(15,55,230,26);
+    clip_image_edit = new QLineEdit;
+    clip_image_edit->setGeometry(15,115,230,26);
+    screenshot_pass = new QPushButton("浏览");
+    screenshot_pass->setGeometry(290,55,40,26);
+    clip_image_pass = new QPushButton("浏览");
+    clip_image_pass->setGeometry(290,115,40,26);
+    screenshot_openfile = new QPushButton("打开文件");
+    screenshot_openfile->setGeometry(350,55,70,26);
+    clip_image_openfile = new QPushButton("打开文件");
+    clip_image_openfile->setGeometry(350,115,70,26);
+    roadsave_confirm = new QPushButton("确认");
+    roadsave_confirm->setGeometry(380,165,40,20);
+
+    screenshot->setParent(Roadsave);
+    clip_image->setParent(Roadsave);
+    screenshot_edit->setParent(Roadsave);
+    clip_image_edit->setParent(Roadsave);
+    screenshot_pass->setParent(Roadsave);
+    clip_image_pass->setParent(Roadsave);
+    screenshot_openfile->setParent(Roadsave);
+    clip_image_openfile->setParent(Roadsave);
+    roadsave_confirm->setParent(Roadsave);
+    connect(screenshot_pass,SIGNAL(clicked(bool)),this,SLOT(screenshot_pass_click()));
+    connect(clip_image_pass,SIGNAL(clicked(bool)),this,SLOT(clip_image_pass_click()));
+}
+
+void MainWindowgl::init_montage()
+{
+    Montage = new QWidget;
+    Montage->setWindowTitle("拼接配置");
+    Montage->setMaximumSize(350,150);
+    Montage->setMinimumSize(350,150);
+    swiveltable_speed = new QLabel("转台转速：");
+    pixfocus = new QLabel("像素焦距：");
+    imagerate = new QLabel("图像帧频：");
+    QLabel *label1 = new QLabel("个像素");
+    label1->setGeometry(270,53,40,20);
+    QLabel *label2 = new QLabel("帧/圈");
+    label2->setGeometry(270,80,40,20);
+    swiveltable_speed_comb = new QComboBox;
+    swiveltable_speed_comb->addItem("0");
+    swiveltable_speed_comb->addItem("1");
+    swiveltable_speed_comb->addItem("2");
+    swiveltable_speed_comb->addItem("3");
+    swiveltable_speed_comb->addItem("4");
+    swiveltable_speed_comb->addItem("5");
+    swiveltable_speed_comb->addItem("6");
+    swiveltable_speed_comb->addItem("7");
+    swiveltable_speed_comb->addItem("8");
+    swiveltable_speed_comb->addItem("9");
+    swiveltable_speed_comb->addItem("10");
+    swiveltable_speed_comb->addItem("11");
+    swiveltable_speed_comb->addItem("12");
+    swiveltable_speed_comb->addItem("13");
+    swiveltable_speed_comb->addItem("14");
+    swiveltable_speed_comb->addItem("15");
+    swiveltable_speed_comb->addItem("16");
+    swiveltable_speed_comb->addItem("17");
+    swiveltable_speed_comb->addItem("18");
+    swiveltable_speed_comb->addItem("19");
+    swiveltable_speed_comb->addItem("20");
+    swiveltable_speed_comb->addItem("21");
+    swiveltable_speed_comb->addItem("22");
+    swiveltable_speed_comb->addItem("23");
+    swiveltable_speed_comb->addItem("24");
+    swiveltable_speed_comb->addItem("25");
+    swiveltable_speed_comb->addItem("26");
+    swiveltable_speed_comb->addItem("27");
+    swiveltable_speed_comb->addItem("28");
+    swiveltable_speed_comb->addItem("29");
+    swiveltable_speed_comb->addItem("30");
+    swiveltable_speed_comb->addItem("31");
+    swiveltable_speed_comb->addItem("32");
+    swiveltable_speed_comb->addItem("33");
+    swiveltable_speed_comb->addItem("34");
+    swiveltable_speed_comb->addItem("35");
+    swiveltable_speed_comb->addItem("36");
+    swiveltable_speed_comb->addItem("37");
+    swiveltable_speed_comb->addItem("38");
+    swiveltable_speed_comb->addItem("39");
+    swiveltable_speed_comb->addItem("40");
+    swiveltable_speed_comb->addItem("41");
+    swiveltable_speed_comb->addItem("42");
+    swiveltable_speed_comb->addItem("43");
+    swiveltable_speed_comb->addItem("44");
+    swiveltable_speed_comb->addItem("45");
+    swiveltable_speed_comb->addItem("46");
+    swiveltable_speed_comb->addItem("47");
+    swiveltable_speed_comb->addItem("48");
+    swiveltable_speed_comb->addItem("49");
+    swiveltable_speed_comb->addItem("50");
+    swiveltable_speed_comb->addItem("51");
+    swiveltable_speed_comb->addItem("52");
+    swiveltable_speed_comb->addItem("53");
+    swiveltable_speed_comb->addItem("54");
+    swiveltable_speed_comb->addItem("55");
+    swiveltable_speed_comb->addItem("56");
+    swiveltable_speed_comb->addItem("57");
+    swiveltable_speed_comb->addItem("58");
+    swiveltable_speed_comb->addItem("59");
+    swiveltable_speed_comb->addItem("60");
+    swiveltable_speed_comb->addItem("61");
+    swiveltable_speed_comb->addItem("62");
+    swiveltable_speed_comb->addItem("63");
+    swiveltable_speed_comb->addItem("64");
+    pixfocus_edit = new QLineEdit;
+    imagerate_edit = new QLineEdit;
+    montage_confirm = new QPushButton("确认");
+    montage_confirm->setGeometry(250,120,40,20);
+    gbox_montage = new QGroupBox();
+    QFormLayout *f2=new QFormLayout();
+    f2->addRow(swiveltable_speed,swiveltable_speed_comb);
+    f2->addRow(pixfocus,pixfocus_edit);
+    f2->addRow(imagerate,imagerate_edit);
+    gbox_montage->setLayout(f2);
+    gbox_montage->setGeometry(20,20,250,100);
+    gbox_montage->setStyleSheet("QGroupBox{border:none;}");
+
+    label1->setParent(Montage);
+    label2->setParent(Montage);
+    montage_confirm->setParent(Montage);
+    gbox_montage->setParent(Montage);
+    connect(montage_confirm,SIGNAL(clicked(bool)),this,SLOT(montage_confirm_click()));
+}
+
 void MainWindowgl::showTurntable()
 {
+    m_GlobalDate2->Select_configure = 0;
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
     Turntable->show();
 }
 
 void MainWindowgl::showTherm()
 {
+    m_GlobalDate2->Select_configure = 1;
+    this->openStack[6]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
     Therm->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
 }
 
 void MainWindowgl::showZero()
 {
-
+    m_GlobalDate2->Select_configure = 2;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
     Zero->show();
     emit slotssendprotocol(Protocol::OPENZERO);
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showSystem()
+{
+    m_GlobalDate2->Select_configure = 8;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
+    System->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showVideo()
+{
+    m_GlobalDate2->Select_configure = 3;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
+    Video->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
 }
 
 void MainWindowgl::showMove()
 {
+    m_GlobalDate2->Select_configure = 4;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
     Move->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showPPI()
+{
+    m_GlobalDate2->Select_configure = 5;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
+    PPI->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showTime()
+{
+    m_GlobalDate2->Select_configure = 6;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(false);
+    Time->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showRoadsave()
+{
+    m_GlobalDate2->Select_configure = 9;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[15]->setChecked(false);
+    Roadsave->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+}
+
+void MainWindowgl::showMontage()
+{
+    m_GlobalDate2->Select_configure = 7;
+    this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(false);
+    Montage->show();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
 }
 
 void MainWindowgl::tur_btn_click()
@@ -460,6 +982,13 @@ void MainWindowgl::zero_exit()
 {
     Zero->close();
     emit slotssendprotocol(Protocol::CLOSEZERO);
+}
+
+void MainWindowgl::ppi_confirm_click()
+{
+    m_GlobalDate2->ppi = ppi_choose_comb->currentIndex();
+    qDebug()<<m_GlobalDate2->ppi;
+    emit slotssendprotocol(Protocol::PPICONFIRM);
 }
 
 void MainWindowgl::zero_emit()
@@ -506,3 +1035,151 @@ void MainWindowgl::therm_btn_click()
    //qDebug()<<m_GlobalDate2->ios;
     emit slotssendprotocol(Protocol::SENSOR);
 }
+
+void MainWindowgl::montage_confirm_click()
+{
+    m_GlobalDate2->swiveltable_speed = swiveltable_speed_comb->currentIndex();
+    m_GlobalDate2->pixfocus = pixfocus_edit->text().toInt();
+    m_GlobalDate2->imagerate = imagerate_edit->text().toInt();
+    qDebug() << m_GlobalDate2->swiveltable_speed << m_GlobalDate2->pixfocus << m_GlobalDate2->imagerate;
+    emit slotssendprotocol(Protocol::MONTAGECONFIRM);
+}
+
+void MainWindowgl::time_confirm_click()
+{
+    QDate date = QDate::currentDate();
+    m_GlobalDate2->current_year = date.year();
+    m_GlobalDate2->current_mouth = date.month();
+    m_GlobalDate2->current_day = date.day();
+    QTime time = QTime::currentTime();
+    m_GlobalDate2->current_hour = time.hour();
+    m_GlobalDate2->current_minute = time.minute();
+    m_GlobalDate2->current_second = time.second();
+    qDebug() <<  m_GlobalDate2->current_year << m_GlobalDate2->current_mouth << m_GlobalDate2->current_day << m_GlobalDate2->current_hour << m_GlobalDate2->current_minute << m_GlobalDate2->current_second;
+    emit slotssendprotocol(Protocol::CURRENTTIMECONFIRM);
+}
+
+void MainWindowgl::move_confirm_click()
+{
+    if(move_enable_checkbox->checkState()==2)
+    {
+        m_GlobalDate2-> move_enable_= 1;
+    }else{
+        m_GlobalDate2->move_enable_ =0;
+    }
+
+    if(sen_high->checkState()==2)
+    {
+        m_GlobalDate2->sensitivity_= 0;
+    }
+    else if(sen_middle->checkState()==2)
+    {
+        m_GlobalDate2->sensitivity_ =1;
+    }
+    else if(sen_low->checkState()==2)
+    {
+        m_GlobalDate2->sensitivity_ =2;
+    }
+
+    if(speed_very_high->checkState()==2)
+    {
+        m_GlobalDate2->move_speed_grade_= 0;
+    }
+    else if(speed_high->checkState()==2)
+    {
+        m_GlobalDate2->move_speed_grade_ =1;
+    }
+    else if(speed_middle->checkState()==2)
+    {
+        m_GlobalDate2->move_speed_grade_ =2;
+    }
+    else if(speed_low->checkState()==2)
+    {
+        m_GlobalDate2->move_speed_grade_ =3;
+    }
+    else if(speed_very_low->checkState()==2)
+    {
+        m_GlobalDate2->move_speed_grade_ =4;
+    }
+    m_GlobalDate2->max_width = comb_max_width->text().toInt();
+    m_GlobalDate2->max_height = comb_max_height->text().toInt();
+    m_GlobalDate2->min_width = comb_min_width->text().toInt();
+    m_GlobalDate2->min_height = comb_min_height->text().toInt();
+    m_GlobalDate2->delay_time_ = delay_time->text().toInt();
+    qDebug()<<m_GlobalDate2->move_enable_<<m_GlobalDate2->sensitivity_<<m_GlobalDate2->move_speed_grade_;
+    qDebug()<<m_GlobalDate2->max_width<<m_GlobalDate2->max_height<<m_GlobalDate2->min_width<<m_GlobalDate2->min_height;
+    qDebug()<<m_GlobalDate2->delay_time_;
+    emit slotssendprotocol(Protocol::MOVECONFIRM);
+}
+
+void MainWindowgl::draw_area_click()
+{
+
+}
+
+void MainWindowgl::clear_click()
+{
+
+}
+
+void MainWindowgl::screenshot_pass_click()
+{
+    filePath_screenshot = QFileDialog::getOpenFileName(this,"open","../");
+    if( false == filePath_screenshot.isEmpty())
+    {
+       screenshot_edit->setText(filePath_screenshot);
+    }
+}
+
+void MainWindowgl::clip_image_pass_click()
+{
+    filePath_clip_image = QFileDialog::getOpenFileName(this,"open","../");
+    if( false == filePath_clip_image.isEmpty())
+    {
+        clip_image_edit->setText(filePath_clip_image);
+    }
+}
+
+void MainWindowgl::sw_update_click()
+{
+    filePath_sw_update = QFileDialog::getOpenFileName(this,"open","../");
+    if( false == filePath_sw_update.isEmpty())
+    {
+        sw_update_edit->setText(filePath_sw_update);
+    }
+}
+
+void MainWindowgl::sw_import_click()
+{
+    filePath_sw_import = QFileDialog::getOpenFileName(this,"open","../");
+    if( false == filePath_sw_import.isEmpty())
+    {
+        sw_import_edit->setText(filePath_sw_import);
+    }
+}
+
+void MainWindowgl::sw_export_click()
+{
+    filePath_sw_export = QFileDialog::getExistingDirectory(this,"choose file","../");
+    if( false == filePath_sw_export.isEmpty())
+    {
+        sw_export_edit->setText(filePath_sw_export);
+    }
+}
+
+void MainWindowgl::vedio_color_click(int row, int column)
+{
+    QTableWidgetItem *item = new QTableWidgetItem();
+    qDebug()<<row<<column;
+    item->setBackground(QColor(0,179,244));
+    s4->setItem(row,column,item);
+   if((row==0)&&(column<=8&&column>=0))
+   {
+      m_GlobalDate2->Monday_08 = column;
+      qDebug()<<m_GlobalDate2->Monday_08;
+   }
+
+
+
+}
+

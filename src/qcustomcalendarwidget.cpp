@@ -83,6 +83,7 @@ void QCustomCalendarWidget::paintCell(QPainter *painter, const QRect &rect, cons
         painter->drawRoundedRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6, 3, 3);
         painter->setPen(QColor(255, 255, 255));
 
+
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
         painter->restore();
     }
@@ -99,6 +100,7 @@ void QCustomCalendarWidget::paintCell(QPainter *painter, const QRect &rect, cons
 
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
         painter->restore();
+
     }
     else if (date < minimumDate() || date > maximumDate())
     {
@@ -116,6 +118,7 @@ void QCustomCalendarWidget::paintCell(QPainter *painter, const QRect &rect, cons
     else
     {
         QCalendarWidget::paintCell(painter, rect, date);
+
     }
 }
 

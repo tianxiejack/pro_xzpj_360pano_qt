@@ -76,13 +76,20 @@ public:
         CLOSEZERO=0x50,
         ZEROCONFIRM=0x51,
         SENSOR=0x52,
-
         VIDEOPAUSE=0x53,
         VIDEOPLAY=0x54,
         VIDEOFAST=0x55,
         VIDEOSLOW=0x56,
         VIDEOCONTROL=0x57,       
         VIDEOSELECT=0x58,
+        PPICONFIRM=0x59,
+
+        MONTAGECONFIRM=0x60,
+
+        CURRENTTIMECONFIRM=0x61,
+        MOVECONFIRM=0x62,
+
+        SELECTCONFIGURE=0x63,
     }PROTOCOL;
 
     typedef enum

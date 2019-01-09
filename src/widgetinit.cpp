@@ -11,6 +11,8 @@ void widget::init_calender()
    //*ui->dateEdit1 = new QDateTimeEdit(QDate::currentDate(), this);
        calendarWidget = new QCustomCalendarWidget(this);
        ui->dateTimeEdit1->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+
+
        ui->dateTimeEdit1->setCalendarPopup(true);  // 日历弹出
        ui->dateTimeEdit1->setCalendarWidget(calendarWidget);
        ui->dateTimeEdit1->setDate(QDate::currentDate());
@@ -18,9 +20,11 @@ void widget::init_calender()
 //       ui->dateTimeEdit1->setMinimumDate(QDate::currentDate().addDays(0));  // 0天
 //       ui->dateTimeEdit1->setMaximumDate(QDate::currentDate().addDays(365));  // +365天
        ui->dateTimeEdit1->setContextMenuPolicy(Qt::NoContextMenu);
-       ui->dateTimeEdit1->setFixedSize(150, 26);
-       ui->dateTimeEdit1->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+       ui->dateTimeEdit1->setFixedSize(180, 20);
 
+
+       ui->dateTimeEdit1->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+       ui->dateTimeEdit1->setStyleSheet("QDateTimeEdit::drop-down{background-image:url(:/Resources/Rsouces/rli.png);}");
        calendarWidget->disconnect(SIGNAL(selectionChanged()));
        calendarWidget->disconnect(SIGNAL(clicked(QDate)));
        connect(calendarWidget,SIGNAL(timeChanged(QTime)),this,SLOT(receiveDate(QTime)));

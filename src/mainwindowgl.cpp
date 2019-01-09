@@ -16,7 +16,7 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
 {
     m_GlobalDate2 = CGlobalDate::Instance();
     ui->setupUi(this);
-
+    setWindowTitle("  ");
     menuinit();
 
     s  = new widget();
@@ -58,10 +58,10 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     box->setStyleSheet("QGroupBox{border:none;}");;
     box->setParent(s3);
 
-
-
   //  s->ui->pause_btn->setChecked(true);
     g = new QGridLayout(ui->centralwidget);
+    ui->centralwidget->setStyleSheet("QWidget{padding-bottom:0;}");
+    g->setContentsMargins(0,0,0,0);
     g->addWidget(ui->openGLWidget,0,0);
 
    // g->addWidget(s2,1,0);
@@ -123,8 +123,8 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     connect(s->ui->rightspeed_btn,SIGNAL(clicked()),this,SLOT(video_fast()));
     connect(s->ui->leftspeed_btn,SIGNAL(clicked()),this,SLOT(video_slow()));
     connect(s->calendarWidget->m_ensureBtn,SIGNAL(clicked()),this,SLOT(video_control()));
-    connect(s->calendarWidget,SIGNAL(selectionChanged()),this,SLOT(video_select()));
-
+    connect(s->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(video_select()));
+  //  connect(s->ui->dateTimeEdit1,SIGNAL(CalendarPopup(bool)),this,SLOT(vedio_rili()));
     panorama_auto_password_init();
     PTZ_hand_password_init();
     panorama_hand_password_init();
@@ -153,7 +153,6 @@ void MainWindowgl::reset()
     w3->setParent(NULL);
     s2->setParent(NULL);
     s3->setParent(NULL);
-
 }
 void MainWindowgl::slotGetOneFrame(QImage img)
 {
@@ -187,6 +186,7 @@ void MainWindowgl::playback()
     g->addWidget(s3,1,1);
     this->openStack[0]->setChecked(false);
     emit slotssendprotocol(Protocol::VIDEOPLAYBACK);
+    qDebug()<<s->calendarWidget->selectedDate();
 }
 
 
@@ -500,6 +500,10 @@ void MainWindowgl::video_select()
      emit slotssendprotocol(Protocol::VIDEOSELECT);
 }
 
+void MainWindowgl::vedio_rili()
+{
+    qDebug()<<"success";
+}
 
 
 
