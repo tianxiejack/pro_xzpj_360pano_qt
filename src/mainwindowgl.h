@@ -136,6 +136,7 @@ public:
     QPushButton *Video_confirm;
     /*系统维护配置*/
     QWidget *System;
+    QString ab ;
     QLabel *sw_version,*sw_update,*sw_import,*sw_export,*label_tishi;
     QLineEdit *sw_version_edit,*sw_update_edit,*sw_import_edit,*sw_export_edit;
     QPushButton *sw_update_btn,*sw_import_btn,*sw_export_btn;

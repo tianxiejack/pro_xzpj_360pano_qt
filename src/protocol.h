@@ -98,6 +98,7 @@ public:
     typedef enum
     {
         PLAYERQUERRY=0X62,
+        GETVERSION=0x30,
     }ACKPROTOCOL;
 public:
     Protocol();

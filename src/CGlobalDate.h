@@ -31,6 +31,20 @@ typedef struct
 
 }QuerryDate;
 
+typedef struct
+{
+    int maaster_version;
+    int sub_version;
+    int stage_version;
+    int year_version;
+    int mouth_version;
+    int day_version;
+    int hour_version;
+    int min_version;
+    int sec_version;
+    int ab_version;
+}Version ;
+
 class CGlobalDate
 {
 public:
@@ -44,6 +58,7 @@ public:
     int eraseid;
     int recoveryListWidget_row;
     publicvar1 publicvar_v;
+    Version vers;
     int image_num;
     int bright;
     int contest;
@@ -129,6 +144,7 @@ public:
 
     int Select_configure;
 
+    QVector<Version> version;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;
@@ -137,6 +153,7 @@ public:
     int progresswidth;
     int progressheight;
     QMutex panrecord;
+    QMutex panrecord1;
 
 private:
 CGlobalDate();

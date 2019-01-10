@@ -678,10 +678,33 @@ void Protocol::recvevent(unsigned char *buf,int len)
                   */
             CGlobalDate::Instance()->querrydate.push_back(data);
         }
-
         CGlobalDate::Instance()->panrecord.unlock();
-
        // qDebug()<<"PLAYERQUERRY ok \n"<<len<<endl;
+    }
+    else if(buf[0]==GETVERSION)
+    {
+        CGlobalDate::Instance()->version.clear();
+        if(len ==1)
+            return;
+        if((len-1)%10!=0)
+            return;
+        CGlobalDate::Instance()->panrecord1.lock();
+        CGlobalDate::Instance()->version.clear();
+        for(int i=0;i<(len-1)/10;i++)
+        {
+            m_GlobalDate->vers.maaster_version=buf[1+10*i];
+            m_GlobalDate->vers.sub_version=buf[2+10*i];
+            m_GlobalDate->vers.stage_version=buf[3+10*i];
+            m_GlobalDate->vers.year_version=buf[4+10*i];
+            m_GlobalDate->vers.mouth_version=buf[5+10*i];
+            m_GlobalDate->vers.day_version=buf[6+10*i];
+            m_GlobalDate->vers.hour_version=buf[7+10*i];
+            m_GlobalDate->vers.min_version=buf[8+10*i];
+            m_GlobalDate->vers.sec_version=buf[9+10*i];
+            m_GlobalDate->vers.ab_version=buf[10+10*i];
+            CGlobalDate::Instance()->version.push_back(m_GlobalDate->vers);
+        }
+        CGlobalDate::Instance()->panrecord1.unlock();
     }
 }
 

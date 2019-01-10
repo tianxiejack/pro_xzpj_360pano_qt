@@ -411,6 +411,15 @@ void MainWindowgl::init_system()
     sw_export = new QLabel("参数导出：");
     label_tishi = new QLabel("提示：软件升级、导入导出参数等过程需要1-20分钟，请不要关闭电源，软件升级、导入参数完成后请断电重启。");
     sw_version_edit = new QLineEdit;
+    if(m_GlobalDate2->vers.ab_version == 0)
+    {
+       ab = "alpha";
+    }else
+    {
+        ab = "beta";
+    }
+    QString str = QString("%1.%2.%3.%4%5%6%7%8%9_%10").arg(m_GlobalDate2->vers.maaster_version).arg(m_GlobalDate2->vers.sub_version).arg(m_GlobalDate2->vers.stage_version).arg(m_GlobalDate2->vers.year_version).arg(m_GlobalDate2->vers.mouth_version).arg(m_GlobalDate2->vers.day_version).arg(m_GlobalDate2->vers.hour_version).arg(m_GlobalDate2->vers.min_version).arg(m_GlobalDate2->vers.sec_version).arg(ab);
+    sw_version_edit->setText(str);
     sw_update_edit = new QLineEdit;
     sw_import_edit = new QLineEdit;
     sw_export_edit = new QLineEdit;
