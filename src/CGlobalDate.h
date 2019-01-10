@@ -96,7 +96,7 @@ public:
     int max_height;
     int min_width;
     int min_height;
-    int area_;
+    int area_move;
     int delay_time_;
     int Monday_08 = 0;
     int Monday_916 = 0;

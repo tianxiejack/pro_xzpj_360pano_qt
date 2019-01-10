@@ -599,7 +599,7 @@ void MainWindowgl::init_move()
     area->addItem("14");
     area->addItem("15");
     area->addItem("16");
-
+    m_GlobalDate2->area_move = area->currentIndex()+1;
     clear = new QPushButton("清除");
     draw_area = new QPushButton("绘制区域");
 
@@ -1200,24 +1200,67 @@ void MainWindowgl::sw_update_click1()
     lab2->setText(text);
     sw_update_confirm = new QPushButton("确认");
     sw_update_exit = new QPushButton("取消");
-    update_dialog->setMaximumSize(320,120);
-    update_dialog->setMinimumSize(320,120);
+    update_dialog->setMaximumSize(320,100);
+    update_dialog->setMinimumSize(320,100);
     update_dialog->setLayout(h);
-    sw_update_confirm->setGeometry(210,80,40,20);
-    sw_update_exit->setGeometry(260,80,40,20);
+    sw_update_confirm->setGeometry(210,70,40,20);
+    sw_update_exit->setGeometry(260,70,40,20);
     sw_update_confirm->setParent(update_dialog);
     sw_update_exit->setParent(update_dialog);
     update_dialog->show();
+    connect(sw_update_exit,SIGNAL(clicked(bool)),this,SLOT(sw_update_exit_click()));
 }
 
 void MainWindowgl::sw_import_click1()
 {
-
+    import_dialog = new QDialog;
+    import_dialog->setWindowTitle("参数导入");
+    lab_1 = new QLabel("您确定导入参数");
+    lab_2 = new QLabel;
+    lab_3 = new QLabel("吗？");
+    QHBoxLayout *h = new QHBoxLayout;
+    h->addWidget(lab_1);
+    h->addWidget(lab_2);
+    h->addWidget(lab_3);
+    QString text = sw_import_edit->text();
+    lab_2->setText(text);
+    sw_import_confirm = new QPushButton("确认");
+    sw_import_exit = new QPushButton("取消");
+    import_dialog->setMaximumSize(320,100);
+    import_dialog->setMinimumSize(320,100);
+    import_dialog->setLayout(h);
+    sw_import_confirm->setGeometry(210,70,40,20);
+    sw_import_exit->setGeometry(260,70,40,20);
+    sw_import_confirm->setParent(import_dialog);
+    sw_import_exit->setParent(import_dialog);
+    import_dialog->show();
+    connect(sw_import_exit,SIGNAL(clicked(bool)),this,SLOT(sw_import_exit_click()));
 }
 
 void MainWindowgl::sw_export_click1()
 {
-
+    export_dialog = new QDialog;
+    export_dialog->setWindowTitle("参数导出");
+    lab_1_ = new QLabel("您确定导出参数");
+    lab_2_ = new QLabel;
+    lab_3_ = new QLabel("吗？");
+    QHBoxLayout *h = new QHBoxLayout;
+    h->addWidget(lab_1_);
+    h->addWidget(lab_2_);
+    h->addWidget(lab_3_);
+    QString text = sw_export_edit->text();
+    lab_2_->setText(text);
+    sw_export_confirm = new QPushButton("确认");
+    sw_export_exit = new QPushButton("取消");
+    export_dialog->setMaximumSize(320,100);
+    export_dialog->setMinimumSize(320,100);
+    export_dialog->setLayout(h);
+    sw_export_confirm->setGeometry(210,70,40,20);
+    sw_export_exit->setGeometry(260,70,40,20);
+    sw_export_confirm->setParent(export_dialog);
+    sw_export_exit->setParent(export_dialog);
+    export_dialog->show();
+    connect(sw_export_exit,SIGNAL(clicked(bool)),this,SLOT(sw_export_exit_click()));
 }
 
 void MainWindowgl::sw_get_verson_click()
@@ -2870,4 +2913,19 @@ void MainWindowgl::vedio_confirm_click()
         qDebug()<<m_GlobalDate2->Monday_08_move;
          emit slotssendprotocol(Protocol::VEDIOMOVE);
     }
+}
+
+void MainWindowgl::sw_update_exit_click()
+{
+    update_dialog->close();
+}
+
+void MainWindowgl::sw_import_exit_click()
+{
+    import_dialog->close();
+}
+
+void MainWindowgl::sw_export_exit_click()
+{
+    export_dialog->close();
 }
