@@ -54,39 +54,40 @@ QByteArray Protocol::string2hex(QString str, bool &flag)//把十六进制的QStr
     senddata.resize(hexdatalen);
     return senddata;
 }
+
 QByteArray Protocol::Formatprotocol(PROTOCOL id)
 {
-    if(id==0x00)
+    if(id==LIVESHOW)
     {
         send_arr[4]=0x05;
         send_arr[5]=0;
         return formatoneframe(2);
     }
-    else if(id==0x01)
+    else if(id==VIDEOPLAYBACK)
     {
         send_arr[4]=0x05;
         send_arr[5]=1;
         return formatoneframe(2);
     }
-    else if(id==0x02)
+    else if(id==PANORAMAAUTOSHOW)
     {
         send_arr[4]=0x06;
         send_arr[5]=0;
         return formatoneframe(2);
     }
-    else if(id==0x03)
+    else if(id==PTZHANDSHOW)
     {
         send_arr[4]=0x06;
         send_arr[5]=1;
         return formatoneframe(2);
     }
-    else if(id==0x04)
+    else if(id==PANORAMAHANDSHOW)
     {
         send_arr[4]=0x06;
         send_arr[5]=2;
         return formatoneframe(2);
     }
-    else if(id==0x05)
+    else if(id==LEFTUP)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x01;
@@ -95,7 +96,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x06)
+    else if(id==UP)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x00;
@@ -104,7 +105,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x07)
+    else if(id==RIGHTUP)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x02;
@@ -113,7 +114,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x08)
+    else if(id==LEFT)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x01;
@@ -122,7 +123,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x09)
+    else if(id==PAUSE)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x00;
@@ -131,7 +132,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x10)
+    else if(id==RIGHT)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x02;
@@ -141,7 +142,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         return formatoneframe(5);
     }
 
-    else if(id==0x11)
+    else if(id==LEFTDOWN)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x01;
@@ -150,7 +151,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x12)
+    else if(id==DOWN)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x00;
@@ -159,7 +160,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x13)
+    else if(id==RIGHTDOWN)
     {
         send_arr[4]=0x15;
         send_arr[5]=0x02;
@@ -168,85 +169,85 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->ptspeed;
         return formatoneframe(5);
     }
-    else if(id==0x14)
+    else if(id==FOCALLENGTHMINPRESSED)
     {
         send_arr[4]=0x12;
         send_arr[5]=0x01;
         return formatoneframe(2);
     }
-    else if(id==0x15)
+    else if(id==FOCALLENGTHMINRELEASED)
     {
         send_arr[4]=0x12;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x16)
+    else if(id==FOCALLENGTHPLUSPRESSED)
     {
         send_arr[4]=0x12;
         send_arr[5]=0x02;
         return formatoneframe(2);
     }
-    else if(id==0x17)
+    else if(id==FOCALLENGTHPLUSRELEASED)
     {
         send_arr[4]=0x12;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x18)
+    else if(id==FOCUSINGMINPRESSED)
     {
         send_arr[4]=0x14;
         send_arr[5]=0x02;
         return formatoneframe(2);
     }
-    else if(id==0x19)
+    else if(id==FOCUSINGMINRELEASED)
     {
         send_arr[4]=0x14;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x20)
+    else if(id==FOCUSINGPLUSPRESSED)
     {
         send_arr[4]=0x14;
         send_arr[5]=0x01;
         return formatoneframe(2);
     }
-    else if(id==0x21)
+    else if(id==FOCUSINGPLUSRELEASED)
     {
         send_arr[4]=0x14;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x22)
+    else if(id==APERTUREMINPRESSED)
     {
         send_arr[4]=0x13;
         send_arr[5]=0x01;
         return formatoneframe(2);
     }
-    else if(id==0x23)
+    else if(id==APERTUREMINRELEASED)
     {
         send_arr[4]=0x13;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x24)
+    else if(id==APERTUREPLUSPRESSED)
     {
         send_arr[4]=0x13;
         send_arr[5]=0x02;
         return formatoneframe(2);
     }
-    else if(id==0x25)
+    else if(id==APERTUREPLUSRELEASED)
     {
         send_arr[4]=0x13;
         send_arr[5]=0x00;
         return formatoneframe(2);
     }
-    else if(id==0x26)
+    else if(id==PANORAMA)
     {
         send_arr[4]=0x09;
         send_arr[5]=0x01;
         return formatoneframe(2);
     }
-    else if(id==0x27)
+    else if(id==PANORAMAAUTOLEFTBTNPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=0;
@@ -258,7 +259,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x28)
+    else if(id==PANORAMAAUTOLEFTBTNRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=0;
@@ -270,7 +271,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x29)
+    else if(id==PANORAMAAUTORIGHTBTNPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=0;
@@ -282,7 +283,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x30)
+    else if(id==PANORAMAAUTORIGHTBTNRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=0;
@@ -294,7 +295,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x31)
+    else if(id==PTZHANDLEFTPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=1;
@@ -306,7 +307,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x32)
+    else if(id==PTZHANDLEFTRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=1;
@@ -318,7 +319,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x33)
+    else if(id==PTZHANDRIGHTPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=1;
@@ -330,7 +331,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x34)
+    else if(id==PTZHANDTIGHTRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=1;
@@ -342,7 +343,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x35)
+    else if(id==PANORAMAHANDLEFTBTNPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=2;
@@ -354,7 +355,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x36)
+    else if(id==PANORAMAHANDLEFTBTNRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=2;
@@ -366,7 +367,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x37)
+    else if(id==PANORAMAHANDRIGHTBTNPRESSED)
     {
         send_arr[4]=0x03;
         send_arr[5]=2;
@@ -378,7 +379,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x38)
+    else if(id==PANORAMAHANDRIGHTBTNRELEASED)
     {
         send_arr[4]=0x03;
         send_arr[5]=2;
@@ -390,49 +391,49 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->r_y3&0xff;
         return formatoneframe(8);
     }
-    else if(id==0x39)
+    else if(id==PANORAMAAUTOMIN)
     {
         send_arr[4]=0x04;
         send_arr[5]=0;
         send_arr[6]=0;
         return formatoneframe(3);
     }
-    else if(id==0x40)
+    else if(id==PANORAMAAUTOPLUS)
     {
         send_arr[4]=0x04;
         send_arr[5]=0;
         send_arr[6]=1;
         return formatoneframe(3);
     }
-    else if(id==0x41)
+    else if(id==PTZMIN)
     {
         send_arr[4]=0x04;
         send_arr[5]=1;
         send_arr[6]=0;
         return formatoneframe(3);
     }
-    else if(id==0x42)
+    else if(id==PTZPLUS)
     {
         send_arr[4]=0x04;
         send_arr[5]=1;
         send_arr[6]=1;
         return formatoneframe(3);
     }
-    else if(id==0x43)
+    else if(id==PANORAMAHANDMIN)
     {
         send_arr[4]=0x04;
         send_arr[5]=2;
         send_arr[6]=0;
         return formatoneframe(3);
     }
-    else if(id==0x44)
+    else if(id==PANORAMAHANDPLUS)
     {
         send_arr[4]=0x04;
         send_arr[5]=2;
         send_arr[6]=1;
         return formatoneframe(3);
 }
-    else if(id==0x45)
+    else if(id==LOCATIONCOLLECT)
     {
         send_arr[4]=0x08;
         send_arr[5]=m_GlobalDate->collectionid;
@@ -440,13 +441,13 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         return formatoneframe(3);
        // qDebug()<<image_id;
 }
-    else if(id==0x46)
+    else if(id==CLICKEDIMAGE)
     {
         send_arr[4]=0x07;
         send_arr[5]=m_GlobalDate->recoveryListWidget_row;
         return formatoneframe(2);
 }
-    else if(id==0x47)
+    else if(id==TURNTABLE)
     {
         send_arr[4]=0x80;
         send_arr[5]=m_GlobalDate->publicvar_v.addresschoose_var;
@@ -455,32 +456,32 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->publicvar_v.speed_var;
         return formatoneframe(5);
 }
-    else if(id==0x48)
+    else if(id==DELETEIMAGE)
     {
         send_arr[4]=0x08;
         send_arr[5]=m_GlobalDate->eraseid;
         send_arr[6]=0x00;
         return formatoneframe(3);
 }
-    else if(id==0x49)
+    else if(id==OPENZERO)
     {
         send_arr[4]=0x82;
         send_arr[5]= 1;
         return formatoneframe(2);
 }
-    else if(id==0x50)
+    else if(id==CLOSEZERO)
     {
         send_arr[4]=0x82;
         send_arr[5]= 0;
         return formatoneframe(2);
 }
-    else if(id==0x51)
+    else if(id==ZEROCONFIRM)
     {
         send_arr[4]=0x82;
         send_arr[5]= 2;
         return formatoneframe(2);
 }
-    else if(id==0x52)
+    else if(id==SENSOR)
     {
         send_arr[4]=0x81;
         send_arr[5]=m_GlobalDate->bright;
@@ -496,31 +497,31 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[15]=0;
         return formatoneframe(12);
 }
-    else if(id==0x53)
+    else if(id==VIDEOPAUSE)
     {
         send_arr[4]=0x60;
         send_arr[5]= 0x00;
         return formatoneframe(2);
 }
-    else if(id==0x54)
+    else if(id==VIDEOPLAY)
     {
         send_arr[4]=0x60;
         send_arr[5]= 0x01;
         return formatoneframe(2);
 }
-    else if(id==0x55)
+    else if(id==VIDEOFAST)
     {
         send_arr[4]=0x60;
         send_arr[5]= 0x02;
         return formatoneframe(2);
 }
-    else if(id==0x56)
+    else if(id==VIDEOSLOW)
     {
         send_arr[4]=0x60;
         send_arr[5]= 0x03;
         return formatoneframe(2);
 }
-    else if(id==0x57)
+    else if(id==VIDEOCONTROL)
     {
         send_arr[4]=0x61;
         send_arr[5]=(m_GlobalDate->year>>8)&0xff;
@@ -532,7 +533,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->second;
         return formatoneframe(8);
 }
-    else if(id==0x58)
+    else if(id==VIDEOSELECT)
     {
         send_arr[4]=0x62;
         send_arr[5]=(m_GlobalDate->year_select>>8)&0xff;
@@ -541,13 +542,13 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->day_select;
         return formatoneframe(5);
 }
-    else if(id==0x59)
+    else if(id==PPICONFIRM)
     {
         send_arr[4]=0x86;
         send_arr[5]=m_GlobalDate->ppi;
         return formatoneframe(2);
 }
-    else if(id==0x60)
+    else if(id==MONTAGECONFIRM)
     {
         send_arr[4]=0x88;
         send_arr[5]=m_GlobalDate->swiveltable_speed;
@@ -556,7 +557,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[8]=m_GlobalDate->imagerate;
         return formatoneframe(5);
 }
-    else if(id==0x61)
+    else if(id==CURRENTTIMECONFIRM)
     {
         send_arr[4]=0x87;
         send_arr[5]=(m_GlobalDate->current_year>>8)&0xff;
@@ -568,7 +569,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[11]=m_GlobalDate->current_second;
         return formatoneframe(8);
 }
-    else if(id==0x62)
+    else if(id==MOVECONFIRM)
     {
         send_arr[4]=0x84;
         send_arr[5]=m_GlobalDate->move_enable_;
@@ -581,13 +582,13 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[12]=m_GlobalDate->delay_time_;
         return formatoneframe(9);
 }
-    else if(id==0x63)
+    else if(id==SELECTCONFIGURE)
     {
         send_arr[4]=0x90;
         send_arr[5]=m_GlobalDate->Select_configure;
         return formatoneframe(2);
 }
-    else if(id==0x64)
+    else if(id==VEDIOTIMEING)
     {
         send_arr[4]=0x83;
         send_arr[5]=0;
@@ -614,7 +615,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[26]=m_GlobalDate->Sunday_1724;
         return formatoneframe(23);
 }
-    else if(id==0x65)
+    else if(id==VEDIOMOVE)
     {
         send_arr[4]=0x83;
         send_arr[5]=1;

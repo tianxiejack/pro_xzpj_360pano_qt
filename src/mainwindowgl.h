@@ -134,11 +134,13 @@ public:
     mytablewidget *s4;
     QCheckBox *check_time,*check_move;
     QPushButton *Video_confirm;
+    QTableWidgetItem *item,*item1;
     /*系统维护配置*/
     QWidget *System;
     QString ab ;
     QLabel *sw_version,*sw_update,*sw_import,*sw_export,*label_tishi;
     QLineEdit *sw_version_edit,*sw_update_edit,*sw_import_edit,*sw_export_edit;
+    QPushButton *sw_version_get;
     QPushButton *sw_update_btn,*sw_import_btn,*sw_export_btn;
     QPushButton *sw_update_btn1,*sw_import_btn1,*sw_export_btn1;
     QString filePath_sw_update;
@@ -287,6 +289,7 @@ private slots:
     void sw_update_click1();
     void sw_import_click1();
     void sw_export_click1();
+    void sw_get_verson_click();
     void vedio_color_click(int row, int column);
     void vedio_clear_click();
     void vedio_confirm_click();
