@@ -93,6 +93,11 @@ public:
 
         VEDIOTIMEING=0x64,
         VEDIOMOVE=0x65,
+
+        MOVECLEAR=0x66,
+        MOVEDRAW=0x67,
+        GETVERSIONEMIT=0x68,
+
     }PROTOCOL;
 
     typedef enum

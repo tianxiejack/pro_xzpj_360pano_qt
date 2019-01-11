@@ -492,13 +492,13 @@ void MainWindowgl::init_video()
     Video_clear->setGeometry(695,200,80,30);
     s4 = new mytablewidget;
     s4->setGeometry(3,20,680,240);
-
     check_time->setParent(Video);
     check_move->setParent(Video);
     label->setParent(Video);
     s4->setParent(Video);
     Video_confirm->setParent(Video);
     Video_clear->setParent(Video);
+
     connect(s4,SIGNAL(cellEntered(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(s4,SIGNAL(cellClicked(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(Video_clear,SIGNAL(clicked(bool)),this,SLOT(vedio_clear_click()));
@@ -599,7 +599,6 @@ void MainWindowgl::init_move()
     area->addItem("14");
     area->addItem("15");
     area->addItem("16");
-    m_GlobalDate2->area_move = area->currentIndex()+1;
     clear = new QPushButton("清除");
     draw_area = new QPushButton("绘制区域");
 
@@ -1132,12 +1131,16 @@ void MainWindowgl::move_confirm_click()
 
 void MainWindowgl::draw_area_click()
 {
-
+    m_GlobalDate2->area_move = area->currentIndex()+1;
+    qDebug()<<m_GlobalDate2->area_move;
+    emit slotssendprotocol(Protocol::MOVEDRAW);
 }
 
 void MainWindowgl::clear_click()
 {
-
+    m_GlobalDate2->area_move = area->currentIndex()+1;
+    qDebug()<<m_GlobalDate2->area_move;
+    emit slotssendprotocol(Protocol::MOVECLEAR);
 }
 
 void MainWindowgl::screenshot_pass_click()
@@ -1265,26 +1268,36 @@ void MainWindowgl::sw_export_click1()
 
 void MainWindowgl::sw_get_verson_click()
 {
+    emit slotssendprotocol(Protocol::GETVERSIONEMIT);
+    CGlobalDate::Instance()->panrecord1.lock();
     if(m_GlobalDate2->vers.ab_version == 0)
     {
        ab = "alpha";
     }else
     {
-        ab = "beta";
+       ab = "beta";
     }
     QString str = QString("%1.%2.%3.%4%5%6%7%8%9_%10").arg(m_GlobalDate2->vers.maaster_version).arg(m_GlobalDate2->vers.sub_version).arg(m_GlobalDate2->vers.stage_version).arg(m_GlobalDate2->vers.year_version).arg(m_GlobalDate2->vers.mouth_version).arg(m_GlobalDate2->vers.day_version).arg(m_GlobalDate2->vers.hour_version).arg(m_GlobalDate2->vers.min_version).arg(m_GlobalDate2->vers.sec_version).arg(ab);
     sw_version_edit->setText(str);
+    CGlobalDate::Instance()->panrecord1.unlock();
 }
 
 void MainWindowgl::vedio_color_click(int row, int column)
 {
+
+    if(check_time->isChecked())
+    {
+        s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
+    }
+    else if(check_move->isChecked())
+    {
+        s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
+    }
    if(check_time->isChecked())
    {
-
-      s4->setStyleSheet( "QTableWidget::item:selected{background-color:rgb(0,179,244)}");
-      item = new QTableWidgetItem();
-      item->setBackground(QColor(0,179,244));
-      s4->setItem(row,column,item);
+      item = new QWidget();
+      item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+      s4->setCellWidget(row,column,item);
       if((row==0)&&(column<8&&column>=0))
    {
        int n;
@@ -2067,10 +2080,10 @@ void MainWindowgl::vedio_color_click(int row, int column)
    }
     else if(check_move->isChecked())
     {
-      s4->setStyleSheet( "QTableWidget::item:selected{background-color:rgb(146,208,80)}");
-      item1 = new QTableWidgetItem();
-      item1->setBackground(QColor(146,208,80));
-      s4->setItem(row,column,item1);
+      item1 = new QWidget;
+      item1->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+     // item1->setBackground(QColor(146,208,80));
+      s4->setCellWidget(row,column,item1);
       if((row==0)&&(column<8&&column>=0))
    {
        int n;
@@ -2903,16 +2916,16 @@ void MainWindowgl::vedio_clear_click()
 
 void MainWindowgl::vedio_confirm_click()
 {
-    if((check_time->checkState() == 2)&&(check_move->checkState()==0))
-    {
-        qDebug()<<m_GlobalDate2->Monday_08;
-        emit slotssendprotocol(Protocol::VEDIOTIMEING);
-    }
-    else if((check_move->checkState() == 2)&&(check_time->checkState()==0))
-    {
-        qDebug()<<m_GlobalDate2->Monday_08_move;
-         emit slotssendprotocol(Protocol::VEDIOMOVE);
-    }
+      qDebug()<<m_GlobalDate2->Monday_08<<m_GlobalDate2->Monday_916<<m_GlobalDate2->Monday_1724<<m_GlobalDate2->Tuesday_08<<m_GlobalDate2->Tuesday_916<<m_GlobalDate2->Tuesday_1724<<
+                m_GlobalDate2->Wednesday_08<<m_GlobalDate2->Wednesday_916<<m_GlobalDate2->Wednesday_1724<<m_GlobalDate2->Thursday_08<<m_GlobalDate2->Thursday_916<<m_GlobalDate2->Thursday_1724<<
+                m_GlobalDate2->Friday_08<<m_GlobalDate2->Friday_916<<m_GlobalDate2->Friday_1724<<m_GlobalDate2->Saturday_08<<m_GlobalDate2->Saturday_916<<m_GlobalDate2->Saturday_1724<<
+                m_GlobalDate2->Sunday_08<<m_GlobalDate2->Sunday_916<<m_GlobalDate2->Sunday_1724;
+      emit slotssendprotocol(Protocol::VEDIOTIMEING);
+      qDebug()<<m_GlobalDate2->Monday_08_move<<m_GlobalDate2->Monday_916_move<<m_GlobalDate2->Monday_1724_move<<m_GlobalDate2->Tuesday_08_move<<m_GlobalDate2->Tuesday_916_move<<m_GlobalDate2->Tuesday_1724_move<<
+                m_GlobalDate2->Wednesday_08_move<<m_GlobalDate2->Wednesday_916_move<<m_GlobalDate2->Wednesday_1724_move<<m_GlobalDate2->Thursday_08_move<<m_GlobalDate2->Thursday_916_move<<m_GlobalDate2->Thursday_1724_move<<
+                m_GlobalDate2->Friday_08_move<<m_GlobalDate2->Friday_916_move<<m_GlobalDate2->Friday_1724_move<<m_GlobalDate2->Saturday_08_move<<m_GlobalDate2->Saturday_916_move<<m_GlobalDate2->Saturday_1724_move<<
+                m_GlobalDate2->Sunday_08_move<<m_GlobalDate2->Sunday_916_move<<m_GlobalDate2->Sunday_1724_move;
+      emit slotssendprotocol(Protocol::VEDIOMOVE);
 }
 
 void MainWindowgl::sw_update_exit_click()
@@ -2929,3 +2942,5 @@ void MainWindowgl::sw_export_exit_click()
 {
     export_dialog->close();
 }
+
+

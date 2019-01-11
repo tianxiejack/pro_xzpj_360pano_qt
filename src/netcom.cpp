@@ -165,7 +165,7 @@ void Netcom::usocket_Read_Data()
 
                                 if(protocol!=NULL)
                                     protocol->recvevent(uoutput_array,pkg_length_serial);
-
+                                    protocol->recvevent(uoutput_array);
 
                                 if(uoutput_array[0]==0x04)
                                 {

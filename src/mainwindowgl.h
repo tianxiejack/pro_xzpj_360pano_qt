@@ -27,6 +27,8 @@
 #include "mytablewidget.h"
 #include <QDialog>
 #include "closeeventwidget.h"
+#include "mytablewidgetitem.h"
+
 
 namespace Ui {
 class MainWindowgl;
@@ -134,7 +136,8 @@ public:
     mytablewidget *s4;
     QCheckBox *check_time,*check_move;
     QPushButton *Video_confirm;
-    QTableWidgetItem *item,*item1;
+    QWidget *item;
+    QWidget *item1;
     /*系统维护配置*/
     QWidget *System;
     QString ab ;
@@ -305,6 +308,7 @@ private slots:
     void sw_update_exit_click();
     void sw_import_exit_click();
     void sw_export_exit_click();
+
 signals:
     void signalSetCalendarTime(const QDate& data);
 

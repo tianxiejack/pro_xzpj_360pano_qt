@@ -575,12 +575,17 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[5]=m_GlobalDate->move_enable_;
         send_arr[6]=m_GlobalDate->sensitivity_;
         send_arr[7]=m_GlobalDate->move_speed_grade_;
-        send_arr[8]=m_GlobalDate->max_width;
-        send_arr[9]=m_GlobalDate->max_height;
-        send_arr[10]=m_GlobalDate->min_width;
-        send_arr[11]=m_GlobalDate->min_height;
-        send_arr[12]=m_GlobalDate->delay_time_;
-        return formatoneframe(9);
+        send_arr[8]=(m_GlobalDate->max_width>>8)&0xff;
+        send_arr[9]=m_GlobalDate->max_width&0xff;
+        send_arr[10]=(m_GlobalDate->max_height>>8)&0xff;
+        send_arr[11]=m_GlobalDate->max_height&0xff;
+        send_arr[12]=(m_GlobalDate->min_width>>8)&0xff;
+        send_arr[13]=m_GlobalDate->min_width&0xff;
+        send_arr[14]=(m_GlobalDate->min_height>>8)&0xff;
+        send_arr[15]=m_GlobalDate->min_height&0xff;
+        send_arr[16]=(m_GlobalDate->delay_time_>>8)&0xff;
+        send_arr[17]=m_GlobalDate->delay_time_&0xff;
+        return formatoneframe(14);
 }
     else if(id==SELECTCONFIGURE)
     {
@@ -642,6 +647,26 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[26]=m_GlobalDate->Sunday_1724_move;
         return formatoneframe(23);
 }
+    else if(id==MOVECLEAR)
+    {
+        send_arr[4]=0x85;
+        send_arr[5]=m_GlobalDate->area_move;
+        send_arr[6]=2;
+        return formatoneframe(3);
+    }
+    else if(id==MOVEDRAW)
+    {
+        send_arr[4]=0x85;
+        send_arr[5]= m_GlobalDate->area_move;
+        send_arr[6]=1;
+        return formatoneframe(3);
+    }
+    else if(id==GETVERSIONEMIT)
+    {
+        send_arr[4]=0x30;
+        return formatoneframe(1);
+    }
+
 }
 
 
@@ -682,32 +707,30 @@ void Protocol::recvevent(unsigned char *buf,int len)
         CGlobalDate::Instance()->panrecord.unlock();
        // qDebug()<<"PLAYERQUERRY ok \n"<<len<<endl;
     }
-    else if(buf[0]==GETVERSION)
+
+}
+void Protocol::recvevent(unsigned char *buf)
+{
+    if(buf[0]==GETVERSION)
     {
-        CGlobalDate::Instance()->version.clear();
-        if(len ==1)
-            return;
-        if((len-1)%10!=0)
-            return;
         CGlobalDate::Instance()->panrecord1.lock();
-        CGlobalDate::Instance()->version.clear();
-        for(int i=0;i<(len-1)/10;i++)
-        {
-            m_GlobalDate->vers.maaster_version=buf[1+10*i];
-            m_GlobalDate->vers.sub_version=buf[2+10*i];
-            m_GlobalDate->vers.stage_version=buf[3+10*i];
-            m_GlobalDate->vers.year_version=buf[4+10*i];
-            m_GlobalDate->vers.mouth_version=buf[5+10*i];
-            m_GlobalDate->vers.day_version=buf[6+10*i];
-            m_GlobalDate->vers.hour_version=buf[7+10*i];
-            m_GlobalDate->vers.min_version=buf[8+10*i];
-            m_GlobalDate->vers.sec_version=buf[9+10*i];
-            m_GlobalDate->vers.ab_version=buf[10+10*i];
-            CGlobalDate::Instance()->version.push_back(m_GlobalDate->vers);
-        }
+            m_GlobalDate->vers.maaster_version=buf[1];
+            m_GlobalDate->vers.sub_version=buf[2];
+            m_GlobalDate->vers.stage_version=buf[3];
+            m_GlobalDate->vers.year_version=buf[4];
+            m_GlobalDate->vers.mouth_version=buf[5];
+            m_GlobalDate->vers.day_version=buf[6];
+            m_GlobalDate->vers.hour_version=buf[7];
+            m_GlobalDate->vers.min_version=buf[8];
+            m_GlobalDate->vers.sec_version=buf[9];
+            m_GlobalDate->vers.ab_version=buf[10];
+            qDebug()<<m_GlobalDate->vers.maaster_version<<m_GlobalDate->vers.sub_version<< m_GlobalDate->vers.stage_version<<m_GlobalDate->vers.year_version<<m_GlobalDate->vers.mouth_version<<
+                      m_GlobalDate->vers.day_version<<m_GlobalDate->vers.min_version<<m_GlobalDate->vers.sec_version<<m_GlobalDate->vers.ab_version;
         CGlobalDate::Instance()->panrecord1.unlock();
     }
-}
+
+ }
+
 
 QByteArray Protocol::formatoneframe(int length)
 {
@@ -728,7 +751,5 @@ QByteArray Protocol::formatoneframe(int length)
     }
     bool checkf = true;
     return string2hex(str1,checkf);
-
-
 
 }
