@@ -29,8 +29,7 @@ SOURCES += src/main.cpp \
     src/listwidget.cpp \
     src/vediosliderwidget.cpp \
     src/mytablewidget.cpp \
-    src/closeeventwidget.cpp \
-    src/mytablewidgetitem.cpp
+    src/closeeventwidget.cpp
 DESTDIR =$$PWD/ffmpeg/bin
 HEADERS  += \
     src/videoplayer/videoplayer.h \
@@ -47,8 +46,7 @@ HEADERS  += \
     src/listwidget.h \
     src/vediosliderwidget.h \
     src/mytablewidget.h \
-    src/closeeventwidget.h \
-    src/mytablewidgetitem.h
+    src/closeeventwidget.h
 
 FORMS    += \
     src/mainwindowgl.ui \

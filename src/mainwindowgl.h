@@ -27,8 +27,6 @@
 #include "mytablewidget.h"
 #include <QDialog>
 #include "closeeventwidget.h"
-#include "mytablewidgetitem.h"
-
 
 namespace Ui {
 class MainWindowgl;
@@ -109,6 +107,7 @@ public:
     QGroupBox *gbox_ppi;
     /*设定时间配置*/
     QWidget *Time;
+    QLabel *timeDisplay;
     QPushButton *time_setting;
     QPushButton *time_confirm;
     QLabel *tishi;
@@ -136,8 +135,8 @@ public:
     mytablewidget *s4;
     QCheckBox *check_time,*check_move;
     QPushButton *Video_confirm;
-    QWidget *item;
-    QWidget *item1;
+    QWidget *time_item;
+    QWidget *move_item;
     /*系统维护配置*/
     QWidget *System;
     QString ab ;
@@ -287,6 +286,7 @@ private slots:
     void vedio_rili();
     void montage_confirm_click();
     void time_confirm_click();
+    void time_setting_click();
     void move_confirm_click();
     void draw_area_click();
     void clear_click();

@@ -678,16 +678,21 @@ void MainWindowgl::init_time()
     Time->setMinimumSize(300,150);
     time_confirm = new QPushButton("确认");
     time_setting = new QPushButton("设定时间");
+    timeDisplay = new QLabel;
+
     tishi = new QLabel("提示：请确保终端计算机时间的正确性");
 
     tishi->setGeometry(30,70,260,20);
     tishi->setParent(Time);
     time_setting->setGeometry(40,30,80,22);
+    timeDisplay->setGeometry(150,30,120,22);
     time_setting->setParent(Time);
     time_confirm->setText("确认");
     time_confirm->setGeometry(230,110,40,20);
     time_confirm->setParent(Time);
+    timeDisplay->setParent(Time);
     connect(time_confirm,SIGNAL(clicked(bool)),this,SLOT(time_confirm_click()));
+    connect(time_setting,SIGNAL(clicked(bool)),this,SLOT(time_setting_click()));
 }
 
 void MainWindowgl::init_roadsave()
@@ -1076,16 +1081,22 @@ void MainWindowgl::time_confirm_click()
     emit slotssendprotocol(Protocol::CURRENTTIMECONFIRM);
 }
 
+void MainWindowgl::time_setting_click()
+{
+    QString current_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    timeDisplay->setText(current_time);
+}
+
 void MainWindowgl::move_confirm_click()
 {
-    if(move_enable_checkbox->checkState()==2)
+    if (move_enable_checkbox->checkState()==2)
     {
         m_GlobalDate2-> move_enable_= 1;
     }else{
         m_GlobalDate2->move_enable_ =0;
     }
 
-    if(sen_high->checkState()==2)
+    if (sen_high->checkState()==2)
     {
         m_GlobalDate2->sensitivity_= 0;
     }
@@ -1093,28 +1104,28 @@ void MainWindowgl::move_confirm_click()
     {
         m_GlobalDate2->sensitivity_ =1;
     }
-    else if(sen_low->checkState()==2)
+    else if (sen_low->checkState()==2)
     {
         m_GlobalDate2->sensitivity_ =2;
     }
 
-    if(speed_very_high->checkState()==2)
+    if (speed_very_high->checkState()==2)
     {
         m_GlobalDate2->move_speed_grade_= 0;
     }
-    else if(speed_high->checkState()==2)
+    else if (speed_high->checkState()==2)
     {
         m_GlobalDate2->move_speed_grade_ =1;
     }
-    else if(speed_middle->checkState()==2)
+    else if (speed_middle->checkState()==2)
     {
         m_GlobalDate2->move_speed_grade_ =2;
     }
-    else if(speed_low->checkState()==2)
+    else if (speed_low->checkState()==2)
     {
         m_GlobalDate2->move_speed_grade_ =3;
     }
-    else if(speed_very_low->checkState()==2)
+    else if (speed_very_low->checkState()==2)
     {
         m_GlobalDate2->move_speed_grade_ =4;
     }
@@ -1285,20 +1296,18 @@ void MainWindowgl::sw_get_verson_click()
 void MainWindowgl::vedio_color_click(int row, int column)
 {
 
-    if(check_time->isChecked())
-    {
+    if (check_time->isChecked()) {
         s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
     }
-    else if(check_move->isChecked())
-    {
+    else if (check_move->isChecked()) {
         s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
     }
-   if(check_time->isChecked())
-   {
-      item = new QWidget();
-      item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-      s4->setCellWidget(row,column,item);
-      if((row==0)&&(column<8&&column>=0))
+   if (check_time->isChecked()) {
+      time_item = new QWidget();
+      time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+      s4->setCellWidget(row,column,time_item);
+
+      if ((row==0)&&(column<8&&column>=0))
    {
        int n;
        switch (column) {
@@ -1335,7 +1344,7 @@ void MainWindowgl::vedio_color_click(int row, int column)
        v = 0;
       qDebug()<<m_GlobalDate2->Monday_08;
    }
-      if((row==0)&&(column<16&&column>=8))
+      if ((row==0)&&(column<16&&column>=8))
    {
        int n;
        switch (column) {
@@ -2078,12 +2087,10 @@ void MainWindowgl::vedio_color_click(int row, int column)
     }
 
    }
-    else if(check_move->isChecked())
-    {
-      item1 = new QWidget;
-      item1->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
-     // item1->setBackground(QColor(146,208,80));
-      s4->setCellWidget(row,column,item1);
+    else if (check_move->isChecked()) {
+      move_item = new QWidget;
+      move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+      s4->setCellWidget(row,column,move_item);
       if((row==0)&&(column<8&&column>=0))
    {
        int n;
