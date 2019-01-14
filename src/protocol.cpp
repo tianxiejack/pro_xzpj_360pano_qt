@@ -745,8 +745,54 @@ void Protocol::recvevent(unsigned char *buf)
                       m_GlobalDate->vers.day_version<<m_GlobalDate->vers.min_version<<m_GlobalDate->vers.sec_version<<m_GlobalDate->vers.ab_version;
         CGlobalDate::Instance()->panrecord1.unlock();
     }
+    if (buf[0] == GETTURABLE) {
+        CGlobalDate::Instance()->panrecord2.lock();
+            m_GlobalDate->publicvar_v.addresschoose_var=buf[1];
+            m_GlobalDate->publicvar_v.protocolchoose_var=buf[2];
+            m_GlobalDate->publicvar_v.baud_rate_var=buf[3];
+            m_GlobalDate->publicvar_v.speed_var=buf[4];
+        CGlobalDate::Instance()->panrecord2.unlock();
+    }
+
+    if (buf[0] == GETSENOR) {
+        CGlobalDate::Instance()->panrecord3.lock();
+            m_GlobalDate->bright = buf[1];
+            m_GlobalDate->contest = buf[2];
+            m_GlobalDate->auto_bright = buf[3];
+            m_GlobalDate->blackorwhite = buf[4];
+            m_GlobalDate->correct_the = buf[5];
+            m_GlobalDate->noice_the = buf[6];
+            m_GlobalDate->detail_the = buf[7];
+            m_GlobalDate->ios = buf[8];
+        CGlobalDate::Instance()->panrecord3.unlock();
+    }
+    if (buf[0] == GETMOVE) {
+        CGlobalDate::Instance()->panrecord4.lock();
+            m_GlobalDate->move_enable_ = buf[1];
+            m_GlobalDate->sensitivity_ = buf[2];
+            m_GlobalDate->move_speed_grade_ = buf[3];
+            m_GlobalDate->max_width = (buf[4]<<8)|buf[5];
+            m_GlobalDate->max_height = (buf[6]<<8)|buf[7];
+            m_GlobalDate->min_width = (buf[8]<<8)|buf[9];
+            m_GlobalDate->min_height = (buf[10]<<8)|buf[11];
+            m_GlobalDate->delay_time_ = (buf[12]<<8)|buf[13];
+        CGlobalDate::Instance()->panrecord4.unlock();
+    }
+    if (buf[0] == GETMONAGE) {
+        CGlobalDate::Instance()->panrecord5.lock();
+            m_GlobalDate->swiveltable_speed = buf[1];
+            m_GlobalDate->pixfocus=(buf[2]<<8)|buf[3];
+            m_GlobalDate->imagerate = buf[4];
+        CGlobalDate::Instance()->panrecord5.unlock();
+    }
+    if (buf[0] == GETPPI) {
+        CGlobalDate::Instance()->panrecord6.lock();
+            m_GlobalDate->ppi = buf[1];
+        CGlobalDate::Instance()->panrecord6.unlock();
+    }
 
  }
+
 void Protocol::updatesoft(QString filePath)
 {
 

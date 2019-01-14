@@ -109,6 +109,13 @@ public:
         PLAYERQUERRY=0X62,
         GETVERSION=0x30,
         EXPORTFILE=0x33,
+        GETTURABLE=0x80,
+        GETSENOR=0x81,
+        GETMOVE=0x84,
+        GETMONAGE=0x88,
+        GETPPI=0x86,
+
+
     }ACKPROTOCOL;
 public:
     Protocol();

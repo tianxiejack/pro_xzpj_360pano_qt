@@ -153,7 +153,11 @@ public:
     int progressheight;
     QMutex panrecord;
     QMutex panrecord1;
-
+    QMutex panrecord2;
+    QMutex panrecord3;
+    QMutex panrecord4;
+    QMutex panrecord5;
+    QMutex panrecord6;
 private:
 CGlobalDate();
 static CGlobalDate* instance;

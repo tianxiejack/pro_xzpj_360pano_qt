@@ -301,6 +301,8 @@ private slots:
     void sw_import_click1();
     void sw_export_click1();
     void sw_get_verson_click();
+
+    void vedio_color_doubleclick(int, int);
     void vedio_color_click(int row, int column);
     void vedio_clear_click();
     void vedio_confirm_click();
