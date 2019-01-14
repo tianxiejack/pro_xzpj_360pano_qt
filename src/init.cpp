@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QColor>
 #include <QString>
+#include "mvconfigwidget.h"
 void MainWindowgl::menuinit()
 {
     menubar = new QMenuBar;
@@ -507,7 +508,7 @@ void MainWindowgl::init_video()
 
 void MainWindowgl::init_move()
 {
-    Move = new QWidget;
+    Move = new MvconfigWidget;
     Move->setWindowTitle("移动目标检测配置");
     Move->setMaximumSize(350,330);
     Move->setMinimumSize(350,330);
@@ -639,6 +640,8 @@ void MainWindowgl::init_move()
     connect(move_confirm,SIGNAL(clicked(bool)),this,SLOT(move_confirm_click()));
     connect(draw_area,SIGNAL(clicked(bool)),this,SLOT(draw_area_click()));
     connect(clear,SIGNAL(clicked(bool)),this,SLOT(clear_click()));
+
+    connect(Move,SIGNAL(singleclose()),this,SLOT(mvwidgetclose()));
 }
 
 void MainWindowgl::init_ppi()
@@ -897,6 +900,7 @@ void MainWindowgl::showSystem()
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
 }
 
+
 void MainWindowgl::showVideo()
 {
     m_GlobalDate2->Select_configure = 3;
@@ -915,6 +919,8 @@ void MainWindowgl::showVideo()
 
 void MainWindowgl::showMove()
 {
+    m_GlobalDate2->mvconfigenable=1;
+    emit slotssendprotocol(Protocol::MVCONFIGEABLE);
     m_GlobalDate2->Select_configure = 4;
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
@@ -1223,6 +1229,7 @@ void MainWindowgl::sw_update_click1()
     sw_update_exit->setParent(update_dialog);
     update_dialog->show();
     connect(sw_update_exit,SIGNAL(clicked(bool)),this,SLOT(sw_update_exit_click()));
+    connect(sw_update_confirm,SIGNAL(clicked(bool)),this,SLOT(sw_updateing()));
 }
 
 void MainWindowgl::sw_import_click1()
@@ -1275,6 +1282,7 @@ void MainWindowgl::sw_export_click1()
     sw_export_exit->setParent(export_dialog);
     export_dialog->show();
     connect(sw_export_exit,SIGNAL(clicked(bool)),this,SLOT(sw_export_exit_click()));
+    connect(sw_export_confirm,SIGNAL(clicked(bool)),this,SLOT(sw_exporting()));
 }
 
 void MainWindowgl::sw_get_verson_click()
@@ -2949,5 +2957,25 @@ void MainWindowgl::sw_export_exit_click()
 {
     export_dialog->close();
 }
+void MainWindowgl::sw_updateing()
+{
+    QString filePath = lab2->text();
+    protocol->updatesoft(filePath);
+}
+void MainWindowgl::sw_exporting()
+{
 
+    QString filePath=lab_2_->text();
+    filePath=filePath+"/config.xml";
+    protocol->setexportfile(filePath);
+    emit slotssendprotocol(Protocol::EXPORTCONFIG);
+}
+
+void MainWindowgl::mvwidgetclose()
+{
+
+    qDebug()<<"mvwidgetclose"<<endl;
+    m_GlobalDate2->mvconfigenable=0;
+     emit slotssendprotocol(Protocol::MVCONFIGEABLE);
+}
 

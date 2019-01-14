@@ -309,6 +309,11 @@ private slots:
     void sw_import_exit_click();
     void sw_export_exit_click();
 
+    void sw_updateing();
+    void sw_exporting();
+
+    void mvwidgetclose();
+
 signals:
     void signalSetCalendarTime(const QDate& data);
 

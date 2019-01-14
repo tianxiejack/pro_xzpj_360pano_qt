@@ -10,11 +10,14 @@ class Netcom : public QThread
    Q_OBJECT
 
 public:
+    static Netcom* pthis;
     Netcom(QObject *parent = nullptr);
   //  explicit Netcom(QObject *parent = nullptr);
     void netinit();
     void sendprotocol(Protocol::PROTOCOL pid);
     void run();
+
+    static void sendcallback(char* buf,int size);
 signals:
    // void readyRead();
    // void channelReadyRead(int channel);

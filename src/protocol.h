@@ -3,6 +3,7 @@
 #include <QByteArray>
 #include<QString>
 #include "CGlobalDate.h"
+#include<QFile>
 class Protocol
 {
 public:
@@ -98,12 +99,16 @@ public:
         MOVEDRAW=0x67,
         GETVERSIONEMIT=0x68,
 
+        EXPORTCONFIG,
+        MVCONFIGEABLE,
+
     }PROTOCOL;
 
     typedef enum
     {
         PLAYERQUERRY=0X62,
         GETVERSION=0x30,
+        EXPORTFILE=0x33,
     }ACKPROTOCOL;
 public:
     Protocol();
@@ -114,8 +119,35 @@ public:
     void recvevent(unsigned char *buf);
     void recvevent(unsigned char *buf,int len);
 
+    void updatesoft();
+    void updatesoft(QString path);
+
+    typedef void (* callsocket)(char *buf,int siez);
+
+    void registercallsocke(callsocket fun);
+
+    void exportfile(unsigned char *uoutput_array);
+
+    callsocket socketsend;
+
+    void setexportfile(QString file)
+    {
+        expfile.setFileName(file);
+    }
+
+public:
+
+
+    QFile  file,fpgafile;  // 文件对象
+    QString fileName,fpgafileName; //文件名字
+    qint64 filesize,fpgafilesize; // 文件大小
+    qint64 sendsize,fpgasendsize;  // 已经发送的数据大小
+    bool socketIsconnect=false;
+
 public:
    unsigned char send_arr[1080];
+private:
+   QFile expfile;
 };
 
 #endif // PROTOCOL_H

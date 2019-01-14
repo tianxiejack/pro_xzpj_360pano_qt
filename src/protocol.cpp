@@ -1,6 +1,8 @@
 #include "protocol.h"
 #include <QDebug>
-
+#include <QList>
+#include <QFile>
+#include<QFileInfo>
 CGlobalDate* Protocol::m_GlobalDate = 0;
 Protocol::Protocol()
 {
@@ -666,6 +668,17 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[4]=0x30;
         return formatoneframe(1);
     }
+    else if(id==EXPORTCONFIG)
+    {
+        send_arr[4]=0x33;
+        return formatoneframe(1);
+    }
+    else if(id==MVCONFIGEABLE)
+    {
+        send_arr[4]=0x65;
+        send_arr[5]=m_GlobalDate->mvconfigenable;
+        return formatoneframe(2);
+    }
 
 }
 
@@ -707,6 +720,10 @@ void Protocol::recvevent(unsigned char *buf,int len)
         CGlobalDate::Instance()->panrecord.unlock();
        // qDebug()<<"PLAYERQUERRY ok \n"<<len<<endl;
     }
+    if(buf[0]==EXPORTFILE)
+    {
+        exportfile(buf);
+    }
 
 }
 void Protocol::recvevent(unsigned char *buf)
@@ -730,8 +747,158 @@ void Protocol::recvevent(unsigned char *buf)
     }
 
  }
+void Protocol::updatesoft(QString filePath)
+{
+
+#if 1
+    qDebug();
+
+    unsigned char usocket_send_buf[1024+256] = {0};
+    qint64 len = 0;
+    char buf[1024+256] = {0};
+    unsigned char checksum = 0;
+    int connect_flag=2;
+     if( false == filePath.isEmpty())
+     {
+        // 获取文件信息
+        fileName.clear();
+        filesize =0;
+        QFileInfo info(filePath);
+        fileName = info.fileName();
+        filesize = info.size();
+        sendsize = 0;
+        int packet_flag;
+
+        if(filesize>4294967295)
+        {
+            //upgrade_show->append("文件大小不能超过4294967295字节！");
+            return;
+        }
+
+        file.setFileName(filePath);
+        bool isok = file.open(QFile::ReadOnly);
+        if(false == isok)
+        {
+           // upgrade_show->append("打开文件失败");
+            return;
+        }
 
 
+        if(2 == connect_flag)//网口
+        {
+            usocket_send_buf[0] = 0xEB;
+            usocket_send_buf[1] = 0x51;
+            usocket_send_buf[4] = 0x35;
+            usocket_send_buf[5] = filesize&0xff;
+            usocket_send_buf[6] = (filesize>>8)&0xff;
+            usocket_send_buf[7] = (filesize>>16)&0xff;
+            usocket_send_buf[8] = (filesize>>24)&0xff;
+            packet_flag = 0;
+
+            //QString ip = upgrade_ip->text();
+            //int port = upgrade_port->text().toInt();
+
+            int trans_percent = 0;
+
+            while(len = file.read(buf,1024))
+            {  //每次发送数据大小
+              checksum = 0;
+              if(len<0)
+              {
+                //  upgrade_show->append("文件读取失败");
+                  break;
+              }
+              sendsize += len;
+              if(packet_flag == 0)
+              {
+                  usocket_send_buf[9] = 0;
+                  packet_flag = 1;
+              }
+              else if(sendsize == filesize)
+              {
+                  usocket_send_buf[9] = 2;
+              }
+              else
+              {
+                usocket_send_buf[9] = 1;
+              }
+              usocket_send_buf[2] = (len+8)&0xff;
+              usocket_send_buf[3] = ((len+8)>>8)&0xff;
+              usocket_send_buf[10] = len&0xff;
+              usocket_send_buf[11] = (len>>8)&0xff;
+              memcpy(usocket_send_buf+12,buf, len);
+              for(int m = 1; m<12+len;m++)
+                  checksum ^= usocket_send_buf[m];
+              usocket_send_buf[12+len] = checksum;
+
+              socketsend((char *)usocket_send_buf,len+13);
+
+              trans_percent = sendsize*100/filesize;
+              //upgrade_show->setText(tr("文件发送中...%")+QString("%1").arg(trans_percent&0xFF,2,10));
+            }
+            if(sendsize == filesize)
+            {
+                file.close();
+                //qDebug()<<"文件大小："<<filesize<<"发送大小："<<sendsize;
+                //upgrade_show->append(tr("文件字节数")+QString("%1").arg(filesize,10,10));
+                //usocket->disconnectFromHost();
+                //usocket->close();
+            }
+            else
+            {
+                ;//upgrade_show->append("文件发送失败");
+            }
+        }
+    }
+    else
+           ;// upgrade_show->append("选择文件无效");
+
+#endif
+}
+
+void Protocol::exportfile(unsigned char *uoutput_array)
+{
+    unsigned int filelen =0;
+    unsigned int currentlen =0;
+    unsigned int writelen = 0;
+    static unsigned int writetotal = 0;
+    static int openflag = 0;
+    filelen =(uoutput_array[1]|(uoutput_array[2]<<8)|(uoutput_array[3]<<16)|(uoutput_array[4]<<24));
+    currentlen =(uoutput_array[6]|(uoutput_array[7]<<8));
+    if(openflag == 0)
+    {
+        bool isok = expfile.open(QFile::WriteOnly);
+        if(false == isok)
+        {
+           // upgrade_show->append("打开导出文件失败");
+            return;
+        }
+        else
+        {
+            openflag = 1;
+        }
+    }
+    writelen = expfile.write((char*)(uoutput_array+8),currentlen);
+    writetotal += writelen;
+    if(uoutput_array[5]==2)
+    {
+        if(writetotal == filelen)
+        {
+            ;//upgrade_show->append("导出成功");
+        }
+        else
+        {
+            ;//upgrade_show->append("导出失败");
+        }
+        expfile.close();
+        writetotal = 0;
+        openflag = 0;
+    }
+}
+void Protocol::registercallsocke(callsocket fun)
+{
+    socketsend=fun;
+}
 QByteArray Protocol::formatoneframe(int length)
 {
     int len=length+5;

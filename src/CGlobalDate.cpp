@@ -2,7 +2,7 @@
 
 CGlobalDate* CGlobalDate::instance = 0;
 
-CGlobalDate::CGlobalDate():collectionenableonece(0)
+CGlobalDate::CGlobalDate():collectionenableonece(0),mvconfigenable(0)
 {
 
 }

@@ -1,10 +1,10 @@
 #include "netcom.h"
 #include<QDebug>
 #include<QMessageBox>
-
+Netcom* Netcom::pthis=NULL;
 Netcom::Netcom(QObject *parent):net_ip("192.168.1.150"),net_port(6666)
 {
-
+    pthis=this;
     socket = new QTcpSocket(this);
     //connect(socket, &QTcpSocket::readyRead, this, &Netcom::socket_Read_Data);
     connect(socket, &QTcpSocket::readyRead, this, &Netcom::usocket_Read_Data);
@@ -32,6 +32,12 @@ void Netcom::netinit()
     }
     else
         socketIsconnect=true;
+
+    if(protocol!=NULL)
+    {
+        protocol->registercallsocke(sendcallback);
+        protocol->setexportfile("config.xml");
+    }
 }
 void Netcom::sendprotocol(Protocol::PROTOCOL pid)
 {
@@ -46,6 +52,16 @@ void Netcom::sendprotocol(Protocol::PROTOCOL pid)
 
    }
 
+}
+
+void Netcom::sendcallback(char* buf,int size)
+{
+    if(pthis->socketIsconnect)
+    {
+     pthis->socket->write(buf,size);
+     pthis->socket->flush();
+
+    }
 }
 void Netcom::run()
 {

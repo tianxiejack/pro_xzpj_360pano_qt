@@ -143,6 +143,7 @@ public:
     int Sunday_1724_move;
 
     int Select_configure;
+    int mvconfigenable;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;
