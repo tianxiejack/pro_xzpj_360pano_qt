@@ -7,6 +7,7 @@
 #include "CGlobalDate.h"
 #include <QFormLayout>
 
+
 extern int value;
 int flag;
 CGlobalDate* MainWindowgl::m_GlobalDate2 = 0;
@@ -16,9 +17,10 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
 {
     m_GlobalDate2 = CGlobalDate::Instance();
     ui->setupUi(this);
-    //setWindowTitle("  ");
+    titlebar = new TitleBar(this);
+    titlebar->setStyleSheet("TitleBar{background-color:rgb(198,217,240)}");
+    titlebar->setFixedHeight(23);
     menuinit();
-    //this->setWindowFlags(Qt::Dialog|Qt::FramelessWindowHint);
     s  = new widget();
     s->setMaximumSize(289, 1100);
     s->setMinimumSize(289, 473);

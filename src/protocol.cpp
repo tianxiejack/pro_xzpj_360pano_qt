@@ -766,6 +766,7 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->ios = buf[8];
         CGlobalDate::Instance()->panrecord3.unlock();
     }
+
     if (buf[0] == GETMOVE) {
         CGlobalDate::Instance()->panrecord4.lock();
             m_GlobalDate->move_enable_ = buf[1];
@@ -778,6 +779,7 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->delay_time_ = (buf[12]<<8)|buf[13];
         CGlobalDate::Instance()->panrecord4.unlock();
     }
+
     if (buf[0] == GETMONAGE) {
         CGlobalDate::Instance()->panrecord5.lock();
             m_GlobalDate->swiveltable_speed = buf[1];
@@ -785,12 +787,22 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->imagerate = buf[4];
         CGlobalDate::Instance()->panrecord5.unlock();
     }
+
     if (buf[0] == GETPPI) {
         CGlobalDate::Instance()->panrecord6.lock();
             m_GlobalDate->ppi = buf[1];
         CGlobalDate::Instance()->panrecord6.unlock();
     }
 
+    if (buf[0] == GETUPDATEFILE) {
+        CGlobalDate::Instance()->panrecord7.lock();
+            m_GlobalDate->filesize = (buf[1] << 24) | (buf[2] << 16) << (buf[3] << 8) |buf[4];
+            m_GlobalDate->packet_flag= buf[5];
+            m_GlobalDate->len = (buf[6]<<8)|buf[7];
+            for(int m = 1; m<7+m_GlobalDate->len;m++)
+                m_GlobalDate->checksum ^= buf[m];
+        CGlobalDate::Instance()->panrecord7.unlock();
+    }
  }
 
 void Protocol::updatesoft(QString filePath)

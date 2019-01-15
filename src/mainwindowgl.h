@@ -27,6 +27,7 @@
 #include "mytablewidget.h"
 #include <QDialog>
 #include "closeeventwidget.h"
+#include "titlebar.h"
 
 namespace Ui {
 class MainWindowgl;
@@ -44,6 +45,8 @@ public:
     void panorama_auto_password_init();
     void PTZ_hand_password_init();
     void panorama_hand_password_init();
+
+    TitleBar *titlebar;
 
     /*三个密码框*/
     QWidget *panorama_auto_password_w;
@@ -314,11 +317,14 @@ private slots:
 
     void sw_updateing();
     void sw_exporting();
+    void sw_importing();
 
     void mvwidgetclose();
 
 signals:
     void signalSetCalendarTime(const QDate& data);
+
+
 
 };
 

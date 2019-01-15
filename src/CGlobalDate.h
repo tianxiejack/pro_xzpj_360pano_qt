@@ -144,6 +144,11 @@ public:
 
     int Select_configure;
     int mvconfigenable;
+
+    int packet_flag;
+    qint64 filesize;
+    qint64 len;
+    unsigned char checksum;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;
@@ -158,6 +163,7 @@ public:
     QMutex panrecord4;
     QMutex panrecord5;
     QMutex panrecord6;
+    QMutex panrecord7;
 private:
 CGlobalDate();
 static CGlobalDate* instance;

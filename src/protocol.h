@@ -114,7 +114,7 @@ public:
         GETMOVE=0x84,
         GETMONAGE=0x88,
         GETPPI=0x86,
-
+        GETUPDATEFILE=0x35,
 
     }ACKPROTOCOL;
 public:

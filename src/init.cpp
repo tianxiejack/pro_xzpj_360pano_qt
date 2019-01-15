@@ -9,16 +9,19 @@
 #include <QColor>
 #include <QString>
 #include "mvconfigwidget.h"
+#include <QProgressDialog>
 void MainWindowgl::menuinit()
 {
+
     menubar = new QMenuBar;
-    menubar->setMinimumHeight(30);
-    menubar->setMaximumHeight(30);
-
-
+    menubar->setMinimumSize(170,22);
+    menubar->setMaximumSize(170,22);
+    //menubar->setGeometry(0,0,210,30);
+    menubar->setStyleSheet("QMenuBar{background-color:rgb(198,217,240);}");
+    //menubar->setStyleSheet("QMenuBar:item{height:30px;}");
     menu[0]= new QMenu("显示内容");
     //menu[0]->setStyleSheet(" QMenu:{background-color:rgb(89,87,87);border: 3px solid rgb(235,110,36);}");
-    //menu[0]->setStyleSheet("QMenu{height:50px;}");
+    //menu[0]->setStyleSheet("QMenu{height:30px;}");
     openStack[0] = new QAction("实时预览");
 
     menu[0]->addAction(openStack[0]);
@@ -88,8 +91,6 @@ void MainWindowgl::menuinit()
     init_montage();
     connect(openStack[15], SIGNAL(triggered(bool)), this, SLOT(showMontage()));
 
-    menubar->addMenu(menu[2]);
-    setMenuBar(menubar);
     openStack[0]->setCheckable(true);
     openStack[1]->setCheckable(true);
     openStack[3]->setCheckable(true);
@@ -105,6 +106,9 @@ void MainWindowgl::menuinit()
     openStack[13]->setCheckable(true);
     openStack[14]->setCheckable(true);
     openStack[15]->setCheckable(true);
+    menubar->addMenu(menu[2]);
+    menubar->setParent(titlebar);
+
 }
 
 void MainWindowgl::panorama_auto_password_init()
@@ -284,6 +288,8 @@ void MainWindowgl::init_Turntable()
    speed->setCurrentIndex(m_GlobalDate2->publicvar_v.speed_var);
    CGlobalDate::Instance()->panrecord2.unlock();
    gbox_tur = new QGroupBox();
+
+
    QFormLayout *f2=new QFormLayout();
    f2->addRow(tur_s[0],addresschoose);
    f2->addRow(tur_s[1],protocolchoose);
@@ -957,6 +963,19 @@ void MainWindowgl::showTurntable()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Turntable->show();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    qDebug() <<  m_GlobalDate2->Select_configure;
+    qDebug() << m_GlobalDate2->publicvar_v.addresschoose_var <<m_GlobalDate2->publicvar_v.protocolchoose_var<<m_GlobalDate2->publicvar_v.baud_rate_var<<m_GlobalDate2->publicvar_v.speed_var;
+    Turntable->update();
 }
 
 void MainWindowgl::showTherm()
@@ -972,7 +991,17 @@ void MainWindowgl::showTherm()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Therm->show();
+    Turntable->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Therm->update();
 }
 
 void MainWindowgl::showZero()
@@ -988,8 +1017,18 @@ void MainWindowgl::showZero()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Zero->show();
+    Turntable->close();
+    Therm->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::OPENZERO);
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Zero->update();
 }
 
 void MainWindowgl::showSystem()
@@ -1005,7 +1044,17 @@ void MainWindowgl::showSystem()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     System->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    System->update();
 }
 
 void MainWindowgl::showVideo()
@@ -1024,7 +1073,16 @@ void MainWindowgl::showVideo()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Video->show();
-
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
+    Video->update();
 }
 
 void MainWindowgl::showMove()
@@ -1042,7 +1100,17 @@ void MainWindowgl::showMove()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Move->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Move->update();
 }
 
 void MainWindowgl::showPPI()
@@ -1058,7 +1126,17 @@ void MainWindowgl::showPPI()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     PPI->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    Time->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    PPI->update();
 }
 
 void MainWindowgl::showTime()
@@ -1074,7 +1152,17 @@ void MainWindowgl::showTime()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Time->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Roadsave->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Time->update();
 }
 
 void MainWindowgl::showRoadsave()
@@ -1090,7 +1178,17 @@ void MainWindowgl::showRoadsave()
     this->openStack[13]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Roadsave->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Roadsave->update();
 }
 
 void MainWindowgl::showMontage()
@@ -1106,7 +1204,17 @@ void MainWindowgl::showMontage()
     this->openStack[13]->setChecked(false);
     this->openStack[14]->setChecked(false);
     Montage->show();
+    Turntable->close();
+    Therm->close();
+    Zero->close();
+    System->close();
+    Video->close();
+    Move->close();
+    PPI->close();
+    Time->close();
+    Roadsave->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    Montage->update();
 }
 
 void MainWindowgl::tur_btn_click()
@@ -1377,6 +1485,7 @@ void MainWindowgl::sw_import_click1()
     sw_import_confirm->setParent(import_dialog);
     sw_import_exit->setParent(import_dialog);
     import_dialog->show();
+    connect(sw_import_confirm,SIGNAL(clicked(bool)),this,SLOT(sw_importing()));
     connect(sw_import_exit,SIGNAL(clicked(bool)),this,SLOT(sw_import_exit_click()));
 }
 
@@ -3087,16 +3196,64 @@ void MainWindowgl::sw_export_exit_click()
 }
 void MainWindowgl::sw_updateing()
 {
+    update_dialog->close();
+    QProgressDialog process(this);
+    process.setWindowTitle("软件升级中");
+      process.setLabelText(tr("processing..."));
+      process.setRange(0,50000);
+      process.setModal(true);
+      process.setCancelButtonText(tr("cancel"));
+     for(int i=0;i<50000;i++)
+      {
+        for(int j=0;j<20000;j++);
+          process.setValue(i);
+        if(process.wasCanceled())
+          break;
+      }
     QString filePath = lab2->text();
     protocol->updatesoft(filePath);
+
+
+
 }
 void MainWindowgl::sw_exporting()
 {
-
+    export_dialog->close();
+    QProgressDialog process(this);
+    process.setWindowTitle("参数导出中");
+      process.setLabelText(tr("processing..."));
+      process.setRange(0,50000);
+      process.setModal(true);
+      process.setCancelButtonText(tr("cancel"));
+     for(int i=0;i<50000;i++)
+      {
+        for(int j=0;j<20000;j++);
+          process.setValue(i);
+        if(process.wasCanceled())
+          break;
+      }
     QString filePath=lab_2_->text();
     filePath=filePath+"/config.xml";
     protocol->setexportfile(filePath);
     emit slotssendprotocol(Protocol::EXPORTCONFIG);
+}
+
+void MainWindowgl::sw_importing()
+{
+    import_dialog->close();
+    QProgressDialog process(this);
+    process.setWindowTitle("参数导入中");
+      process.setLabelText(tr("processing..."));
+      process.setRange(0,50000);
+      process.setModal(true);
+      process.setCancelButtonText(tr("cancel"));
+     for(int i=0;i<50000;i++)
+      {
+        for(int j=0;j<20000;j++);
+          process.setValue(i);
+        if(process.wasCanceled())
+          break;
+      }
 }
 
 void MainWindowgl::mvwidgetclose()
