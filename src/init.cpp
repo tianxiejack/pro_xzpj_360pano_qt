@@ -10,18 +10,16 @@
 #include <QString>
 #include "mvconfigwidget.h"
 #include <QProgressDialog>
+
+
 void MainWindowgl::menuinit()
 {
 
     menubar = new QMenuBar;
     menubar->setMinimumSize(170,22);
     menubar->setMaximumSize(170,22);
-    //menubar->setGeometry(0,0,210,30);
     menubar->setStyleSheet("QMenuBar{background-color:rgb(198,217,240);}");
-    //menubar->setStyleSheet("QMenuBar:item{height:30px;}");
     menu[0]= new QMenu("显示内容");
-    //menu[0]->setStyleSheet(" QMenu:{background-color:rgb(89,87,87);border: 3px solid rgb(235,110,36);}");
-    //menu[0]->setStyleSheet("QMenu{height:30px;}");
     openStack[0] = new QAction("实时预览");
 
     menu[0]->addAction(openStack[0]);
@@ -204,21 +202,17 @@ void MainWindowgl::init_Turntable()
    Turntable->setMaximumSize(300,160);
    Turntable->setMinimumSize(300,160);
 
-   CGlobalDate::Instance()->panrecord2.lock();
    addresschoose = new QComboBox();
    addresschoose->addItem("地址0");
    addresschoose->addItem("地址1");
-   addresschoose->setCurrentIndex(m_GlobalDate2->publicvar_v.addresschoose_var);
    protocolchoose = new QComboBox();
    protocolchoose->addItem("PELCO-D");
    protocolchoose->addItem("PELCO-P");
-   protocolchoose->setCurrentIndex(m_GlobalDate2->publicvar_v.protocolchoose_var);
    baud_rate = new QComboBox();
    baud_rate->addItem("2400");
    baud_rate->addItem("4800");
    baud_rate->addItem("9600");
    baud_rate->addItem("19200");
-   baud_rate->setCurrentIndex(m_GlobalDate2->publicvar_v.baud_rate_var);
    speed = new QComboBox();
    speed->addItem("0");
    speed->addItem("1");
@@ -285,8 +279,6 @@ void MainWindowgl::init_Turntable()
    speed->addItem("62");
    speed->addItem("63");
    speed->addItem("64");
-   speed->setCurrentIndex(m_GlobalDate2->publicvar_v.speed_var);
-   CGlobalDate::Instance()->panrecord2.unlock();
    gbox_tur = new QGroupBox();
 
 
@@ -313,21 +305,15 @@ void MainWindowgl::init_Thermalimage()
      Therm = new QWidget();
      Therm->setWindowTitle("热像传感器配置");
      Therm->setMaximumSize(350,320);
-     Therm->setMinimumSize(350,320);
-
-     CGlobalDate::Instance()->panrecord3.lock();
+     Therm->setMinimumSize(350,320);  
      pSpinBox = new QSpinBox(this);
      pSpinBox->setGeometry(270,30,40,20);
      pSpinBox->setMinimum(0);  // 最小值
      pSpinBox->setMaximum(255);  // 最大值
-     pSpinBox->setValue(m_GlobalDate2->bright);
-
      pSpinBox1 = new QSpinBox(this);
      pSpinBox1->setGeometry(270,57,40,20);
      pSpinBox1->setMinimum(0);  // 最小值
      pSpinBox1->setMaximum(255);  // 最大值
-     pSpinBox1->setValue(m_GlobalDate2->contest);
-
      slider_bright = new QSlider(Qt::Horizontal);
      slider_contrast = new QSlider(Qt::Horizontal);
      slider_bright->setMinimum(0);
@@ -339,24 +325,12 @@ void MainWindowgl::init_Thermalimage()
 
      connect(pSpinBox1, SIGNAL(valueChanged(int)), slider_contrast, SLOT(setValue(int)));
      connect(slider_contrast, SIGNAL(valueChanged(int)), pSpinBox1, SLOT(setValue(int)));
-     auto_bright = new QCheckBox;
-     if (m_GlobalDate2->auto_bright == 1) {
-       auto_bright->setChecked(true);
-     } else {
-       auto_bright->setChecked(false);
-     }
+     auto_bright = new QCheckBox;    
      black = new QCheckBox("黑热");
-
      white = new QCheckBox("白热");
      QButtonGroup* pButtonGroup = new QButtonGroup(this);
          pButtonGroup->addButton(black,1);
-         pButtonGroup->addButton(white, 2);
-
-         if (m_GlobalDate2->blackorwhite == 0) {
-           black->setChecked(true);
-         } else {
-           white->setChecked(true);
-         }
+         pButtonGroup->addButton(white, 2);   
      gbox_the1 = new QGroupBox();
      QFormLayout *f2=new QFormLayout();
      f2->addRow(therm_s1[0],slider_bright);
@@ -367,32 +341,15 @@ void MainWindowgl::init_Thermalimage()
      gbox_the1->setGeometry(20,20,250,130);
      gbox_the1->setStyleSheet("QGroupBox{border:none;}");
      white->setGeometry(200,96,60,20);
-
      correct = new QCheckBox;
-     if (m_GlobalDate2->correct_the == 1) {
-       correct->setChecked(true);
-     } else {
-       correct->setChecked(false);
-     }
      noice_reduce = new QCheckBox;
-     if (m_GlobalDate2->noice_the == 1) {
-       noice_reduce->setChecked(true);
-     } else {
-       noice_reduce->setChecked(false);
-     }
      detail_enhance = new QCheckBox;
-     if (m_GlobalDate2->detail_the == 1) {
-       detail_enhance->setChecked(true);
-     } else {
-       detail_enhance->setChecked(false);
-     }
      image = new QLabel("镜像：");
      comb_image = new QComboBox;
      comb_image->addItem("左右");
      comb_image->addItem("上下");
      comb_image->addItem("对角线");
-     comb_image->setCurrentIndex(m_GlobalDate2->ios);
-     CGlobalDate::Instance()->panrecord3.unlock();
+
      gbox_the2 = new QGroupBox();
      QFormLayout *f3=new QFormLayout();
      f3->addRow(therm_s2[0],correct);
@@ -563,15 +520,8 @@ void MainWindowgl::init_move()
     move_speed_grade->setMinimumSize(200,20);
     move_speed_grade->setMaximumSize(200,20);
     sensitivity = new QLabel("灵敏度：  ");
-    CGlobalDate::Instance()->panrecord4.lock();
+
     move_enable_checkbox = new QCheckBox;
-
-    if (m_GlobalDate2->move_enable_ == 1) {
-      move_enable_checkbox->setChecked(true);
-    } else {
-      move_enable_checkbox->setChecked(false);
-    }
-
     sen_high = new QCheckBox("高");
     sen_middle = new QCheckBox("中");
     sen_low = new QCheckBox("低");
@@ -586,7 +536,6 @@ void MainWindowgl::init_move()
     QHBoxLayout *h0 = new QHBoxLayout;
     h0->addWidget(move_enable);
     h0->addWidget(move_enable_checkbox);
-
     QHBoxLayout *h1 = new QHBoxLayout;
     h1->addWidget(sensitivity);
     h1->addWidget(sen_high);
@@ -596,15 +545,6 @@ void MainWindowgl::init_move()
         pButtonGroup1->addButton(sen_high,1);
         pButtonGroup1->addButton(sen_middle, 2);
         pButtonGroup1->addButton(sen_low, 3);
-
-    if (m_GlobalDate2->sensitivity_ == 0) {
-       sen_high->setChecked(true);
-    } else if (m_GlobalDate2->sensitivity_ == 1) {
-       sen_middle->setChecked(true);
-    } else if (m_GlobalDate2->sensitivity_ == 2) {
-       sen_low->setChecked(true);
-    }
-
     QHBoxLayout *h2 = new QHBoxLayout;
     h2->addWidget(speed_very_high);
     h2->addWidget(speed_high);
@@ -617,19 +557,6 @@ void MainWindowgl::init_move()
         pButtonGroup2->addButton(speed_middle, 3);
         pButtonGroup2->addButton(speed_low, 4);
         pButtonGroup2->addButton(speed_very_low, 5);
-
-    if (m_GlobalDate2->move_speed_grade_ == 0) {
-       speed_very_high->setChecked(true);
-    } else if (m_GlobalDate2->move_speed_grade_ == 1) {
-       speed_high->setChecked(true);
-    } else if (m_GlobalDate2->move_speed_grade_ == 2) {
-       speed_middle->setChecked(true);
-    } else if (m_GlobalDate2->move_speed_grade_ == 3) {
-        speed_low->setChecked(true);
-    } else if (m_GlobalDate2->move_speed_grade_ == 4) {
-        speed_very_low->setChecked(true);
-    }
-
     gbox_move1 = new QGroupBox;
     gbox_move1->setTitle("检测目标尺寸设置");
     gbox_move1->setMinimumSize(325,100);
@@ -644,15 +571,6 @@ void MainWindowgl::init_move()
     comb_max_height = new QLineEdit;
     comb_min_width = new QLineEdit;
     comb_min_height = new QLineEdit;
-
-    QString str1 = QString("%1").arg(m_GlobalDate2->max_width);
-    comb_max_width->setText(str1);
-    QString str2 = QString("%1").arg(m_GlobalDate2->max_height);
-    comb_max_height->setText(str2);
-    QString str3 = QString("%1").arg(m_GlobalDate2->min_width);
-    comb_min_width->setText(str3);
-    QString str4 = QString("%1").arg(m_GlobalDate2->min_height);
-    comb_min_height->setText(str4);
 
     QHBoxLayout *h3 = new QHBoxLayout;
     h3->addWidget(label1);
@@ -709,16 +627,12 @@ void MainWindowgl::init_move()
     v2->addLayout(h6);
 
     delay_time = new QLineEdit;
-    QString str5 = QString("%1").arg(m_GlobalDate2->delay_time_);
-    delay_time->setText(str5);
     move_confirm =new QPushButton("确认");
     QHBoxLayout *h7 = new QHBoxLayout;
     h7->addWidget(label8);
     h7->addWidget(delay_time);
     h7->addWidget(label9);
     move_confirm->setGeometry(290,400,40,20);
-
-    CGlobalDate::Instance()->panrecord4.unlock();
     gbox_move1->setStyleSheet("QGroupBox{border:1px solid black;}");
     gbox_move2->setStyleSheet("QGroupBox{border:1px solid black;}");
     gbox_move1->setLayout(v1);
@@ -748,24 +662,15 @@ void MainWindowgl::init_ppi()
     PPI->setMaximumSize(300,150);
     PPI->setMinimumSize(300,150);
     ppi_choose = new QLabel("输出分辨率设置：");
-    CGlobalDate::Instance()->panrecord6.lock();
     ppi_choose_comb = new QComboBox;
     ppi_choose_comb->addItem("1920×1080@60hz");
     ppi_choose_comb->addItem("1920×1080@30hz");
-    ppi_choose_comb->setCurrentIndex(m_GlobalDate2->ppi);
     current_ppi = new QLabel("当前输出分辨率：");
     current_ppi_edit = new QLineEdit;
-    if (m_GlobalDate2->ppi == 0) {
-        current_ppi_edit->setText("1920×1080@60hz");
-    } else {
-       current_ppi_edit->setText("1920×1080@30hz");
-    }
-    CGlobalDate::Instance()->panrecord6.unlock();
+
     ppi_confirm = new QPushButton;
     ppi_confirm->setText("确认");
     ppi_confirm->setGeometry(230,110,40,20);
-
-
     gbox_ppi = new QGroupBox();
     QFormLayout *f2=new QFormLayout();
     f2->addRow(current_ppi,current_ppi_edit);
@@ -845,6 +750,7 @@ void MainWindowgl::init_roadsave()
 
 void MainWindowgl::init_montage()
 {
+
     Montage = new QWidget;
     Montage->setWindowTitle("拼接配置");
     Montage->setMaximumSize(350,150);
@@ -856,7 +762,7 @@ void MainWindowgl::init_montage()
     label1->setGeometry(270,53,40,20);
     QLabel *label2 = new QLabel("帧/圈");
     label2->setGeometry(270,80,40,20);
-    CGlobalDate::Instance()->panrecord5.lock();
+
     swiveltable_speed_comb = new QComboBox;
     swiveltable_speed_comb->addItem("0");
     swiveltable_speed_comb->addItem("1");
@@ -923,15 +829,8 @@ void MainWindowgl::init_montage()
     swiveltable_speed_comb->addItem("62");
     swiveltable_speed_comb->addItem("63");
     swiveltable_speed_comb->addItem("64");
-    swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
-
     pixfocus_edit = new QLineEdit;
-    QString str1 = QString("%1").arg(m_GlobalDate2->pixfocus);
-    pixfocus_edit->setText(str1);
     imagerate_edit = new QLineEdit;
-    QString str2 = QString("%1").arg(m_GlobalDate2->imagerate);
-    imagerate_edit->setText(str2);
-    CGlobalDate::Instance()->panrecord5.unlock();
     montage_confirm = new QPushButton("确认");
     montage_confirm->setGeometry(270,120,40,20);
     gbox_montage = new QGroupBox();
@@ -975,6 +874,12 @@ void MainWindowgl::showTurntable()
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     qDebug() <<  m_GlobalDate2->Select_configure;
     qDebug() << m_GlobalDate2->publicvar_v.addresschoose_var <<m_GlobalDate2->publicvar_v.protocolchoose_var<<m_GlobalDate2->publicvar_v.baud_rate_var<<m_GlobalDate2->publicvar_v.speed_var;
+    CGlobalDate::Instance()->panrecord2.lock();
+    addresschoose->setCurrentIndex(m_GlobalDate2->publicvar_v.addresschoose_var);
+    protocolchoose->setCurrentIndex(m_GlobalDate2->publicvar_v.protocolchoose_var);
+    baud_rate->setCurrentIndex(m_GlobalDate2->publicvar_v.baud_rate_var);
+    speed->setCurrentIndex(m_GlobalDate2->publicvar_v.speed_var);
+    CGlobalDate::Instance()->panrecord2.unlock();
     Turntable->update();
 }
 
@@ -1001,6 +906,36 @@ void MainWindowgl::showTherm()
     Roadsave->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    CGlobalDate::Instance()->panrecord3.lock();
+    pSpinBox->setValue(m_GlobalDate2->bright);
+    pSpinBox1->setValue(m_GlobalDate2->contest);
+    if (m_GlobalDate2->correct_the == 1) {
+      correct->setChecked(true);
+    } else {
+      correct->setChecked(false);
+    }
+    if (m_GlobalDate2->auto_bright == 1) {
+      auto_bright->setChecked(true);
+    } else {
+      auto_bright->setChecked(false);
+    }
+    if (m_GlobalDate2->noice_the == 1) {
+      noice_reduce->setChecked(true);
+    } else {
+      noice_reduce->setChecked(false);
+    }
+    if (m_GlobalDate2->detail_the == 1) {
+      detail_enhance->setChecked(true);
+    } else {
+      detail_enhance->setChecked(false);
+    }
+    if (m_GlobalDate2->blackorwhite == 0) {
+      black->setChecked(true);
+    } else {
+      white->setChecked(true);
+    }
+    comb_image->setCurrentIndex(m_GlobalDate2->ios);
+    CGlobalDate::Instance()->panrecord3.unlock();
     Therm->update();
 }
 
@@ -1110,6 +1045,41 @@ void MainWindowgl::showMove()
     Roadsave->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    CGlobalDate::Instance()->panrecord4.lock();
+    if (m_GlobalDate2->move_enable_ == 1) {
+      move_enable_checkbox->setChecked(true);
+    } else {
+      move_enable_checkbox->setChecked(false);
+    }
+    if (m_GlobalDate2->sensitivity_ == 0) {
+       sen_high->setChecked(true);
+    } else if (m_GlobalDate2->sensitivity_ == 1) {
+       sen_middle->setChecked(true);
+    } else if (m_GlobalDate2->sensitivity_ == 2) {
+       sen_low->setChecked(true);
+    }
+    if (m_GlobalDate2->move_speed_grade_ == 0) {
+       speed_very_high->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 1) {
+       speed_high->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 2) {
+       speed_middle->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 3) {
+        speed_low->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 4) {
+        speed_very_low->setChecked(true);
+    }
+    QString str1 = QString("%1").arg(m_GlobalDate2->max_width);
+    comb_max_width->setText(str1);
+    QString str2 = QString("%1").arg(m_GlobalDate2->max_height);
+    comb_max_height->setText(str2);
+    QString str3 = QString("%1").arg(m_GlobalDate2->min_width);
+    comb_min_width->setText(str3);
+    QString str4 = QString("%1").arg(m_GlobalDate2->min_height);
+    comb_min_height->setText(str4);
+    QString str5 = QString("%1").arg(m_GlobalDate2->delay_time_);
+    delay_time->setText(str5);
+    CGlobalDate::Instance()->panrecord4.unlock();
     Move->update();
 }
 
@@ -1136,6 +1106,14 @@ void MainWindowgl::showPPI()
     Roadsave->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    CGlobalDate::Instance()->panrecord6.lock();
+    ppi_choose_comb->setCurrentIndex(m_GlobalDate2->ppi);
+    if (m_GlobalDate2->ppi == 0) {
+        current_ppi_edit->setText("1920×1080@60hz");
+    } else {
+       current_ppi_edit->setText("1920×1080@30hz");
+    }
+    CGlobalDate::Instance()->panrecord6.unlock();
     PPI->update();
 }
 
@@ -1193,6 +1171,7 @@ void MainWindowgl::showRoadsave()
 
 void MainWindowgl::showMontage()
 {
+
     m_GlobalDate2->Select_configure = 7;
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
@@ -1214,6 +1193,13 @@ void MainWindowgl::showMontage()
     Time->close();
     Roadsave->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    CGlobalDate::Instance()->panrecord5.lock();
+    swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
+    QString str1 = QString("%1").arg(m_GlobalDate2->pixfocus);
+    pixfocus_edit->setText(str1);
+    QString str2 = QString("%1").arg(m_GlobalDate2->imagerate);
+    imagerate_edit->setText(str2);
+    CGlobalDate::Instance()->panrecord5.unlock();
     Montage->update();
 }
 
@@ -1519,6 +1505,7 @@ void MainWindowgl::sw_export_click1()
 void MainWindowgl::sw_get_verson_click()
 {
     emit slotssendprotocol(Protocol::GETVERSIONEMIT);
+    System->update();
     CGlobalDate::Instance()->panrecord1.lock();
     if(m_GlobalDate2->vers.ab_version == 0)
     {

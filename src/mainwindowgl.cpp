@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "CGlobalDate.h"
 #include <QFormLayout>
-
+#include <QMessageBox>
 
 extern int value;
 int flag;
@@ -194,17 +194,18 @@ void MainWindowgl::playback()
 
 void MainWindowgl::panorama_auto_show()
 {
-    if(panorama_auto_edit->text().operator==("1234"))
-    {
-    value = 0;
-    reset();
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
-   // QString a = this->panorama_auto_edit->text();
-
+    if (panorama_auto_edit->text().operator==("1234")) {
+        value = 0;
+        reset();
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
         panorama_auto_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAAUTOSHOW);
         panorama_auto_password_w->close();
+    } else {
+       panorama_auto_edit->clear();
+       panorama_auto_edit->setPlaceholderText("密码错误，请重新输入");
     }
 }
 
@@ -217,6 +218,7 @@ void MainWindowgl::PTZ_hand_show()
     reset();
 
     this->openStack[3]->setChecked(false);
+    this->openStack[4]->setChecked(true);
     this->openStack[5]->setChecked(false);
     g->addWidget(w2,0,1);
     ui->openGLWidget->resize(1500,1200);
@@ -224,6 +226,9 @@ void MainWindowgl::PTZ_hand_show()
         PTZ_hand_edit->clear();
         emit slotssendprotocol(Protocol::PTZHANDSHOW);
         PTZ_hand_password_w->close();
+    } else {
+        PTZ_hand_edit->clear();
+        PTZ_hand_edit->setPlaceholderText("密码错误，请重新输入");
     }
 }
 
@@ -237,19 +242,28 @@ void MainWindowgl::panorama_hand_show()
 
     this->openStack[3]->setChecked(false);
     this->openStack[4]->setChecked(false);
+    this->openStack[5]->setChecked(true);
     g->addWidget(w1,0,1);
     ui->openGLWidget->resize(1500,1200);
 
         panorama_hand_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAHANDSHOW);
         panorama_hand_password_w->close();
+    } else {
+
+        panorama_hand_edit->clear();
+        panorama_hand_edit->setPlaceholderText("密码错误，请重新输入");
     }
+
 }
 
 
 void MainWindowgl::panorama_auto_password()
 {
 
+    this->openStack[3]->setChecked(false);
+    this->openStack[4]->setChecked(false);
+    this->openStack[5]->setChecked(false);
   //  panorama_auto_password_w->update();
     panorama_auto_password_w->show();
 
@@ -257,13 +271,18 @@ void MainWindowgl::panorama_auto_password()
 
 void MainWindowgl::PTZ_hand_password()
 {
+    this->openStack[3]->setChecked(false);
+    this->openStack[4]->setChecked(false);
+    this->openStack[5]->setChecked(false);
 
     PTZ_hand_password_w->show();
 }
 
 void MainWindowgl::panorama_hand_password()
 {
-
+    this->openStack[3]->setChecked(false);
+    this->openStack[4]->setChecked(false);
+    this->openStack[5]->setChecked(false);
     panorama_hand_password_w->show();
 }
 

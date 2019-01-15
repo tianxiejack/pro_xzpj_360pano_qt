@@ -803,6 +803,7 @@ void Protocol::recvevent(unsigned char *buf)
                 m_GlobalDate->checksum ^= buf[m];
         CGlobalDate::Instance()->panrecord7.unlock();
     }
+
  }
 
 void Protocol::updatesoft(QString filePath)
