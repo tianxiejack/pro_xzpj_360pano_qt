@@ -16,9 +16,9 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
 {
     m_GlobalDate2 = CGlobalDate::Instance();
     ui->setupUi(this);
-    setWindowTitle("  ");
+    //setWindowTitle("  ");
     menuinit();
-
+    //this->setWindowFlags(Qt::Dialog|Qt::FramelessWindowHint);
     s  = new widget();
     s->setMaximumSize(289, 1100);
     s->setMinimumSize(289, 473);

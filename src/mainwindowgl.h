@@ -293,6 +293,7 @@ private slots:
 
     void screenshot_pass_click();
     void clip_image_pass_click();
+    void roadsave_confirm_click();
 
     void sw_update_click();
     void sw_import_click();

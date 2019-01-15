@@ -12,7 +12,13 @@
 void MainWindowgl::menuinit()
 {
     menubar = new QMenuBar;
+    menubar->setMinimumHeight(30);
+    menubar->setMaximumHeight(30);
+
+
     menu[0]= new QMenu("显示内容");
+    //menu[0]->setStyleSheet(" QMenu:{background-color:rgb(89,87,87);border: 3px solid rgb(235,110,36);}");
+    //menu[0]->setStyleSheet("QMenu{height:50px;}");
     openStack[0] = new QAction("实时预览");
 
     menu[0]->addAction(openStack[0]);
@@ -284,12 +290,12 @@ void MainWindowgl::init_Turntable()
    f2->addRow(tur_s[2],baud_rate);
    f2->addRow(tur_s[3],speed);
    gbox_tur->setLayout(f2);
-   gbox_tur->setGeometry(40,15,210,120);
+   gbox_tur->setGeometry(20,15,250,120);
    gbox_tur->setStyleSheet("QGroupBox{border:none;}");
 
    tur_btn = new QPushButton();
    tur_btn->setText("确认");
-   tur_btn->setGeometry(200,130,40,20);
+   tur_btn->setGeometry(230,130,40,20);
    gbox_tur->setParent(Turntable);
    //->setParent(Turntable);
    tur_btn->setParent(Turntable);
@@ -420,7 +426,7 @@ void MainWindowgl::init_Zero()
     label2->setGeometry(10,63,450,20);
     zero_confirm_btn = new QPushButton;
     zero_confirm_btn->setText("确认");
-    zero_confirm_btn->setGeometry(360,120,40,20);
+    zero_confirm_btn->setGeometry(400,120,40,20);
     zero_close_btn = new QPushButton("取消");
     zero_close_btn->setGeometry(260,120,40,20);
     zero_btn->setParent(Zero);
@@ -544,10 +550,12 @@ void MainWindowgl::init_move()
 {
     Move = new MvconfigWidget;
     Move->setWindowTitle("移动目标检测配置");
-    Move->setMaximumSize(350,330);
-    Move->setMinimumSize(350,330);
+    Move->setMaximumSize(350,430);
+    Move->setMinimumSize(350,430);
     move_enable = new QLabel("移动目标检测使能：  ");
     move_speed_grade = new QLabel("移动目标检测速度等级：");
+    move_speed_grade->setMinimumSize(200,20);
+    move_speed_grade->setMaximumSize(200,20);
     sensitivity = new QLabel("灵敏度：  ");
     CGlobalDate::Instance()->panrecord4.lock();
     move_enable_checkbox = new QCheckBox;
@@ -572,8 +580,7 @@ void MainWindowgl::init_move()
     QHBoxLayout *h0 = new QHBoxLayout;
     h0->addWidget(move_enable);
     h0->addWidget(move_enable_checkbox);
-    QHBoxLayout *h8 = new QHBoxLayout;
-    h8->addWidget(move_speed_grade);
+
     QHBoxLayout *h1 = new QHBoxLayout;
     h1->addWidget(sensitivity);
     h1->addWidget(sen_high);
@@ -619,6 +626,8 @@ void MainWindowgl::init_move()
 
     gbox_move1 = new QGroupBox;
     gbox_move1->setTitle("检测目标尺寸设置");
+    gbox_move1->setMinimumSize(325,100);
+    gbox_move1->setMaximumSize(325,100);
     QLabel *label1 = new QLabel("最大检测目标：  ");
     QLabel *label2 = new QLabel("最小检测目标：  ");
     QLabel *label3 = new QLabel("*");
@@ -658,6 +667,8 @@ void MainWindowgl::init_move()
 
     gbox_move2 = new QGroupBox;
     gbox_move2->setTitle("检测区域设置（1~16）：");
+    gbox_move2->setMinimumSize(325,100);
+    gbox_move2->setMaximumSize(325,100);
     QLabel *label7 = new QLabel("区域：               ");
     area = new QComboBox;
     area->addItem("1");
@@ -680,7 +691,7 @@ void MainWindowgl::init_move()
     draw_area = new QPushButton("绘制区域");
 
     QLabel *label8 = new QLabel("移动目标延时录像时间:");
-    QLabel *label9 = new QLabel("秒 ");
+    QLabel *label9 = new QLabel("秒               ");
     QHBoxLayout *h5 = new QHBoxLayout;
     h5->addWidget(label7);
     h5->addWidget(area);
@@ -699,7 +710,7 @@ void MainWindowgl::init_move()
     h7->addWidget(label8);
     h7->addWidget(delay_time);
     h7->addWidget(label9);
-    h7->addWidget(move_confirm);
+    move_confirm->setGeometry(290,400,40,20);
 
     CGlobalDate::Instance()->panrecord4.unlock();
     gbox_move1->setStyleSheet("QGroupBox{border:1px solid black;}");
@@ -707,15 +718,16 @@ void MainWindowgl::init_move()
     gbox_move1->setLayout(v1);
     gbox_move2->setLayout(v2);
     QVBoxLayout *v = new QVBoxLayout;
-     v->setSpacing(10);
+     v->setSpacing(15);
      v->addLayout(h0);
      v->addLayout(h1);
-     v->addLayout(h8);
+     v->addWidget(move_speed_grade);
      v->addLayout(h2);
      v->addWidget(gbox_move1);
      v->addWidget(gbox_move2);
      v->addLayout(h7);
      Move->setLayout(v);
+     move_confirm->setParent(Move);
     connect(move_confirm,SIGNAL(clicked(bool)),this,SLOT(move_confirm_click()));
     connect(draw_area,SIGNAL(clicked(bool)),this,SLOT(draw_area_click()));
     connect(clear,SIGNAL(clicked(bool)),this,SLOT(clear_click()));
@@ -822,6 +834,7 @@ void MainWindowgl::init_roadsave()
     roadsave_confirm->setParent(Roadsave);
     connect(screenshot_pass,SIGNAL(clicked(bool)),this,SLOT(screenshot_pass_click()));
     connect(clip_image_pass,SIGNAL(clicked(bool)),this,SLOT(clip_image_pass_click()));
+    connect(roadsave_confirm,SIGNAL(clicked(bool)),this,SLOT(roadsave_confirm_click()));
 }
 
 void MainWindowgl::init_montage()
@@ -914,7 +927,7 @@ void MainWindowgl::init_montage()
     imagerate_edit->setText(str2);
     CGlobalDate::Instance()->panrecord5.unlock();
     montage_confirm = new QPushButton("确认");
-    montage_confirm->setGeometry(250,120,40,20);
+    montage_confirm->setGeometry(270,120,40,20);
     gbox_montage = new QGroupBox();
     QFormLayout *f2=new QFormLayout();
     f2->addRow(swiveltable_speed,swiveltable_speed_comb);
@@ -998,6 +1011,9 @@ void MainWindowgl::showSystem()
 void MainWindowgl::showVideo()
 {
     m_GlobalDate2->Select_configure = 3;
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    m_GlobalDate2->Select_configure = 10;
+    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
     this->openStack[8]->setChecked(false);
@@ -1008,7 +1024,7 @@ void MainWindowgl::showVideo()
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Video->show();
-    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+
 }
 
 void MainWindowgl::showMove()
@@ -1104,6 +1120,7 @@ void MainWindowgl::tur_btn_click()
     m_GlobalDate2->publicvar_v.speed_var = speed->currentIndex();
     qDebug()<<m_GlobalDate2->publicvar_v.speed_var;
     emit slotssendprotocol(Protocol::TURNTABLE);
+    Turntable->close();
 }
 
 void MainWindowgl::ppi_confirm_click()
@@ -1111,11 +1128,13 @@ void MainWindowgl::ppi_confirm_click()
     m_GlobalDate2->ppi = ppi_choose_comb->currentIndex();
     qDebug()<<m_GlobalDate2->ppi;
     emit slotssendprotocol(Protocol::PPICONFIRM);
+    PPI->close();
 }
 
 void MainWindowgl::zero_emit()
 {
     emit slotssendprotocol(Protocol::ZEROCONFIRM);
+    Zero->close();
 }
 void MainWindowgl::therm_btn_click()
 {
@@ -1156,6 +1175,7 @@ void MainWindowgl::therm_btn_click()
    // qDebug()<<m_GlobalDate2->correct_the<<m_GlobalDate2->noice_the<<m_GlobalDate2->detail_the;
    //qDebug()<<m_GlobalDate2->ios;
     emit slotssendprotocol(Protocol::SENSOR);
+    Therm->close();
 }
 
 void MainWindowgl::montage_confirm_click()
@@ -1165,6 +1185,7 @@ void MainWindowgl::montage_confirm_click()
     m_GlobalDate2->imagerate = imagerate_edit->text().toInt();
     qDebug() << m_GlobalDate2->swiveltable_speed << m_GlobalDate2->pixfocus << m_GlobalDate2->imagerate;
     emit slotssendprotocol(Protocol::MONTAGECONFIRM);
+    Montage->close();
 }
 
 void MainWindowgl::time_confirm_click()
@@ -1179,6 +1200,7 @@ void MainWindowgl::time_confirm_click()
     m_GlobalDate2->current_second = time.second();
     qDebug() <<  m_GlobalDate2->current_year << m_GlobalDate2->current_mouth << m_GlobalDate2->current_day << m_GlobalDate2->current_hour << m_GlobalDate2->current_minute << m_GlobalDate2->current_second;
     emit slotssendprotocol(Protocol::CURRENTTIMECONFIRM);
+    Time->close();
 }
 
 void MainWindowgl::time_setting_click()
@@ -1238,6 +1260,7 @@ void MainWindowgl::move_confirm_click()
     qDebug()<<m_GlobalDate2->max_width<<m_GlobalDate2->max_height<<m_GlobalDate2->min_width<<m_GlobalDate2->min_height;
     qDebug()<<m_GlobalDate2->delay_time_;
     emit slotssendprotocol(Protocol::MOVECONFIRM);
+    Move->close();
 }
 
 void MainWindowgl::draw_area_click()
@@ -1270,6 +1293,11 @@ void MainWindowgl::clip_image_pass_click()
     {
         clip_image_edit->setText(filePath_clip_image);
     }
+}
+
+void MainWindowgl::roadsave_confirm_click()
+{
+    Roadsave->close();
 }
 
 void MainWindowgl::sw_update_click()
@@ -3040,6 +3068,7 @@ void MainWindowgl::vedio_confirm_click()
                 m_GlobalDate2->Friday_08_move<<m_GlobalDate2->Friday_916_move<<m_GlobalDate2->Friday_1724_move<<m_GlobalDate2->Saturday_08_move<<m_GlobalDate2->Saturday_916_move<<m_GlobalDate2->Saturday_1724_move<<
                 m_GlobalDate2->Sunday_08_move<<m_GlobalDate2->Sunday_916_move<<m_GlobalDate2->Sunday_1724_move;
       emit slotssendprotocol(Protocol::VEDIOMOVE);
+      Video->close();
 }
 
 void MainWindowgl::sw_update_exit_click()
