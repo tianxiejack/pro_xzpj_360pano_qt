@@ -205,6 +205,13 @@ public:
     void init();
     void reset();
 
+    void panoconfigupdate();
+    void thurableconfigupdate();
+    void moveconfigupdate();
+    void ppiconfigupdate();
+    void themconfigupdate();
+    void versionupdate();
+
 private slots:
     void slotGetOneFrame(QImage img);
 
@@ -279,8 +286,6 @@ private slots:
     void delete_image(int num);
 
     void zero_emit();
-    void zeroclose();
-
     void ppi_confirm_click();
 
     void pause_play();
@@ -322,6 +327,8 @@ private slots:
     void sw_importing();
 
     void mvwidgetclose();
+    void zerocloseslotssendprotocol();
+    void netupdate(int num);
 
 signals:
     void signalSetCalendarTime(const QDate& data);

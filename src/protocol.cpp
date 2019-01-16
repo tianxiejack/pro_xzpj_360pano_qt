@@ -4,7 +4,7 @@
 #include <QFile>
 #include<QFileInfo>
 CGlobalDate* Protocol::m_GlobalDate = 0;
-Protocol::Protocol()
+Protocol::Protocol():updatecall(NULL)
 {
    m_GlobalDate = CGlobalDate::Instance();
 }
@@ -744,7 +744,10 @@ void Protocol::recvevent(unsigned char *buf)
             qDebug()<<m_GlobalDate->vers.maaster_version<<m_GlobalDate->vers.sub_version<< m_GlobalDate->vers.stage_version<<m_GlobalDate->vers.year_version<<m_GlobalDate->vers.mouth_version<<
                       m_GlobalDate->vers.day_version<<m_GlobalDate->vers.min_version<<m_GlobalDate->vers.sec_version<<m_GlobalDate->vers.ab_version;
         CGlobalDate::Instance()->panrecord1.unlock();
+        if(updatecall!=NULL)
+            updatecall(VERSIONGET);
     }
+
     if (buf[0] == GETTURABLE) {
         CGlobalDate::Instance()->panrecord2.lock();
             m_GlobalDate->publicvar_v.addresschoose_var=buf[1];
@@ -752,6 +755,8 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->publicvar_v.baud_rate_var=buf[3];
             m_GlobalDate->publicvar_v.speed_var=buf[4];
         CGlobalDate::Instance()->panrecord2.unlock();
+        if(updatecall!=NULL)
+            updatecall(TURNTABLECONFIG);
     }
 
     if (buf[0] == GETSENOR) {
@@ -765,6 +770,8 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->detail_the = buf[7];
             m_GlobalDate->ios = buf[8];
         CGlobalDate::Instance()->panrecord3.unlock();
+        if(updatecall!=NULL)
+            updatecall(THERMCONFIG);
     }
 
     if (buf[0] == GETMOVE) {
@@ -778,6 +785,8 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->min_height = (buf[10]<<8)|buf[11];
             m_GlobalDate->delay_time_ = (buf[12]<<8)|buf[13];
         CGlobalDate::Instance()->panrecord4.unlock();
+        if(updatecall!=NULL)
+            updatecall(MOVECONFIG);
     }
 
     if (buf[0] == GETMONAGE) {
@@ -786,12 +795,16 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->pixfocus=(buf[2]<<8)|buf[3];
             m_GlobalDate->imagerate = buf[4];
         CGlobalDate::Instance()->panrecord5.unlock();
+        if(updatecall!=NULL)
+            updatecall(PANOCONFIG);
     }
 
     if (buf[0] == GETPPI) {
         CGlobalDate::Instance()->panrecord6.lock();
             m_GlobalDate->ppi = buf[1];
         CGlobalDate::Instance()->panrecord6.unlock();
+        if(updatecall!=NULL)
+            updatecall(PPICONFIG);
     }
 
     if (buf[0] == GETUPDATEFILE) {
@@ -803,7 +816,6 @@ void Protocol::recvevent(unsigned char *buf)
                 m_GlobalDate->checksum ^= buf[m];
         CGlobalDate::Instance()->panrecord7.unlock();
     }
-
  }
 
 void Protocol::updatesoft(QString filePath)
@@ -957,6 +969,11 @@ void Protocol::exportfile(unsigned char *uoutput_array)
 void Protocol::registercallsocke(callsocket fun)
 {
     socketsend=fun;
+}
+
+void Protocol::registerupdatecall(callupdate fun)
+{
+    updatecall=fun;
 }
 QByteArray Protocol::formatoneframe(int length)
 {

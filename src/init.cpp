@@ -10,7 +10,7 @@
 #include <QString>
 #include "mvconfigwidget.h"
 #include <QProgressDialog>
-
+#include <QMessageBox>
 
 void MainWindowgl::menuinit()
 {
@@ -398,7 +398,8 @@ void MainWindowgl::init_Zero()
     label1->setParent(Zero);
     label2->setParent(Zero);
     connect(zero_confirm_btn,SIGNAL(clicked(bool)),this,SLOT(zero_emit()));
-    connect(Zero,SIGNAL(singleclose()),this,SLOT(zeroclose()));
+    connect(Zero,SIGNAL(singleclose()),this,SLOT(zerocloseslotssendprotocol()));
+    //connect(zero_close_btn,SIGNAL(clicked(bool)),this,SLOT(zero_exit()));
 }
 
 void MainWindowgl::init_system()
@@ -521,18 +522,15 @@ void MainWindowgl::init_move()
     move_speed_grade->setMinimumSize(200,20);
     move_speed_grade->setMaximumSize(200,20);
     sensitivity = new QLabel("灵敏度：  ");
-
     move_enable_checkbox = new QCheckBox;
     sen_high = new QCheckBox("高");
     sen_middle = new QCheckBox("中");
     sen_low = new QCheckBox("低");
-
     speed_very_high = new QCheckBox("极高");
     speed_high = new QCheckBox("高");
     speed_middle = new QCheckBox("中");
     speed_low = new QCheckBox("低");
     speed_very_low = new QCheckBox("极低");
-
     move_enable->setGeometry(10,10,60,20);
     QHBoxLayout *h0 = new QHBoxLayout;
     h0->addWidget(move_enable);
@@ -751,7 +749,6 @@ void MainWindowgl::init_roadsave()
 
 void MainWindowgl::init_montage()
 {
-
     Montage = new QWidget;
     Montage->setWindowTitle("拼接配置");
     Montage->setMaximumSize(350,150);
@@ -1232,11 +1229,6 @@ void MainWindowgl::zero_emit()
     Zero->close();
 }
 
-void MainWindowgl::zeroclose()
-{
-    emit slotssendprotocol(Protocol::CLOSEZERO);
-}
-
 void MainWindowgl::therm_btn_click()
 {
     m_GlobalDate2->bright = slider_bright->value();
@@ -1403,7 +1395,7 @@ void MainWindowgl::roadsave_confirm_click()
 
 void MainWindowgl::sw_update_click()
 {
-    filePath_sw_update = QFileDialog::getOpenFileName(this,"open","../");
+    filePath_sw_update = QFileDialog::getOpenFileName(System,"open","../");
     if( false == filePath_sw_update.isEmpty())
     {
         sw_update_edit->setText(filePath_sw_update);
@@ -1412,7 +1404,7 @@ void MainWindowgl::sw_update_click()
 
 void MainWindowgl::sw_import_click()
 {
-    filePath_sw_import = QFileDialog::getOpenFileName(this,"open","../");
+    filePath_sw_import = QFileDialog::getOpenFileName(System,"open","../");
     if( false == filePath_sw_import.isEmpty())
     {
         sw_import_edit->setText(filePath_sw_import);
@@ -1421,7 +1413,7 @@ void MainWindowgl::sw_import_click()
 
 void MainWindowgl::sw_export_click()
 {
-    filePath_sw_export = QFileDialog::getExistingDirectory(this,"choose file","../");
+    filePath_sw_export = QFileDialog::getExistingDirectory(System,"choose file","../");
     if( false == filePath_sw_export.isEmpty())
     {
         sw_export_edit->setText(filePath_sw_export);
@@ -3980,13 +3972,13 @@ void MainWindowgl::sw_updateing()
       {
         for(int j=0;j<20000;j++);
           process.setValue(i);
-        if(process.wasCanceled())
-          break;
+        if(process.wasCanceled()) {
+          QMessageBox::about(NULL,QStringLiteral("提示"),QStringLiteral("升级失败！"));
+          break;}
       }
+     QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
     QString filePath = lab2->text();
     protocol->updatesoft(filePath);
-
-
 
 }
 void MainWindowgl::sw_exporting()
@@ -4002,9 +3994,11 @@ void MainWindowgl::sw_exporting()
       {
         for(int j=0;j<20000;j++);
           process.setValue(i);
-        if(process.wasCanceled())
-          break;
+        if(process.wasCanceled()){
+            QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("导出失败！"));
+            break;}
       }
+     QMessageBox::about(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
     QString filePath=lab_2_->text();
     filePath=filePath+"/config.xml";
     protocol->setexportfile(filePath);
@@ -4024,9 +4018,11 @@ void MainWindowgl::sw_importing()
       {
         for(int j=0;j<20000;j++);
           process.setValue(i);
-        if(process.wasCanceled())
-          break;
+        if(process.wasCanceled()){
+            QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("导入失败！"));
+            break;}
       }
+     QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
 }
 
 void MainWindowgl::mvwidgetclose()
@@ -4036,4 +4032,149 @@ void MainWindowgl::mvwidgetclose()
     m_GlobalDate2->mvconfigenable=0;
      emit slotssendprotocol(Protocol::MVCONFIGEABLE);
 }
+void MainWindowgl::zerocloseslotssendprotocol()
+{
+    qDebug()<<"zerocloseslotssendprotocol"<<endl;
+    emit MainWindowgl::slotssendprotocol(Protocol::CLOSEZERO);
+}
+void MainWindowgl::panoconfigupdate()
+{
 
+    swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
+    QString str1 = QString("%1").arg(m_GlobalDate2->pixfocus);
+    pixfocus_edit->setText(str1);
+    QString str2 = QString("%1").arg(m_GlobalDate2->imagerate);
+    imagerate_edit->setText(str2);
+    Montage->update();
+}
+
+void MainWindowgl::thurableconfigupdate()
+{
+    addresschoose->setCurrentIndex(m_GlobalDate2->publicvar_v.addresschoose_var);
+    protocolchoose->setCurrentIndex(m_GlobalDate2->publicvar_v.protocolchoose_var);
+    baud_rate->setCurrentIndex(m_GlobalDate2->publicvar_v.baud_rate_var);
+    speed->setCurrentIndex(m_GlobalDate2->publicvar_v.speed_var);
+    Turntable->update();
+}
+
+void MainWindowgl::moveconfigupdate()
+{
+    if (m_GlobalDate2->move_enable_ == 1) {
+      move_enable_checkbox->setChecked(true);
+    } else {
+      move_enable_checkbox->setChecked(false);
+    }
+    if (m_GlobalDate2->sensitivity_ == 0) {
+       sen_high->setChecked(true);
+    } else if (m_GlobalDate2->sensitivity_ == 1) {
+       sen_middle->setChecked(true);
+    } else if (m_GlobalDate2->sensitivity_ == 2) {
+       sen_low->setChecked(true);
+    }
+    if (m_GlobalDate2->move_speed_grade_ == 0) {
+       speed_very_high->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 1) {
+       speed_high->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 2) {
+       speed_middle->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 3) {
+        speed_low->setChecked(true);
+    } else if (m_GlobalDate2->move_speed_grade_ == 4) {
+        speed_very_low->setChecked(true);
+    }
+    QString str1 = QString("%1").arg(m_GlobalDate2->max_width);
+    comb_max_width->setText(str1);
+    QString str2 = QString("%1").arg(m_GlobalDate2->max_height);
+    comb_max_height->setText(str2);
+    QString str3 = QString("%1").arg(m_GlobalDate2->min_width);
+    comb_min_width->setText(str3);
+    QString str4 = QString("%1").arg(m_GlobalDate2->min_height);
+    comb_min_height->setText(str4);
+    QString str5 = QString("%1").arg(m_GlobalDate2->delay_time_);
+    delay_time->setText(str5);
+    Move->update();
+}
+
+void MainWindowgl::ppiconfigupdate()
+{
+    ppi_choose_comb->setCurrentIndex(m_GlobalDate2->ppi);
+    if (m_GlobalDate2->ppi == 0) {
+        current_ppi_edit->setText("1920×1080@60hz");
+    } else {
+       current_ppi_edit->setText("1920×1080@30hz");
+    }
+    PPI->update();
+}
+
+void MainWindowgl::themconfigupdate()
+{
+    pSpinBox->setValue(m_GlobalDate2->bright);
+    pSpinBox1->setValue(m_GlobalDate2->contest);
+    if (m_GlobalDate2->correct_the == 1) {
+      correct->setChecked(true);
+    } else {
+      correct->setChecked(false);
+    }
+    if (m_GlobalDate2->auto_bright == 1) {
+      auto_bright->setChecked(true);
+    } else {
+      auto_bright->setChecked(false);
+    }
+    if (m_GlobalDate2->noice_the == 1) {
+      noice_reduce->setChecked(true);
+    } else {
+      noice_reduce->setChecked(false);
+    }
+    if (m_GlobalDate2->detail_the == 1) {
+      detail_enhance->setChecked(true);
+    } else {
+      detail_enhance->setChecked(false);
+    }
+    if (m_GlobalDate2->blackorwhite == 0) {
+      black->setChecked(true);
+    } else {
+      white->setChecked(true);
+    }
+    comb_image->setCurrentIndex(m_GlobalDate2->ios);
+    Therm->update();
+}
+
+void MainWindowgl::versionupdate()
+{
+    if(m_GlobalDate2->vers.ab_version == 0)
+    {
+       ab = "alpha";
+    }else
+    {
+       ab = "beta";
+    }
+    QString str = QString("%1.%2.%3.%4%5%6%7%8%9_%10").arg(m_GlobalDate2->vers.maaster_version).arg(m_GlobalDate2->vers.sub_version).arg(m_GlobalDate2->vers.stage_version).arg(m_GlobalDate2->vers.year_version).arg(m_GlobalDate2->vers.mouth_version).arg(m_GlobalDate2->vers.day_version).arg(m_GlobalDate2->vers.hour_version).arg(m_GlobalDate2->vers.min_version).arg(m_GlobalDate2->vers.sec_version).arg(ab);
+    sw_version_edit->setText(str);
+    System->update();
+}
+void MainWindowgl::netupdate(int num)
+{
+
+    if(num==Protocol::PANOCONFIG)
+    {
+       panoconfigupdate();
+    } else if (num==Protocol::TURNTABLECONFIG)
+    {
+       thurableconfigupdate();
+    } else if (num==Protocol::MOVECONFIG)
+    {
+       moveconfigupdate();
+    } else if (num==Protocol::PPICONFIG)
+    {
+       ppiconfigupdate();
+    } else if (num==Protocol::THERMCONFIG)
+    {
+       themconfigupdate();
+    } else if (num==Protocol::VERSIONGET)
+    {
+       versionupdate();
+    }
+
+
+
+}
