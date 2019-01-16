@@ -398,7 +398,7 @@ void MainWindowgl::init_Zero()
     label1->setParent(Zero);
     label2->setParent(Zero);
     connect(zero_confirm_btn,SIGNAL(clicked(bool)),this,SLOT(zero_emit()));
-    //connect(zero_close_btn,SIGNAL(clicked(bool)),this,SLOT(zero_exit()));
+    connect(Zero,SIGNAL(singleclose()),this,SLOT(zeroclose()));
 }
 
 void MainWindowgl::init_system()
@@ -494,6 +494,7 @@ void MainWindowgl::init_video()
     Video_clear = new QPushButton("清空布防");
     Video_clear->setGeometry(695,200,80,30);
     s4 = new mytablewidget;
+    s4->setEditTriggers(QAbstractItemView::NoEditTriggers);
     s4->setGeometry(3,20,680,240);
     check_time->setParent(Video);
     check_move->setParent(Video);
@@ -1230,6 +1231,12 @@ void MainWindowgl::zero_emit()
     emit slotssendprotocol(Protocol::ZEROCONFIRM);
     Zero->close();
 }
+
+void MainWindowgl::zeroclose()
+{
+    emit slotssendprotocol(Protocol::CLOSEZERO);
+}
+
 void MainWindowgl::therm_btn_click()
 {
     m_GlobalDate2->bright = slider_bright->value();
@@ -1519,10 +1526,789 @@ void MainWindowgl::sw_get_verson_click()
     CGlobalDate::Instance()->panrecord1.unlock();
 }
 
-void MainWindowgl::vedio_color_doubleclick(int, int)
+void MainWindowgl::vedio_color_doubleclick(int row, int column )
 {
+    s4->removeCellWidget(row,column);
+    if ((row==0)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v &=~(1<<n);
+     m_GlobalDate2->Monday_08 &= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Monday_08;
+ }
+    if ((row==0)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Monday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Monday_916;
+ }
+    if((row==0)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Monday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Monday_1724;
+ }
+    if((row==1)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Tuesday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Tuesday_08;
+ }
+    if((row==1)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Tuesday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Tuesday_916;
+ }
+    if((row==1)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Tuesday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Tuesday_1724;
+ }
+    if((row==2)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Wednesday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Wednesday_08;
+ }
+    if((row==2)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Wednesday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Wednesday_916;
+ }
+    if((row==2)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Wednesday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Wednesday_1724;
+ }
+    if((row==3)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Thursday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Thursday_08;
+ }
+    if((row==3)&&(column<16&&column>=8))
+   {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Thursday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Thursday_916;
+ }
+    if((row==3)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Thursday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Thursday_1724;
+ }
+    if((row==4)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Friday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Friday_08;
+ }
+    if((row==4)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Friday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Friday_916;
+ }
+    if((row==4)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Friday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Friday_1724;
+ }
+    if((row==5)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Saturday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Saturday_08;
+ }
+    if((row==5)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Saturday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Saturday_916;
+ }
+    if((row==5)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Saturday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Saturday_1724;
+ }
+    if((row==6)&&(column<8&&column>=0))
+ {
+     int n;
+     switch (column) {
+     case 0:
+         n = 7;
+         break;
+     case 1:
+         n = 6;
+         break;
+     case 2:
+         n = 5;
+         break;
+     case 3:
+         n = 4;
+         break;
+     case 4:
+         n = 3;
+         break;
+     case 5:
+         n = 2;
+         break;
+     case 6:
+         n = 1;
+         break;
+     case 7:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Sunday_08 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Sunday_08;
+ }
+    if((row==6)&&(column<16&&column>=8))
+ {
+     int n;
+     switch (column) {
+     case 8:
+         n = 7;
+         break;
+     case 9:
+         n = 6;
+         break;
+     case 10:
+         n = 5;
+         break;
+     case 11:
+         n = 4;
+         break;
+     case 12:
+         n = 3;
+         break;
+     case 13:
+         n = 2;
+         break;
+     case 14:
+         n = 1;
+         break;
+     case 15:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Sunday_916 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Sunday_916;
+ }
+    if((row==6)&&(column<24&&column>=16))
+ {
+     int n;
+     switch (column) {
+     case 16:
+         n = 7;
+         break;
+     case 17:
+         n = 6;
+         break;
+     case 18:
+         n = 5;
+         break;
+     case 19:
+         n = 4;
+         break;
+     case 20:
+         n = 3;
+         break;
+     case 21:
+         n = 2;
+         break;
+     case 22:
+         n = 1;
+         break;
+     case 23:
+         n = 0;
+         break;
+     default:
+         break;
+     }
+     int v = 0;
+     v |=(1<<n);
+     m_GlobalDate2->Sunday_1724 |= v;
+     v = 0;
+    qDebug()<<m_GlobalDate2->Sunday_1724;
 
-}
+  }
+
+ }
 
 void MainWindowgl::vedio_color_click(int row, int column)
 {

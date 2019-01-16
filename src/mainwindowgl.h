@@ -140,6 +140,7 @@ public:
     QPushButton *Video_confirm;
     QWidget *time_item;
     QWidget *move_item;
+   // QWidget *clear_item;
     /*系统维护配置*/
     QWidget *System;
     QString ab ;
@@ -278,6 +279,7 @@ private slots:
     void delete_image(int num);
 
     void zero_emit();
+    void zeroclose();
 
     void ppi_confirm_click();
 

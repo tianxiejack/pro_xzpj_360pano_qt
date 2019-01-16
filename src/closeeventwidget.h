@@ -9,14 +9,11 @@ class closeeventwidget : public QWidget
 {
     Q_OBJECT
 public:
-    Videowidget *w;
-    Protocol *protocol;
     explicit closeeventwidget(QWidget *parent = nullptr);
     void closeEvent(QCloseEvent *event);
-private slots:
-    void slotssendprotocol(Protocol::PROTOCOL protocol);
-signals:
 
+signals:
+    void singleclose();
 public slots:
 };
 
