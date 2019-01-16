@@ -16,7 +16,7 @@ public:
         MOVECONFIG=0x03,
         PPICONFIG=0x04,
         VERSIONGET=0x05,
-
+        UPDATE=0x06,
     }CONFIG;
     typedef enum
     {

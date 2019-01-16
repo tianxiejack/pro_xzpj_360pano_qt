@@ -809,12 +809,11 @@ void Protocol::recvevent(unsigned char *buf)
 
     if (buf[0] == GETUPDATEFILE) {
         CGlobalDate::Instance()->panrecord7.lock();
-            m_GlobalDate->filesize = (buf[1] << 24) | (buf[2] << 16) << (buf[3] << 8) |buf[4];
-            m_GlobalDate->packet_flag= buf[5];
-            m_GlobalDate->len = (buf[6]<<8)|buf[7];
-            for(int m = 1; m<7+m_GlobalDate->len;m++)
-                m_GlobalDate->checksum ^= buf[m];
+            m_GlobalDate->updateStatus = buf[1];
+            m_GlobalDate->percentageOfReception = buf[2];
         CGlobalDate::Instance()->panrecord7.unlock();
+        if(updatecall!=NULL)
+            updatecall(UPDATE);
     }
  }
 

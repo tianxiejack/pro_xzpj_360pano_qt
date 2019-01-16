@@ -28,6 +28,7 @@
 #include <QDialog>
 #include "closeeventwidget.h"
 #include "titlebar.h"
+#include <QProgressBar>
 
 namespace Ui {
 class MainWindowgl;
@@ -142,6 +143,9 @@ public:
     QWidget *move_item;
    // QWidget *clear_item;
     /*系统维护配置*/
+    QProgressBar *update_ProBar;
+    QProgressBar *import_ProBar;
+    QProgressBar *export_ProBar;
     QWidget *System;
     QString ab ;
     QLabel *sw_version,*sw_update,*sw_import,*sw_export,*label_tishi;
@@ -211,6 +215,8 @@ public:
     void ppiconfigupdate();
     void themconfigupdate();
     void versionupdate();
+    void updateupdate();
+
 
 private slots:
     void slotGetOneFrame(QImage img);

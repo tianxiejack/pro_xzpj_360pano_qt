@@ -9,7 +9,6 @@
 #include <QColor>
 #include <QString>
 #include "mvconfigwidget.h"
-#include <QProgressDialog>
 #include <QMessageBox>
 
 void MainWindowgl::menuinit()
@@ -407,8 +406,8 @@ void MainWindowgl::init_system()
     QFont ft;
     System = new QWidget;
     System->setWindowTitle("系统维护配置");
-    System->setMaximumSize(520,230);
-    System->setMinimumSize(520,230);
+    System->setMaximumSize(570,230);
+    System->setMinimumSize(570,230);
     sw_version = new QLabel("软件版本：");
     sw_update = new QLabel("软件升级：");
     sw_import = new QLabel("参数导入：");
@@ -425,21 +424,40 @@ void MainWindowgl::init_system()
     sw_update_btn1 = new QPushButton("升级");
     sw_import_btn1 = new QPushButton("导入");
     sw_export_btn1 = new QPushButton("导出");
+    update_ProBar = new QProgressBar;
+    update_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
+    update_ProBar->setMinimum(0);  // 最小值
+    update_ProBar->setMaximum(100);  // 最大值
+    update_ProBar->setValue(0);  // 当前进度
+    import_ProBar = new QProgressBar;
+    import_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
+    import_ProBar->setMinimum(0);  // 最小值
+    import_ProBar->setMaximum(100);  // 最大值
+    import_ProBar->setValue(0);  // 当前进度
+    export_ProBar = new QProgressBar;
+    export_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
+    export_ProBar->setMinimum(0);  // 最小值
+    export_ProBar->setMaximum(100);  // 最大值
+    export_ProBar->setValue(0);  // 当前进度
+
+    update_ProBar->setGeometry(430,67,110,30);
+    import_ProBar->setGeometry(430,107,140,30);
+    export_ProBar->setGeometry(430,147,140,30);
     sw_version->setGeometry(10,30,60,20);
     sw_update->setGeometry(10,70,60,20);
     sw_import->setGeometry(10,110,60,20);
     sw_export->setGeometry(10,150,60,20);
     sw_version_edit->setGeometry(73,27,200,30);
-    sw_version_get->setGeometry(350,27,80,30);
+    sw_version_get->setGeometry(340,27,80,30);
     sw_update_edit->setGeometry(73,67,150,30);
     sw_import_edit->setGeometry(73,107,150,30);
     sw_export_edit->setGeometry(73,147,150,30);
     sw_update_btn->setGeometry(245,67,80,30);
     sw_import_btn->setGeometry(245,107,80,30);
     sw_export_btn->setGeometry(245,147,80,30);
-    sw_update_btn1->setGeometry(350,67,80,30);
-    sw_import_btn1->setGeometry(350,107,80,30);
-    sw_export_btn1->setGeometry(350,147,80,30);
+    sw_update_btn1->setGeometry(340,67,80,30);
+    sw_import_btn1->setGeometry(340,107,80,30);
+    sw_export_btn1->setGeometry(340,147,80,30);
     ft.setPointSize(7);
     label_tishi->setFont(ft);
     label_tishi->setGeometry(10,195,500,20);
@@ -459,6 +477,9 @@ void MainWindowgl::init_system()
     sw_import_btn1->setParent(System);
     sw_export_btn1->setParent(System);
     sw_version_get->setParent(System);
+    update_ProBar->setParent(System);
+    import_ProBar->setParent(System);
+    export_ProBar->setParent(System);
     connect(sw_update_btn,SIGNAL(clicked(bool)),this,SLOT(sw_update_click()));
     connect(sw_import_btn,SIGNAL(clicked(bool)),this,SLOT(sw_import_click()));
     connect(sw_export_btn,SIGNAL(clicked(bool)),this,SLOT(sw_export_click()));
@@ -3878,8 +3899,7 @@ void MainWindowgl::vedio_color_click(int row, int column)
       qDebug()<<m_GlobalDate2->Sunday_1724_move;
 
     }
-
-    }
+   }
 }
 
 void MainWindowgl::vedio_clear_click()
@@ -3961,22 +3981,8 @@ void MainWindowgl::sw_export_exit_click()
 }
 void MainWindowgl::sw_updateing()
 {
+
     update_dialog->close();
-    QProgressDialog process(this);
-    process.setWindowTitle("软件升级中");
-      process.setLabelText(tr("processing..."));
-      process.setRange(0,50000);
-      process.setModal(true);
-      process.setCancelButtonText(tr("cancel"));
-     for(int i=0;i<50000;i++)
-      {
-        for(int j=0;j<20000;j++);
-          process.setValue(i);
-        if(process.wasCanceled()) {
-          QMessageBox::about(NULL,QStringLiteral("提示"),QStringLiteral("升级失败！"));
-          break;}
-      }
-     QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
     QString filePath = lab2->text();
     protocol->updatesoft(filePath);
 
@@ -3984,21 +3990,6 @@ void MainWindowgl::sw_updateing()
 void MainWindowgl::sw_exporting()
 {
     export_dialog->close();
-    QProgressDialog process(this);
-    process.setWindowTitle("参数导出中");
-      process.setLabelText(tr("processing..."));
-      process.setRange(0,50000);
-      process.setModal(true);
-      process.setCancelButtonText(tr("cancel"));
-     for(int i=0;i<50000;i++)
-      {
-        for(int j=0;j<20000;j++);
-          process.setValue(i);
-        if(process.wasCanceled()){
-            QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("导出失败！"));
-            break;}
-      }
-     QMessageBox::about(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
     QString filePath=lab_2_->text();
     filePath=filePath+"/config.xml";
     protocol->setexportfile(filePath);
@@ -4008,21 +3999,6 @@ void MainWindowgl::sw_exporting()
 void MainWindowgl::sw_importing()
 {
     import_dialog->close();
-    QProgressDialog process(this);
-    process.setWindowTitle("参数导入中");
-      process.setLabelText(tr("processing..."));
-      process.setRange(0,50000);
-      process.setModal(true);
-      process.setCancelButtonText(tr("cancel"));
-     for(int i=0;i<50000;i++)
-      {
-        for(int j=0;j<20000;j++);
-          process.setValue(i);
-        if(process.wasCanceled()){
-            QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("导入失败！"));
-            break;}
-      }
-     QMessageBox::warning(NULL,QStringLiteral("提示"),QStringLiteral("升级成功！"));
 }
 
 void MainWindowgl::mvwidgetclose()
@@ -4039,7 +4015,6 @@ void MainWindowgl::zerocloseslotssendprotocol()
 }
 void MainWindowgl::panoconfigupdate()
 {
-
     swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
     QString str1 = QString("%1").arg(m_GlobalDate2->pixfocus);
     pixfocus_edit->setText(str1);
@@ -4152,6 +4127,21 @@ void MainWindowgl::versionupdate()
     sw_version_edit->setText(str);
     System->update();
 }
+
+void MainWindowgl::updateupdate()
+{
+    if (m_GlobalDate2->updateStatus == 0x00) {
+        update_ProBar->setFormat(tr("升级中..%1%").arg(m_GlobalDate2->percentageOfReception));
+        update_ProBar->setAlignment(Qt::AlignVCenter);  // 对齐方式
+        update_ProBar->setValue(m_GlobalDate2->percentageOfReception);
+    } else if (m_GlobalDate2->updateStatus == 0x01) {
+        update_ProBar->setFormat(tr("升级成功！"));
+        update_ProBar->setAlignment(Qt::AlignVCenter);  // 对齐方式
+    } else if (m_GlobalDate2->updateStatus == 0x02) {
+        update_ProBar->setFormat(tr("升级失败！"));
+        update_ProBar->setAlignment(Qt::AlignVCenter);  // 对齐方式
+    }
+}
 void MainWindowgl::netupdate(int num)
 {
 
@@ -4173,6 +4163,9 @@ void MainWindowgl::netupdate(int num)
     } else if (num==Protocol::VERSIONGET)
     {
        versionupdate();
+    } else if (num==Protocol::UPDATE)
+    {
+       updateupdate();
     }
 
 

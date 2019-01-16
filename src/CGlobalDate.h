@@ -145,10 +145,8 @@ public:
     int Select_configure;
     int mvconfigenable;
 
-    int packet_flag;
-    qint64 filesize;
-    qint64 len;
-    unsigned char checksum;
+    int updateStatus;
+    int percentageOfReception;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;
