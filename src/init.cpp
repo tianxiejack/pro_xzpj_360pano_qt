@@ -515,6 +515,7 @@ void MainWindowgl::init_video()
     Video_confirm->setParent(Video);
     Video_clear->setParent(Video);
 
+//    connect(s4,SIGNAL(cellChanged(int,int)),this,SLOT(cellChanged_click(int, int)));
     connect(s4,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(vedio_color_doubleclick(int, int)));
     connect(s4,SIGNAL(cellEntered(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(s4,SIGNAL(cellClicked(int, int)),this,SLOT(vedio_color_click(int, int)));
@@ -1535,6 +1536,12 @@ void MainWindowgl::device_reset_click()
     qDebug() << "123";
 }
 
+//void MainWindowgl::cellChanged_click(int row, int column)
+//{
+//   qDebug() << "fdf";
+//   s4->cellWidget(row,column)->setStyleSheet( "QWidget{background-color:rgb(173,203,232)}");
+//}
+
 void MainWindowgl::vedio_color_doubleclick(int row, int column )
 {
     s4->removeCellWidget(row,column);
@@ -2332,17 +2339,14 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
 
 void MainWindowgl::vedio_color_click(int row, int column)
 {
+      s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
+      if (check_time->isChecked()) {
 
-    if (check_time->isChecked()) {
-        s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
-    }
-    else if (check_move->isChecked()) {
-        s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
-    }
-   if (check_time->isChecked()) {
       time_item = new QWidget();
       time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-      s4->setCellWidget(row,column,time_item);
+      if(s4->cellWidget(row,column) == NULL){
+          s4->setCellWidget(row,column,time_item);
+      }
 
       if ((row==0)&&(column<8&&column>=0))
    {
@@ -3127,7 +3131,10 @@ void MainWindowgl::vedio_color_click(int row, int column)
     else if (check_move->isChecked()) {
       move_item = new QWidget;
       move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
-      s4->setCellWidget(row,column,move_item);
+      if(s4->cellWidget(row,column) == NULL){
+         s4->setCellWidget(row,column,move_item);
+      }
+
       if((row==0)&&(column<8&&column>=0))
    {
        int n;

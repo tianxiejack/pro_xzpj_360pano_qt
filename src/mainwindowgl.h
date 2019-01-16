@@ -320,6 +320,7 @@ private slots:
     void sw_export_click1();
     void sw_get_verson_click();
     void device_reset_click();
+//    void cellChanged_click(int, int);
 
     void vedio_color_doubleclick(int, int);
     void vedio_color_click(int row, int column);
