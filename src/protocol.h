@@ -112,6 +112,8 @@ public:
         EXPORTCONFIG,
         MVCONFIGEABLE,
 
+        DEVICERESET=0x69,
+
     }PROTOCOL;
 
     typedef enum

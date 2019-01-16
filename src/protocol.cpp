@@ -679,6 +679,12 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[5]=m_GlobalDate->mvconfigenable;
         return formatoneframe(2);
     }
+    else if(id==DEVICERESET)
+    {
+        send_arr[4]=0x8a;
+        send_arr[5]=1;
+        return formatoneframe(2);
+    }
 
 }
 

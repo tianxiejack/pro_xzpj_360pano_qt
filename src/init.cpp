@@ -425,25 +425,14 @@ void MainWindowgl::init_system()
     sw_update_btn1 = new QPushButton("升级");
     sw_import_btn1 = new QPushButton("导入");
     sw_export_btn1 = new QPushButton("导出");
+    device_reset = new QPushButton("设备重启");
     update_ProBar = new QProgressBar;
     update_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
     update_ProBar->setMinimum(0);  // 最小值
     update_ProBar->setMaximum(100);  // 最大值
     update_ProBar->setValue(0);  // 当前进度
-    import_ProBar = new QProgressBar;
-    import_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
-    import_ProBar->setMinimum(0);  // 最小值
-    import_ProBar->setMaximum(100);  // 最大值
-    import_ProBar->setValue(0);  // 当前进度
-    export_ProBar = new QProgressBar;
-    export_ProBar->setOrientation(Qt::Horizontal);  // 水平方向
-    export_ProBar->setMinimum(0);  // 最小值
-    export_ProBar->setMaximum(100);  // 最大值
-    export_ProBar->setValue(0);  // 当前进度
-
+    device_reset->setGeometry(430,27,80,30);
     update_ProBar->setGeometry(430,67,110,30);
-    import_ProBar->setGeometry(430,107,140,30);
-    export_ProBar->setGeometry(430,147,140,30);
     sw_version->setGeometry(10,30,60,20);
     sw_update->setGeometry(10,70,60,20);
     sw_import->setGeometry(10,110,60,20);
@@ -479,8 +468,7 @@ void MainWindowgl::init_system()
     sw_export_btn1->setParent(System);
     sw_version_get->setParent(System);
     update_ProBar->setParent(System);
-    import_ProBar->setParent(System);
-    export_ProBar->setParent(System);
+    device_reset->setParent(System);
     connect(sw_update_btn,SIGNAL(clicked(bool)),this,SLOT(sw_update_click()));
     connect(sw_import_btn,SIGNAL(clicked(bool)),this,SLOT(sw_import_click()));
     connect(sw_export_btn,SIGNAL(clicked(bool)),this,SLOT(sw_export_click()));
@@ -488,6 +476,7 @@ void MainWindowgl::init_system()
     connect(sw_import_btn1,SIGNAL(clicked(bool)),this,SLOT(sw_import_click1()));
     connect(sw_export_btn1,SIGNAL(clicked(bool)),this,SLOT(sw_export_click1()));
     connect(sw_version_get,SIGNAL(clicked(bool)),this,SLOT(sw_get_verson_click()));
+    connect(device_reset,SIGNAL(clicked(bool)),this,SLOT(device_reset_click()));
 }
 
 void MainWindowgl::init_video()
@@ -1538,6 +1527,12 @@ void MainWindowgl::sw_get_verson_click()
     QString str = QString("%1.%2.%3.%4%5%6%7%8%9_%10").arg(m_GlobalDate2->vers.maaster_version).arg(m_GlobalDate2->vers.sub_version).arg(m_GlobalDate2->vers.stage_version).arg(m_GlobalDate2->vers.year_version).arg(m_GlobalDate2->vers.mouth_version).arg(m_GlobalDate2->vers.day_version).arg(m_GlobalDate2->vers.hour_version).arg(m_GlobalDate2->vers.min_version).arg(m_GlobalDate2->vers.sec_version).arg(ab);
     sw_version_edit->setText(str);
     CGlobalDate::Instance()->panrecord1.unlock();
+}
+
+void MainWindowgl::device_reset_click()
+{
+    emit slotssendprotocol(Protocol::DEVICERESET);
+    qDebug() << "123";
 }
 
 void MainWindowgl::vedio_color_doubleclick(int row, int column )

@@ -156,6 +156,7 @@ public:
     QString filePath_sw_update;
     QString filePath_sw_import;
     QString filePath_sw_export;
+    QPushButton *device_reset;
     /*系统升级*/
     QDialog *update_dialog;
     QLabel *lab1,*lab2,*lab3;
@@ -318,6 +319,7 @@ private slots:
     void sw_import_click1();
     void sw_export_click1();
     void sw_get_verson_click();
+    void device_reset_click();
 
     void vedio_color_doubleclick(int, int);
     void vedio_color_click(int row, int column);
