@@ -18,7 +18,9 @@ public:
     void run();
 
     static void sendcallback(char* buf,int size);
+    static void updatecallback(int num);
 signals:
+    void sendupdate(int num);
    // void readyRead();
    // void channelReadyRead(int channel);
   //  void bytesWritten(qint64 bytes);

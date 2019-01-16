@@ -204,6 +204,8 @@ public:
     void init();
     void reset();
 
+    void panoconfigupdate();
+
 private slots:
     void slotGetOneFrame(QImage img);
 
@@ -320,6 +322,8 @@ private slots:
     void sw_importing();
 
     void mvwidgetclose();
+    void zerocloseslotssendprotocol();
+    void netupdate(int num);
 
 signals:
     void signalSetCalendarTime(const QDate& data);

@@ -18,6 +18,8 @@ Netcom::Netcom(QObject *parent):net_ip("192.168.1.150"),net_port(6666)
     socket_time->start(3000);
 
 }
+
+
 void Netcom::netinit()
 {
     socket->abort();
@@ -36,6 +38,7 @@ void Netcom::netinit()
     if(protocol!=NULL)
     {
         protocol->registercallsocke(sendcallback);
+        protocol->registerupdatecall(updatecallback);
         protocol->setexportfile("config.xml");
     }
 }
@@ -62,6 +65,12 @@ void Netcom::sendcallback(char* buf,int size)
      pthis->socket->flush();
 
     }
+}
+
+void Netcom::updatecallback(int num)
+{
+    qDebug() << "updatecallback!";
+    emit pthis->sendupdate(num);
 }
 void Netcom::run()
 {

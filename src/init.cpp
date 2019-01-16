@@ -398,6 +398,7 @@ void MainWindowgl::init_Zero()
     label1->setParent(Zero);
     label2->setParent(Zero);
     connect(zero_confirm_btn,SIGNAL(clicked(bool)),this,SLOT(zero_emit()));
+    connect(Zero,SIGNAL(singleclose()),this,SLOT(zerocloseslotssendprotocol()));
     //connect(zero_close_btn,SIGNAL(clicked(bool)),this,SLOT(zero_exit()));
 }
 
@@ -3250,4 +3251,29 @@ void MainWindowgl::mvwidgetclose()
     m_GlobalDate2->mvconfigenable=0;
      emit slotssendprotocol(Protocol::MVCONFIGEABLE);
 }
+void MainWindowgl::zerocloseslotssendprotocol()
+{
+    qDebug()<<"zerocloseslotssendprotocol"<<endl;
+    emit MainWindowgl::slotssendprotocol(Protocol::CLOSEZERO);
+}
+void MainWindowgl::panoconfigupdate()
+{
 
+    swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
+    QString str1 = QString("%1").arg(m_GlobalDate2->pixfocus);
+    pixfocus_edit->setText(str1);
+    QString str2 = QString("%1").arg(m_GlobalDate2->imagerate);
+    imagerate_edit->setText(str2);
+    Montage->update();
+}
+void MainWindowgl::netupdate(int num)
+{
+
+    if(num==Protocol::PANOCONFIG)
+    {
+
+       panoconfigupdate();
+
+    }
+
+}

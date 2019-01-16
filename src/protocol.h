@@ -10,6 +10,11 @@ public:
     static CGlobalDate* m_GlobalDate;
     typedef enum
     {
+            PANOCONFIG=0x00,
+
+    }CONFIG;
+    typedef enum
+    {
         LIVESHOW=0x00,
         VIDEOPLAYBACK=0x01,
         PANORAMAAUTOSHOW=0x02,
@@ -130,13 +135,13 @@ public:
     void updatesoft(QString path);
 
     typedef void (* callsocket)(char *buf,int siez);
-
+    typedef void (* callupdate)(int siez);
     void registercallsocke(callsocket fun);
-
+    void registerupdatecall(callupdate fun);
     void exportfile(unsigned char *uoutput_array);
 
     callsocket socketsend;
-
+    callupdate updatecall;
     void setexportfile(QString file)
     {
         expfile.setFileName(file);

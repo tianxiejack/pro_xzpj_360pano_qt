@@ -16,6 +16,7 @@ public:
 private slots:
     void slotssendprotocol(Protocol::PROTOCOL protocol);
 signals:
+    void singleclose();
 
 public slots:
 };

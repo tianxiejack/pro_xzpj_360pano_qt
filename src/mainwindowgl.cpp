@@ -126,6 +126,9 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     connect(s->ui->leftspeed_btn,SIGNAL(clicked()),this,SLOT(video_slow()));
     connect(s->calendarWidget->m_ensureBtn,SIGNAL(clicked()),this,SLOT(video_control()));
     connect(s->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(video_select()));
+
+    connect(&(ui->openGLWidget->net),SIGNAL(sendupdate(int)),this,SLOT(netupdate(int )));
+
   //  connect(s->ui->dateTimeEdit1,SIGNAL(CalendarPopup(bool)),this,SLOT(vedio_rili()));
     panorama_auto_password_init();
     PTZ_hand_password_init();

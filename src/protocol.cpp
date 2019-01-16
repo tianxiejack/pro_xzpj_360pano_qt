@@ -4,7 +4,7 @@
 #include <QFile>
 #include<QFileInfo>
 CGlobalDate* Protocol::m_GlobalDate = 0;
-Protocol::Protocol()
+Protocol::Protocol():updatecall(NULL)
 {
    m_GlobalDate = CGlobalDate::Instance();
 }
@@ -786,6 +786,8 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->pixfocus=(buf[2]<<8)|buf[3];
             m_GlobalDate->imagerate = buf[4];
         CGlobalDate::Instance()->panrecord5.unlock();
+        if(updatecall!=NULL)
+            updatecall(PANOCONFIG);
     }
 
     if (buf[0] == GETPPI) {
@@ -802,6 +804,7 @@ void Protocol::recvevent(unsigned char *buf)
             for(int m = 1; m<7+m_GlobalDate->len;m++)
                 m_GlobalDate->checksum ^= buf[m];
         CGlobalDate::Instance()->panrecord7.unlock();
+
     }
 
  }
@@ -957,6 +960,11 @@ void Protocol::exportfile(unsigned char *uoutput_array)
 void Protocol::registercallsocke(callsocket fun)
 {
     socketsend=fun;
+}
+
+void Protocol::registerupdatecall(callupdate fun)
+{
+    updatecall=fun;
 }
 QByteArray Protocol::formatoneframe(int length)
 {
