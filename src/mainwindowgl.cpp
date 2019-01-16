@@ -90,15 +90,27 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     connect(openStack[5],SIGNAL(triggered()),this,SLOT(panorama_hand_password()));
     connect(w2->slider,SIGNAL(valueChanged(int)),this,SLOT(getslidervalue()));
 
-    connect(w2->left_up,SIGNAL(clicked(bool)),this,SLOT(left_up_btnclicked()));
-    connect(w2->up,SIGNAL(clicked(bool)),this,SLOT(up_btnclicked()));
-    connect(w2->right_up,SIGNAL(clicked(bool)),this,SLOT(right_up_btnclicked()));
-    connect(w2->left,SIGNAL(clicked(bool)),this,SLOT(left_btnclicked()));
-    connect(w2->pause,SIGNAL(clicked(bool)),this,SLOT(pause_btnclicked()));
-    connect(w2->right,SIGNAL(clicked(bool)),this,SLOT(right_btnclicked()));
-    connect(w2->left_down,SIGNAL(clicked(bool)),this,SLOT(left_down_btnclicked()));
-    connect(w2->down,SIGNAL(clicked(bool)),this,SLOT(down_btnclicked()));
-    connect(w2->right_down,SIGNAL(clicked(bool)),this,SLOT(right_down_btnclicked()));
+    connect(w2->left_up,SIGNAL(pressed()),this,SLOT(left_up_btnclicked()));
+    connect(w2->up,SIGNAL(pressed()),this,SLOT(up_btnclicked()));
+    connect(w2->right_up,SIGNAL(pressed()),this,SLOT(right_up_btnclicked()));
+    connect(w2->left,SIGNAL(pressed()),this,SLOT(left_btnclicked()));
+    //connect(w2->pause,SIGNAL(clicked(bool)),this,SLOT(pause_btnclicked()));
+    connect(w2->right,SIGNAL(pressed()),this,SLOT(right_btnclicked()));
+    connect(w2->left_down,SIGNAL(pressed()),this,SLOT(left_down_btnclicked()));
+    connect(w2->down,SIGNAL(pressed()),this,SLOT(down_btnclicked()));
+    connect(w2->right_down,SIGNAL(pressed()),this,SLOT(right_down_btnclicked()));
+
+    connect(w2->left_up,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->up,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->right_up,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->left,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    //connect(w2->pause,SIGNAL(clicked(bool)),this,SLOT(pause_btnclicked()));
+    connect(w2->right,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->left_down,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->down,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+    connect(w2->right_down,SIGNAL(released()),this,SLOT(pause_btnclicked()));
+
+
     connect(w2->focallength_min,SIGNAL(pressed()),this,SLOT(focallength_min_pressed()));
     connect(w2->focallength_min,SIGNAL(released()),this,SLOT(focallength_min_released()));
     connect(w2->focallength_plus,SIGNAL(pressed()),this,SLOT(focallength_plus_pressed()));

@@ -28,11 +28,11 @@ Turntable_widget::Turntable_widget(QWidget *parent) : QWidget(parent)
     left->setObjectName("left");
     left->setMaximumSize(30,30);
     left->setMinimumSize(30,30);
-    pause = new QPushButton;
-    pause->setToolTip("旋转/暂停");
-    pause->setObjectName("pause");
-    pause->setMaximumSize(30,30);
-    pause->setMinimumSize(30,30);
+//    pause = new QPushButton;
+//    pause->setToolTip("旋转/暂停");
+//    pause->setObjectName("pause");
+//    pause->setMaximumSize(30,30);
+//    pause->setMinimumSize(30,30);
     right = new QPushButton;
     right->setToolTip("右");
     right->setObjectName("right");
@@ -58,7 +58,7 @@ Turntable_widget::Turntable_widget(QWidget *parent) : QWidget(parent)
     g1->addWidget(up,0,1);
     g1->addWidget(right_up,0,2);
     g1->addWidget(left,1,0);
-    g1->addWidget(pause,1,1);
+//    g1->addWidget(pause,1,1);
     g1->addWidget(right,1,2);
     g1->addWidget(left_down,2,0);
     g1->addWidget(down,2,1);

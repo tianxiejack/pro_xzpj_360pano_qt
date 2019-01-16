@@ -23,7 +23,6 @@ public:
     QPushButton *up;
     QPushButton *right_up;
     QPushButton *left;
-    QPushButton *pause;
     QPushButton *right;
     QPushButton *left_down;
     QPushButton *down;

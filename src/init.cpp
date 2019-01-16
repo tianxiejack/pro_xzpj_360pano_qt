@@ -414,6 +414,7 @@ void MainWindowgl::init_system()
     sw_export = new QLabel("参数导出：");
     label_tishi = new QLabel("提示：软件升级、导入导出参数等过程需要1-20分钟，请不要关闭电源，软件升级、导入参数完成后请断电重启。");
     sw_version_edit = new QLineEdit;
+    sw_version_edit->setReadOnly(true);
     sw_update_edit = new QLineEdit;
     sw_import_edit = new QLineEdit;
     sw_export_edit = new QLineEdit;
@@ -1576,8 +1577,8 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
      int v = 0;
      v &=~(1<<n);
      m_GlobalDate2->Monday_08 &= v;
+     m_GlobalDate2->Monday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Monday_08;
  }
     if ((row==0)&&(column<16&&column>=8))
  {
@@ -1611,10 +1612,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Monday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Monday_916 &= v;
+     m_GlobalDate2->Monday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Monday_916;
  }
     if((row==0)&&(column<24&&column>=16))
  {
@@ -1648,10 +1649,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Monday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Monday_1724 &= v;
+     m_GlobalDate2->Monday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Monday_1724;
  }
     if((row==1)&&(column<8&&column>=0))
  {
@@ -1685,10 +1686,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Tuesday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Tuesday_08 &= v;
+     m_GlobalDate2->Tuesday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Tuesday_08;
  }
     if((row==1)&&(column<16&&column>=8))
  {
@@ -1722,10 +1723,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Tuesday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Tuesday_916 &= v;
+     m_GlobalDate2->Tuesday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Tuesday_916;
  }
     if((row==1)&&(column<24&&column>=16))
  {
@@ -1759,10 +1760,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Tuesday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Tuesday_1724 &= v;
+     m_GlobalDate2->Tuesday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Tuesday_1724;
  }
     if((row==2)&&(column<8&&column>=0))
  {
@@ -1796,10 +1797,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Wednesday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Wednesday_08 &= v;
+     m_GlobalDate2->Wednesday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Wednesday_08;
  }
     if((row==2)&&(column<16&&column>=8))
  {
@@ -1833,10 +1834,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Wednesday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Wednesday_916 &= v;
+     m_GlobalDate2->Wednesday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Wednesday_916;
  }
     if((row==2)&&(column<24&&column>=16))
  {
@@ -1870,10 +1871,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Wednesday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Wednesday_1724 &= v;
+     m_GlobalDate2->Wednesday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Wednesday_1724;
  }
     if((row==3)&&(column<8&&column>=0))
  {
@@ -1907,10 +1908,10 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Thursday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Thursday_08 &= v;
+     m_GlobalDate2->Thursday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Thursday_08;
  }
     if((row==3)&&(column<16&&column>=8))
    {
@@ -1944,10 +1945,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Thursday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Thursday_916 &= v;
+     m_GlobalDate2->Thursday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Thursday_916;
+    //qDebug()<<m_GlobalDate2->Thursday_916;
  }
     if((row==3)&&(column<24&&column>=16))
  {
@@ -1981,10 +1983,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Thursday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Thursday_1724 &= v;
+     m_GlobalDate2->Thursday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Thursday_1724;
+   // qDebug()<<m_GlobalDate2->Thursday_1724;
  }
     if((row==4)&&(column<8&&column>=0))
  {
@@ -2018,10 +2021,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Friday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Friday_08 &= v;
+     m_GlobalDate2->Friday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Friday_08;
+    //qDebug()<<m_GlobalDate2->Friday_08;
  }
     if((row==4)&&(column<16&&column>=8))
  {
@@ -2055,10 +2059,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Friday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Friday_916 &= v;
+     m_GlobalDate2->Friday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Friday_916;
+   // qDebug()<<m_GlobalDate2->Friday_916;
  }
     if((row==4)&&(column<24&&column>=16))
  {
@@ -2092,10 +2097,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Friday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Friday_1724 &= v;
+     m_GlobalDate2->Friday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Friday_1724;
+    //qDebug()<<m_GlobalDate2->Friday_1724;
  }
     if((row==5)&&(column<8&&column>=0))
  {
@@ -2129,10 +2135,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Saturday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Saturday_08 &= v;
+     m_GlobalDate2->Saturday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Saturday_08;
+    //qDebug()<<m_GlobalDate2->Saturday_08;
  }
     if((row==5)&&(column<16&&column>=8))
  {
@@ -2166,10 +2173,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Saturday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Saturday_916 &= v;
+     m_GlobalDate2->Saturday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Saturday_916;
+   // qDebug()<<m_GlobalDate2->Saturday_916;
  }
     if((row==5)&&(column<24&&column>=16))
  {
@@ -2203,10 +2211,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Saturday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Saturday_1724 &= v;
+     m_GlobalDate2->Saturday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Saturday_1724;
+  //  qDebug()<<m_GlobalDate2->Saturday_1724;
  }
     if((row==6)&&(column<8&&column>=0))
  {
@@ -2240,10 +2249,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Sunday_08 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Sunday_08 &= v;
+     m_GlobalDate2->Sunday_08_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Sunday_08;
+   // qDebug()<<m_GlobalDate2->Sunday_08;
  }
     if((row==6)&&(column<16&&column>=8))
  {
@@ -2277,10 +2287,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Sunday_916 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Sunday_916 &= v;
+     m_GlobalDate2->Sunday_916_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Sunday_916;
+   // qDebug()<<m_GlobalDate2->Sunday_916;
  }
     if((row==6)&&(column<24&&column>=16))
  {
@@ -2314,10 +2325,11 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v |=(1<<n);
-     m_GlobalDate2->Sunday_1724 |= v;
+     v &=(1<<n);
+     m_GlobalDate2->Sunday_1724 &= v;
+     m_GlobalDate2->Sunday_1724_move &= v;
      v = 0;
-    qDebug()<<m_GlobalDate2->Sunday_1724;
+    //qDebug()<<m_GlobalDate2->Sunday_1724;
 
   }
 
