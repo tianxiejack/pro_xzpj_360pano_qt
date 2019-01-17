@@ -147,6 +147,10 @@ public:
 
     int updateStatus;
     int percentageOfReception;
+    int value_1;
+    int crossshow;
+    int crossmove;
+    int saveornot;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;

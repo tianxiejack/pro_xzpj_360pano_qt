@@ -42,11 +42,11 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     color_1->setMinimumSize(QSize(18, 18));
     color_1->setMaximumSize(QSize(18, 18));
     color_1->setSizeIncrement(QSize(18, 18));
-    color_1->setStyleSheet(QStringLiteral("background-color: rgb(0, 170, 0);"));
+    color_1->setStyleSheet(QStringLiteral("background-color: rgb(0,179,244);"));
     color_2->setMinimumSize(QSize(18, 18));
     color_2->setMaximumSize(QSize(18, 18));
     color_2->setSizeIncrement(QSize(18, 18));
-    color_2->setStyleSheet(QStringLiteral("background-color: rgb(0, 170, 255);"));
+    color_2->setStyleSheet(QStringLiteral("background-color: rgb(146,208,80);"));
     color_3->setMinimumSize(QSize(18, 18));
     color_3->setMaximumSize(QSize(18, 18));
     color_3->setSizeIncrement(QSize(18, 18));
@@ -212,15 +212,17 @@ void MainWindowgl::panorama_auto_show()
     if (panorama_auto_edit->text().operator==("1234")) {
         value = 0;
         reset();
-        this->openStack[3]->setChecked(true);
-        this->openStack[4]->setChecked(false);
-        this->openStack[5]->setChecked(false);
         panorama_auto_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAAUTOSHOW);
         panorama_auto_password_w->close();
+        m_GlobalDate2->value_1 = 1;
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
     } else {
-       panorama_auto_edit->clear();
        panorama_auto_edit->setPlaceholderText("密码错误，请重新输入");
+       panorama_auto_edit->clear();
+
     }
 }
 
@@ -229,21 +231,21 @@ void MainWindowgl::PTZ_hand_show()
     QString a = PTZ_hand_edit->text();
     if(a=="1234")
     {
-    value = 1;
-    reset();
-
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(true);
-    this->openStack[5]->setChecked(false);
-    g->addWidget(w2,0,1);
-    ui->openGLWidget->resize(1500,1200);
-
+        value = 1;
+        reset();
+        g->addWidget(w2,0,1);
+        ui->openGLWidget->resize(1500,1200);
         PTZ_hand_edit->clear();
         emit slotssendprotocol(Protocol::PTZHANDSHOW);
         PTZ_hand_password_w->close();
+        m_GlobalDate2->value_1 = 2;
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
     } else {
-        PTZ_hand_edit->clear();
         PTZ_hand_edit->setPlaceholderText("密码错误，请重新输入");
+        PTZ_hand_edit->clear();
+
     }
 }
 
@@ -252,22 +254,20 @@ void MainWindowgl::panorama_hand_show()
     QString a = panorama_hand_edit->text();
     if(a=="1234")
     {
-    value = 2;
-    reset();
-
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(true);
-    g->addWidget(w1,0,1);
-    ui->openGLWidget->resize(1500,1200);
-
+        value = 2;
+        reset();
+        g->addWidget(w1,0,1);
+        ui->openGLWidget->resize(1500,1200);
         panorama_hand_edit->clear();
         emit slotssendprotocol(Protocol::PANORAMAHANDSHOW);
         panorama_hand_password_w->close();
+        m_GlobalDate2->value_1 = 3;
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
     } else {
-
-        panorama_hand_edit->clear();
         panorama_hand_edit->setPlaceholderText("密码错误，请重新输入");
+        panorama_hand_edit->clear();
     }
 
 }
@@ -276,52 +276,162 @@ void MainWindowgl::panorama_hand_show()
 void MainWindowgl::panorama_auto_password()
 {
 
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
+    PTZ_hand_password_w->close();
+    panorama_hand_password_w->close();
   //  panorama_auto_password_w->update();
-    panorama_auto_password_w->show();
+    if(m_GlobalDate2->value_1 != 1)
+        panorama_auto_password_w->show();
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
 
 }
 
 void MainWindowgl::PTZ_hand_password()
 {
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
-
-    PTZ_hand_password_w->show();
+    panorama_auto_password_w->close();
+    panorama_hand_password_w->close();
+    if(m_GlobalDate2->value_1 != 2)
+        PTZ_hand_password_w->show();
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
 }
 
 void MainWindowgl::panorama_hand_password()
 {
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
-    panorama_hand_password_w->show();
+    panorama_auto_password_w->close();
+    PTZ_hand_password_w->close();
+    if(m_GlobalDate2->value_1 != 3)
+        panorama_hand_password_w->show();
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
 }
 
 void MainWindowgl::exit_1()
 {
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
     panorama_auto_password_w->close();
 }
 
 void MainWindowgl::exit_2()
 {
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
     PTZ_hand_password_w->close();
 }
 
 void MainWindowgl::exit_3()
 {
-    this->openStack[3]->setChecked(false);
-    this->openStack[4]->setChecked(false);
-    this->openStack[5]->setChecked(false);
+    if(m_GlobalDate2->value_1 == 1)
+    {
+        this->openStack[3]->setChecked(true);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    } else  if (m_GlobalDate2->value_1 == 2)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(true);
+        this->openStack[5]->setChecked(false);
+    }  else  if (m_GlobalDate2->value_1 == 3)
+    {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(true);
+    } else {
+        this->openStack[3]->setChecked(false);
+        this->openStack[4]->setChecked(false);
+        this->openStack[5]->setChecked(false);
+    }
     panorama_hand_password_w->close();
 }
 

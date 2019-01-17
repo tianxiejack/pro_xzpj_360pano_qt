@@ -64,12 +64,14 @@ public:
     QPushButton *exit3;
 
     /*转台配置*/
+//    QPushButton *test1;
     QWidget *Turntable;
     QString tur_s[4]={"地址选择:  ","协议选择:  ","波特率:  ","转速:  "};
     QComboBox *addresschoose,*protocolchoose,*baud_rate,*speed;
     QGroupBox *gbox_tur;
     QPushButton *tur_btn;
     /*热像传感器*/
+//    QPushButton *test;
     QWidget *Therm;
     QString therm_s1[4]={"亮度:  ","对比度:  ","自动亮度对比度:  ","极性： "};
     QString therm_s2[4]={"非均匀性矫正:    ","数字滤波降噪:    ","数字细节增强:    ","转速:    "};
@@ -338,6 +340,8 @@ private slots:
     void mvwidgetclose();
     void zerocloseslotssendprotocol();
     void netupdate(int num);
+
+    void test_click();
 
 signals:
     void signalSetCalendarTime(const QDate& data);

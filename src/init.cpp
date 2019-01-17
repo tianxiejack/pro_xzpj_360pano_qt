@@ -196,6 +196,8 @@ void MainWindowgl::panorama_hand_password_init()
 }
 void MainWindowgl::init_Turntable()
 {
+//   test1 = new QPushButton("测试");
+
    Turntable = new QWidget();
    Turntable->setWindowTitle("转台配置");
    Turntable->setMaximumSize(300,160);
@@ -296,11 +298,15 @@ void MainWindowgl::init_Turntable()
    gbox_tur->setParent(Turntable);
    //->setParent(Turntable);
    tur_btn->setParent(Turntable);
+//   test1->setParent(Turntable);
+//   connect(test1,SIGNAL(clicked(bool)),this,SLOT(test_click()));
    connect(tur_btn,SIGNAL(clicked(bool)),this,SLOT(tur_btn_click()));
 }
 
 void MainWindowgl::init_Thermalimage()
 {
+//     test = new QPushButton("测试");
+
      Therm = new QWidget();
      Therm->setWindowTitle("热像传感器配置");
      Therm->setMaximumSize(350,320);
@@ -321,7 +327,6 @@ void MainWindowgl::init_Thermalimage()
      slider_contrast->setMaximum(255);
      connect(pSpinBox, SIGNAL(valueChanged(int)), slider_bright, SLOT(setValue(int)));
      connect(slider_bright, SIGNAL(valueChanged(int)), pSpinBox, SLOT(setValue(int)));
-
      connect(pSpinBox1, SIGNAL(valueChanged(int)), slider_contrast, SLOT(setValue(int)));
      connect(slider_contrast, SIGNAL(valueChanged(int)), pSpinBox1, SLOT(setValue(int)));
      auto_bright = new QCheckBox;    
@@ -367,6 +372,8 @@ void MainWindowgl::init_Thermalimage()
      pSpinBox1->setParent(Therm);
      white->setParent(Therm);
      therm_confirm->setParent(Therm);
+//     test->setParent(Therm);
+//     connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
      connect(therm_confirm,SIGNAL(clicked(bool)),this,SLOT(therm_btn_click()));
 }
 
@@ -525,6 +532,7 @@ void MainWindowgl::init_video()
 
 void MainWindowgl::init_move()
 {
+//    test = new QPushButton("测试");
     Move = new MvconfigWidget;
     Move->setWindowTitle("移动目标检测配置");
     Move->setMaximumSize(350,430);
@@ -659,6 +667,9 @@ void MainWindowgl::init_move()
      v->addLayout(h7);
      Move->setLayout(v);
      move_confirm->setParent(Move);
+//     test->setGeometry(1,1,40,20);
+//      test->setParent(Move);
+//       connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
     connect(move_confirm,SIGNAL(clicked(bool)),this,SLOT(move_confirm_click()));
     connect(draw_area,SIGNAL(clicked(bool)),this,SLOT(draw_area_click()));
     connect(clear,SIGNAL(clicked(bool)),this,SLOT(clear_click()));
@@ -668,6 +679,7 @@ void MainWindowgl::init_move()
 
 void MainWindowgl::init_ppi()
 {
+//    test = new QPushButton("测试");
     PPI = new QWidget;
     PPI->setWindowTitle("输出分辨率配置");
     PPI->setMaximumSize(300,150);
@@ -678,7 +690,7 @@ void MainWindowgl::init_ppi()
     ppi_choose_comb->addItem("1920×1080@30hz");
     current_ppi = new QLabel("当前输出分辨率：");
     current_ppi_edit = new QLineEdit;
-
+    current_ppi_edit->setReadOnly(true);
     ppi_confirm = new QPushButton;
     ppi_confirm->setText("确认");
     ppi_confirm->setGeometry(230,110,40,20);
@@ -691,6 +703,8 @@ void MainWindowgl::init_ppi()
     gbox_ppi->setStyleSheet("QGroupBox{border:none;}");
     gbox_ppi->setParent(PPI);
     ppi_confirm->setParent(PPI);
+//      test->setParent(PPI);
+//      connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
     connect(ppi_confirm,SIGNAL(clicked(bool)),this,SLOT(ppi_confirm_click()));
 }
 
@@ -916,9 +930,10 @@ void MainWindowgl::showTherm()
     Roadsave->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+
     CGlobalDate::Instance()->panrecord3.lock();
-    pSpinBox->setValue(m_GlobalDate2->bright);
-    pSpinBox1->setValue(m_GlobalDate2->contest);
+    slider_bright->setValue(m_GlobalDate2->bright);
+    slider_contrast->setValue(m_GlobalDate2->contest);
     if (m_GlobalDate2->correct_the == 1) {
       correct->setChecked(true);
     } else {
@@ -946,6 +961,7 @@ void MainWindowgl::showTherm()
     }
     comb_image->setCurrentIndex(m_GlobalDate2->ios);
     CGlobalDate::Instance()->panrecord3.unlock();
+
     Therm->update();
 }
 
@@ -1535,12 +1551,6 @@ void MainWindowgl::device_reset_click()
     emit slotssendprotocol(Protocol::DEVICERESET);
     qDebug() << "123";
 }
-
-//void MainWindowgl::cellChanged_click(int row, int column)
-//{
-//   qDebug() << "fdf";
-//   s4->cellWidget(row,column)->setStyleSheet( "QWidget{background-color:rgb(173,203,232)}");
-//}
 
 void MainWindowgl::vedio_color_doubleclick(int row, int column )
 {
@@ -4097,8 +4107,8 @@ void MainWindowgl::ppiconfigupdate()
 
 void MainWindowgl::themconfigupdate()
 {
-    pSpinBox->setValue(m_GlobalDate2->bright);
-    pSpinBox1->setValue(m_GlobalDate2->contest);
+    slider_bright->setValue(m_GlobalDate2->bright);
+    slider_contrast->setValue(m_GlobalDate2->contest);
     if (m_GlobalDate2->correct_the == 1) {
       correct->setChecked(true);
     } else {
@@ -4184,4 +4194,22 @@ void MainWindowgl::netupdate(int num)
 
 
 
+}
+
+void MainWindowgl::test_click()
+{
+//    m_GlobalDate2->ppi = 1;
+//    m_GlobalDate2->max_width=20;
+//    m_GlobalDate2->publicvar_v.addresschoose_var=1;
+//    m_GlobalDate2->publicvar_v.protocolchoose_var=1;
+//    m_GlobalDate2->publicvar_v.baud_rate_var=1;
+//    m_GlobalDate2->publicvar_v.speed_var=1;
+//    m_GlobalDate2->bright =12;
+//    m_GlobalDate2->contest= 15;
+//    m_GlobalDate2->correct_the=1;
+//    m_GlobalDate2->auto_bright=1;
+//    m_GlobalDate2->noice_the=1;
+//    m_GlobalDate2->detail_the=1;
+//    m_GlobalDate2->blackorwhite=1;
+//    m_GlobalDate2->ios=2;
 }

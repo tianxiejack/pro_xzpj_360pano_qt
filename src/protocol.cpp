@@ -775,6 +775,9 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->noice_the = buf[6];
             m_GlobalDate->detail_the = buf[7];
             m_GlobalDate->ios = buf[8];
+            m_GlobalDate->crossshow = buf[9];
+            m_GlobalDate->crossmove = buf[10];
+            m_GlobalDate->saveornot = buf[11];
         CGlobalDate::Instance()->panrecord3.unlock();
         if(updatecall!=NULL)
             updatecall(THERMCONFIG);
