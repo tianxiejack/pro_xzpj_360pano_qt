@@ -30,6 +30,7 @@
 #include "titlebar.h"
 #include <QProgressBar>
 
+
 namespace Ui {
 class MainWindowgl;
 }

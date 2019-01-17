@@ -269,13 +269,11 @@ void MainWindowgl::panorama_hand_show()
         panorama_hand_edit->setPlaceholderText("密码错误，请重新输入");
         panorama_hand_edit->clear();
     }
-
 }
-
 
 void MainWindowgl::panorama_auto_password()
 {
-
+    panorama_auto_edit->setPlaceholderText("  ");
     PTZ_hand_password_w->close();
     panorama_hand_password_w->close();
   //  panorama_auto_password_w->update();
@@ -306,6 +304,7 @@ void MainWindowgl::panorama_auto_password()
 
 void MainWindowgl::PTZ_hand_password()
 {
+    PTZ_hand_edit->setPlaceholderText("  ");
     panorama_auto_password_w->close();
     panorama_hand_password_w->close();
     if(m_GlobalDate2->value_1 != 2)
@@ -334,6 +333,7 @@ void MainWindowgl::PTZ_hand_password()
 
 void MainWindowgl::panorama_hand_password()
 {
+    panorama_hand_edit->setPlaceholderText("  ");
     panorama_auto_password_w->close();
     PTZ_hand_password_w->close();
     if(m_GlobalDate2->value_1 != 3)
@@ -458,6 +458,7 @@ void MainWindowgl::getslidervalue()
 
 void MainWindowgl::left_up_btnclicked()
 {
+    qDebug() << m_GlobalDate2->ptspeed;
     emit slotssendprotocol(Protocol::LEFTUP);
 }
 

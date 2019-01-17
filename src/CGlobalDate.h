@@ -50,7 +50,7 @@ class CGlobalDate
 public:
     ~CGlobalDate();
     static CGlobalDate* Instance();
-    int ptspeed;
+    int ptspeed = 0x20;
     int x3,y3;
     int r_x3,r_y3;
     int image_id;

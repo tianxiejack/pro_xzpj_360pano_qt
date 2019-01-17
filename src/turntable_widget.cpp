@@ -118,7 +118,7 @@ Turntable_widget::Turntable_widget(QWidget *parent) : QWidget(parent)
 
     pSpinbox = new QSpinBox;
     pSpinbox->setGeometry(210,153,40,20);
-    pSpinbox->setMinimum(0);  // 最小值
+    pSpinbox->setMinimum(0x00);  // 最小值
     pSpinbox->setMaximum(0x64);  // 最大值
     pSpinbox->setValue(0x20);
     pSpinbox->setParent(this);
