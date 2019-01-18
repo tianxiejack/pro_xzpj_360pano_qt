@@ -198,7 +198,7 @@ void MainWindowgl::init_Turntable()
 {
 //   test1 = new QPushButton("测试");
 
-   Turntable = new QWidget();
+   Turntable = new closeeventwidget();
    Turntable->setWindowTitle("转台配置");
    Turntable->setMaximumSize(300,160);
    Turntable->setMinimumSize(300,160);
@@ -299,13 +299,14 @@ void MainWindowgl::init_Turntable()
 //   test1->setParent(Turntable);
 //   connect(test1,SIGNAL(clicked(bool)),this,SLOT(test_click()));
    connect(tur_btn,SIGNAL(clicked(bool)),this,SLOT(tur_btn_click()));
+   connect(Turntable,SIGNAL(singleclose()),this,SLOT(Turntablecloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_Thermalimage()
 {
 //     test = new QPushButton("测试");
 
-     Therm = new QWidget();
+     Therm = new closeeventwidget();
      Therm->setWindowTitle("热像传感器配置");
      Therm->setMaximumSize(350,320);
      Therm->setMinimumSize(350,320);  
@@ -373,6 +374,7 @@ void MainWindowgl::init_Thermalimage()
 //     test->setParent(Therm);
 //     connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
      connect(therm_confirm,SIGNAL(clicked(bool)),this,SLOT(therm_btn_click()));
+     connect(Therm,SIGNAL(singleclose()),this,SLOT(Thermcloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_Zero()
@@ -408,8 +410,11 @@ void MainWindowgl::init_Zero()
 
 void MainWindowgl::init_system()
 {
+    update_dialog = new QDialog;
+    export_dialog = new QDialog;
+    import_dialog = new QDialog;
     QFont ft;
-    System = new QWidget;
+    System = new closeeventwidget;
     System->setWindowTitle("系统维护配置");
     System->setMaximumSize(570,230);
     System->setMinimumSize(570,230);
@@ -482,13 +487,15 @@ void MainWindowgl::init_system()
     connect(sw_export_btn1,SIGNAL(clicked(bool)),this,SLOT(sw_export_click1()));
     connect(sw_version_get,SIGNAL(clicked(bool)),this,SLOT(sw_get_verson_click()));
     connect(device_reset,SIGNAL(clicked(bool)),this,SLOT(device_reset_click()));
+    connect(System,SIGNAL(singleclose()),this,SLOT(Systemcloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_video()
 {
+//    test = new QPushButton("测试");
     QLabel *label = new QLabel("录像布防");
     label->setGeometry(3,1,60,17);
-    Video = new QWidget;
+    Video = new closeeventwidget;
     Video->setWindowTitle("录像配置");
     Video->setMaximumSize(800,350);
     Video->setMinimumSize(600,350);
@@ -520,12 +527,16 @@ void MainWindowgl::init_video()
     Video_confirm->setParent(Video);
     Video_clear->setParent(Video);
 
+//       test->setGeometry(695,320,40,20);
+//       test->setParent(Video);
+//       connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
 //    connect(s4,SIGNAL(cellChanged(int,int)),this,SLOT(cellChanged_click(int, int)));
     connect(s4,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(vedio_color_doubleclick(int, int)));
     connect(s4,SIGNAL(cellEntered(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(s4,SIGNAL(cellClicked(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(Video_clear,SIGNAL(clicked(bool)),this,SLOT(vedio_clear_click()));
     connect(Video_confirm,SIGNAL(clicked(bool)),this,SLOT(vedio_confirm_click()));
+    connect(Video,SIGNAL(singleclose()),this,SLOT(Videocloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_move()
@@ -677,8 +688,8 @@ void MainWindowgl::init_move()
 
 void MainWindowgl::init_ppi()
 {
-//    test = new QPushButton("测试");
-    PPI = new QWidget;
+
+    PPI = new closeeventwidget;
     PPI->setWindowTitle("输出分辨率配置");
     PPI->setMaximumSize(300,150);
     PPI->setMinimumSize(300,150);
@@ -701,14 +712,15 @@ void MainWindowgl::init_ppi()
     gbox_ppi->setStyleSheet("QGroupBox{border:none;}");
     gbox_ppi->setParent(PPI);
     ppi_confirm->setParent(PPI);
-//      test->setParent(PPI);
-//      connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
+//      test1->setParent(PPI);
+//      connect(test1,SIGNAL(clicked(bool)),this,SLOT(test_click()));
     connect(ppi_confirm,SIGNAL(clicked(bool)),this,SLOT(ppi_confirm_click()));
+    connect(PPI,SIGNAL(singleclose()),this,SLOT(PPIcloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_time()
 {
-    Time = new QWidget;
+    Time = new closeeventwidget;
     Time->setWindowTitle("设定时间配置");
     Time->setMaximumSize(300,150);
     Time->setMinimumSize(300,150);
@@ -729,11 +741,12 @@ void MainWindowgl::init_time()
     timeDisplay->setParent(Time);
     connect(time_confirm,SIGNAL(clicked(bool)),this,SLOT(time_confirm_click()));
     connect(time_setting,SIGNAL(clicked(bool)),this,SLOT(time_setting_click()));
+    connect(Time,SIGNAL(singleclose()),this,SLOT(Timecloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_roadsave()
 {
-    Roadsave = new QWidget;
+    Roadsave = new closeeventwidget;
     Roadsave->setWindowTitle("抓图和剪辑保存路径配置");
     Roadsave->setMaximumSize(460,200);
     Roadsave->setMinimumSize(460,200);
@@ -769,11 +782,12 @@ void MainWindowgl::init_roadsave()
     connect(screenshot_pass,SIGNAL(clicked(bool)),this,SLOT(screenshot_pass_click()));
     connect(clip_image_pass,SIGNAL(clicked(bool)),this,SLOT(clip_image_pass_click()));
     connect(roadsave_confirm,SIGNAL(clicked(bool)),this,SLOT(roadsave_confirm_click()));
+    connect(Roadsave,SIGNAL(singleclose()),this,SLOT(Roadsavecloseslotssendprotocol()));
 }
 
 void MainWindowgl::init_montage()
 {
-    Montage = new QWidget;
+    Montage = new closeeventwidget;
     Montage->setWindowTitle("拼接配置");
     Montage->setMaximumSize(350,150);
     Montage->setMinimumSize(350,150);
@@ -869,6 +883,7 @@ void MainWindowgl::init_montage()
     montage_confirm->setParent(Montage);
     gbox_montage->setParent(Montage);
     connect(montage_confirm,SIGNAL(clicked(bool)),this,SLOT(montage_confirm_click()));
+    connect(Montage,SIGNAL(singleclose()),this,SLOT(Montagecloseslotssendprotocol()));
 }
 
 void MainWindowgl::showTurntable()
@@ -883,7 +898,7 @@ void MainWindowgl::showTurntable()
     this->openStack[12]->setChecked(false);
     this->openStack[13]->setChecked(false);
     this->openStack[14]->setChecked(false);
-    this->openStack[15]->setChecked(false);
+    this->openStack[15]->setChecked(false); 
     Turntable->show();
     Therm->close();
     Zero->close();
@@ -893,6 +908,9 @@ void MainWindowgl::showTurntable()
     PPI->close();
     Time->close();
     Roadsave->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     qDebug() <<  m_GlobalDate2->Select_configure;
@@ -929,6 +947,9 @@ void MainWindowgl::showTherm()
     Time->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
 
     CGlobalDate::Instance()->panrecord3.lock();
@@ -988,6 +1009,9 @@ void MainWindowgl::showZero()
     Time->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::OPENZERO);
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     Zero->update();
@@ -1015,6 +1039,9 @@ void MainWindowgl::showSystem()
     PPI->close();
     Time->close();
     Roadsave->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     Montage->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     System->update();
@@ -1046,6 +1073,22 @@ void MainWindowgl::showVideo()
     Time->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
+
+    if(m_GlobalDate2->timeormove == 0)
+    {
+            time_item = new QWidget();
+            time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+            s4->setCellWidget(1,1,time_item);
+
+         } else if (m_GlobalDate2->timeormove == 1) {
+            move_item = new QWidget;
+            move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+            s4->setCellWidget(2,2,move_item);
+
+    }
     Video->update();
 }
 
@@ -1074,6 +1117,9 @@ void MainWindowgl::showMove()
     Time->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     CGlobalDate::Instance()->panrecord4.lock();
     if (m_GlobalDate2->move_enable_ == 1) {
@@ -1136,6 +1182,9 @@ void MainWindowgl::showPPI()
     Time->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     CGlobalDate::Instance()->panrecord6.lock();
     ppi_choose_comb->setCurrentIndex(m_GlobalDate2->ppi);
@@ -1171,6 +1220,9 @@ void MainWindowgl::showTime()
     PPI->close();
     Roadsave->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     Time->update();
 }
@@ -1198,6 +1250,9 @@ void MainWindowgl::showRoadsave()
     PPI->close();
     Time->close();
     Montage->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     Roadsave->update();
 }
@@ -1226,6 +1281,9 @@ void MainWindowgl::showMontage()
     PPI->close();
     Time->close();
     Roadsave->close();
+    update_dialog->close();
+    import_dialog->close();
+    export_dialog->close();
     emit slotssendprotocol(Protocol::SELECTCONFIGURE);
     CGlobalDate::Instance()->panrecord5.lock();
     swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
@@ -1465,7 +1523,6 @@ void MainWindowgl::sw_export_click()
 
 void MainWindowgl::sw_update_click1()
 {
-    update_dialog = new QDialog;
     update_dialog->setWindowTitle("软件升级");
     lab1 = new QLabel("您确定升级软件");
     lab2 = new QLabel;
@@ -1492,7 +1549,6 @@ void MainWindowgl::sw_update_click1()
 
 void MainWindowgl::sw_import_click1()
 {
-    import_dialog = new QDialog;
     import_dialog->setWindowTitle("参数导入");
     lab_1 = new QLabel("您确定导入参数");
     lab_2 = new QLabel;
@@ -1519,7 +1575,6 @@ void MainWindowgl::sw_import_click1()
 
 void MainWindowgl::sw_export_click1()
 {
-    export_dialog = new QDialog;
     export_dialog->setWindowTitle("参数导出");
     lab_1_ = new QLabel("您确定导出参数");
     lab_2_ = new QLabel;
@@ -2366,13 +2421,12 @@ void MainWindowgl::vedio_color_click(int row, int column)
 {
       s4->setStyleSheet( "QTableWidget::item:selected{background:transparent}");
       if (check_time->isChecked()) {
+            time_item = new QWidget();
+            time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
 
-      time_item = new QWidget();
-      time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-      if(s4->cellWidget(row,column) == NULL){
-          s4->setCellWidget(row,column,time_item);
-      }
-
+            if(s4->cellWidget(row,column) == NULL){
+                s4->setCellWidget(row,column,time_item);
+            }
       if ((row==0)&&(column<8&&column>=0))
    {
        int n;
@@ -3991,13 +4045,15 @@ void MainWindowgl::vedio_clear_click()
 
 void MainWindowgl::vedio_confirm_click()
 {
-    this->openStack[10]->setChecked(false);
-      qDebug()<<m_GlobalDate2->Monday_08<<m_GlobalDate2->Monday_916<<m_GlobalDate2->Monday_1724<<m_GlobalDate2->Tuesday_08<<m_GlobalDate2->Tuesday_916<<m_GlobalDate2->Tuesday_1724<<
+      this->openStack[10]->setChecked(false);
+      m_GlobalDate2->timeormove = 0;
+      qDebug()<<m_GlobalDate2->timeormove<<m_GlobalDate2->Monday_08<<m_GlobalDate2->Monday_916<<m_GlobalDate2->Monday_1724<<m_GlobalDate2->Tuesday_08<<m_GlobalDate2->Tuesday_916<<m_GlobalDate2->Tuesday_1724<<
                 m_GlobalDate2->Wednesday_08<<m_GlobalDate2->Wednesday_916<<m_GlobalDate2->Wednesday_1724<<m_GlobalDate2->Thursday_08<<m_GlobalDate2->Thursday_916<<m_GlobalDate2->Thursday_1724<<
                 m_GlobalDate2->Friday_08<<m_GlobalDate2->Friday_916<<m_GlobalDate2->Friday_1724<<m_GlobalDate2->Saturday_08<<m_GlobalDate2->Saturday_916<<m_GlobalDate2->Saturday_1724<<
                 m_GlobalDate2->Sunday_08<<m_GlobalDate2->Sunday_916<<m_GlobalDate2->Sunday_1724;
       emit slotssendprotocol(Protocol::VEDIOTIMEING);
-      qDebug()<<m_GlobalDate2->Monday_08_move<<m_GlobalDate2->Monday_916_move<<m_GlobalDate2->Monday_1724_move<<m_GlobalDate2->Tuesday_08_move<<m_GlobalDate2->Tuesday_916_move<<m_GlobalDate2->Tuesday_1724_move<<
+      m_GlobalDate2->timeormove = 1;
+      qDebug()<<m_GlobalDate2->timeormove<<m_GlobalDate2->Monday_08_move<<m_GlobalDate2->Monday_916_move<<m_GlobalDate2->Monday_1724_move<<m_GlobalDate2->Tuesday_08_move<<m_GlobalDate2->Tuesday_916_move<<m_GlobalDate2->Tuesday_1724_move<<
                 m_GlobalDate2->Wednesday_08_move<<m_GlobalDate2->Wednesday_916_move<<m_GlobalDate2->Wednesday_1724_move<<m_GlobalDate2->Thursday_08_move<<m_GlobalDate2->Thursday_916_move<<m_GlobalDate2->Thursday_1724_move<<
                 m_GlobalDate2->Friday_08_move<<m_GlobalDate2->Friday_916_move<<m_GlobalDate2->Friday_1724_move<<m_GlobalDate2->Saturday_08_move<<m_GlobalDate2->Saturday_916_move<<m_GlobalDate2->Saturday_1724_move<<
                 m_GlobalDate2->Sunday_08_move<<m_GlobalDate2->Sunday_916_move<<m_GlobalDate2->Sunday_1724_move;
@@ -4007,7 +4063,7 @@ void MainWindowgl::vedio_confirm_click()
 
 void MainWindowgl::sw_update_exit_click()
 {
-    update_dialog->close();
+     update_dialog->close();
 }
 
 void MainWindowgl::sw_import_exit_click()
@@ -4043,16 +4099,59 @@ void MainWindowgl::sw_importing()
 
 void MainWindowgl::mvwidgetclose()
 {
-
+    this->openStack[11]->setChecked(false);
     qDebug()<<"mvwidgetclose"<<endl;
     m_GlobalDate2->mvconfigenable=0;
      emit slotssendprotocol(Protocol::MVCONFIGEABLE);
 }
 void MainWindowgl::zerocloseslotssendprotocol()
 {
+    this->openStack[8]->setChecked(false);
     qDebug()<<"zerocloseslotssendprotocol"<<endl;
     emit MainWindowgl::slotssendprotocol(Protocol::CLOSEZERO);
 }
+
+void MainWindowgl::Turntablecloseslotssendprotocol()
+{
+    this->openStack[6]->setChecked(false);
+}
+
+void MainWindowgl::Thermcloseslotssendprotocol()
+{
+    this->openStack[7]->setChecked(false);
+}
+
+void MainWindowgl::Videocloseslotssendprotocol()
+{
+    this->openStack[10]->setChecked(false);
+}
+
+
+void MainWindowgl::PPIcloseslotssendprotocol()
+{
+    this->openStack[12]->setChecked(false);
+}
+
+void MainWindowgl::Timecloseslotssendprotocol()
+{
+    this->openStack[13]->setChecked(false);
+}
+
+void MainWindowgl::Roadsavecloseslotssendprotocol()
+{
+    this->openStack[14]->setChecked(false);
+}
+
+void MainWindowgl::Montagecloseslotssendprotocol()
+{
+    this->openStack[15]->setChecked(false);
+}
+
+void MainWindowgl::Systemcloseslotssendprotocol()
+{
+    this->openStack[9]->setChecked(false);
+}
+
 void MainWindowgl::panoconfigupdate()
 {
     swiveltable_speed_comb->setCurrentIndex(m_GlobalDate2->swiveltable_speed);
@@ -4182,6 +4281,23 @@ void MainWindowgl::updateupdate()
         update_ProBar->setAlignment(Qt::AlignVCenter);  // 对齐方式
     }
 }
+
+void MainWindowgl::vedioupdate()
+{
+    if(m_GlobalDate2->timeormove == 0)
+    {
+
+            time_item = new QWidget();
+            time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+            s4->setCellWidget(1,1,time_item);
+
+         } else if (m_GlobalDate2->timeormove == 1) {
+            move_item = new QWidget;
+            move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+            s4->setCellWidget(2,2,move_item);
+    }
+    Video->update();
+}
 void MainWindowgl::netupdate(int num)
 {
 
@@ -4206,6 +4322,9 @@ void MainWindowgl::netupdate(int num)
     } else if (num==Protocol::UPDATE)
     {
        updateupdate();
+    } else if (num==Protocol::VIDEOCONFIG)
+    {
+       vedioupdate();
     }
 
 
@@ -4214,7 +4333,8 @@ void MainWindowgl::netupdate(int num)
 
 void MainWindowgl::test_click()
 {
-//    m_GlobalDate2->ppi = 1;
+    qDebug()<<"121";
+    m_GlobalDate2->timeormove = 1;
 //    m_GlobalDate2->max_width=20;
 //    m_GlobalDate2->publicvar_v.addresschoose_var=1;
 //    m_GlobalDate2->publicvar_v.protocolchoose_var=1;

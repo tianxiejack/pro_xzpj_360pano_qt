@@ -29,7 +29,7 @@
 #include "closeeventwidget.h"
 #include "titlebar.h"
 #include <QProgressBar>
-
+#include "mvconfigwidget.h"
 
 namespace Ui {
 class MainWindowgl;
@@ -66,14 +66,15 @@ public:
 
     /*转台配置*/
 //    QPushButton *test1;
-    QWidget *Turntable;
+    closeeventwidget *Turntable;
     QString tur_s[4]={"地址选择:  ","协议选择:  ","波特率:  ","转速:  "};
     QComboBox *addresschoose,*protocolchoose,*baud_rate,*speed;
     QGroupBox *gbox_tur;
     QPushButton *tur_btn;
     /*热像传感器*/
 //    QPushButton *test;
-    QWidget *Therm;
+//    QPushButton *test1;
+    closeeventwidget *Therm;
     QString therm_s1[4]={"亮度:  ","对比度:  ","自动亮度对比度:  ","极性： "};
     QString therm_s2[4]={"非均匀性矫正:    ","数字滤波降噪:    ","数字细节增强:    ","转速:    "};
     QGroupBox *gbox_the1;
@@ -90,7 +91,7 @@ public:
     QPushButton *zero_confirm_btn;
     QPushButton *zero_close_btn;
     /*移动目标检测配置*/
-    QWidget *Move;
+    MvconfigWidget *Move;
     QLabel *move_enable,*sensitivity,*move_speed_grade;
     QCheckBox *move_enable_checkbox,*sen_high,*sen_middle,*sen_low;
     QCheckBox *speed_very_high,*speed_high,*speed_middle,*speed_low,*speed_very_low;
@@ -106,20 +107,20 @@ public:
     QPushButton *clear;
     QPushButton *move_confirm;
     /*分辨率配置*/
-    QWidget *PPI;
+    closeeventwidget *PPI;
     QLabel *current_ppi,*ppi_choose;
     QLineEdit *current_ppi_edit;
     QComboBox *ppi_choose_comb;
     QPushButton *ppi_confirm;
     QGroupBox *gbox_ppi;
     /*设定时间配置*/
-    QWidget *Time;
+    closeeventwidget *Time;
     QLabel *timeDisplay;
     QPushButton *time_setting;
     QPushButton *time_confirm;
     QLabel *tishi;
     /*抓图和剪辑保存路径配置*/
-    QWidget *Roadsave;
+    closeeventwidget *Roadsave;
     QLabel *screenshot,*clip_image;
     QLineEdit *screenshot_edit;
     QLineEdit *clip_image_edit;
@@ -130,7 +131,7 @@ public:
     QString filePath_clip_image;
 
     /*拼接配置*/
-    QWidget *Montage;
+    closeeventwidget *Montage;
     QLabel *swiveltable_speed,*pixfocus,*imagerate;
     QComboBox *swiveltable_speed_comb;
     QLineEdit *pixfocus_edit,*imagerate_edit;
@@ -138,7 +139,7 @@ public:
     QGroupBox *gbox_montage;
     /*录像配置*/
     QPushButton *Video_clear;
-    QWidget *Video;
+    closeeventwidget *Video;
     mytablewidget *s4;
     QCheckBox *check_time,*check_move;
     QPushButton *Video_confirm;
@@ -149,7 +150,7 @@ public:
     QProgressBar *update_ProBar;
     QProgressBar *import_ProBar;
     QProgressBar *export_ProBar;
-    QWidget *System;
+    closeeventwidget *System;
     QString ab ;
     QLabel *sw_version,*sw_update,*sw_import,*sw_export,*label_tishi;
     QLineEdit *sw_version_edit,*sw_update_edit,*sw_import_edit,*sw_export_edit;
@@ -220,7 +221,7 @@ public:
     void themconfigupdate();
     void versionupdate();
     void updateupdate();
-
+    void vedioupdate();
 
 private slots:
     void slotGetOneFrame(QImage img);
@@ -341,6 +342,15 @@ private slots:
 
     void mvwidgetclose();
     void zerocloseslotssendprotocol();
+    void Turntablecloseslotssendprotocol();
+    void Thermcloseslotssendprotocol();
+    void Videocloseslotssendprotocol();
+    void PPIcloseslotssendprotocol();
+    void Timecloseslotssendprotocol();
+    void Roadsavecloseslotssendprotocol();
+    void Montagecloseslotssendprotocol();
+    void Systemcloseslotssendprotocol();
+
     void netupdate(int num);
 
     void test_click();

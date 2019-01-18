@@ -598,7 +598,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
     else if(id==VEDIOTIMEING)
     {
         send_arr[4]=0x83;
-        send_arr[5]=0;
+        send_arr[5]=m_GlobalDate->timeormove;
         send_arr[6]=m_GlobalDate->Monday_08;
         send_arr[7]=m_GlobalDate->Monday_916;
         send_arr[8]=m_GlobalDate->Monday_1724;
@@ -625,7 +625,7 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
     else if(id==VEDIOMOVE)
     {
         send_arr[4]=0x83;
-        send_arr[5]=1;
+        send_arr[5]=m_GlobalDate->timeormove;
         send_arr[6]=m_GlobalDate->Monday_08_move;
         send_arr[7]=m_GlobalDate->Monday_916_move;
         send_arr[8]=m_GlobalDate->Monday_1724_move;
@@ -820,8 +820,7 @@ void Protocol::recvevent(unsigned char *buf)
         CGlobalDate::Instance()->panrecord6.unlock();
         if(updatecall!=NULL)
             updatecall(PPICONFIG);
-    }
-
+    } 
     if (buf[0] == GETUPDATEFILE) {
         CGlobalDate::Instance()->panrecord7.lock();
             m_GlobalDate->updateStatus = buf[1];
@@ -829,6 +828,34 @@ void Protocol::recvevent(unsigned char *buf)
         CGlobalDate::Instance()->panrecord7.unlock();
         if(updatecall!=NULL)
             updatecall(UPDATE);
+    }
+    if (buf[0] == GETVIDEO) {
+        CGlobalDate::Instance()->panrecord8.lock();
+            m_GlobalDate->timeormove = buf[1];
+            m_GlobalDate->Monday_08 = buf[2];
+            m_GlobalDate->Monday_916 = buf[3];
+            m_GlobalDate->Monday_1724 = buf[4];
+            m_GlobalDate->Tuesday_08 = buf[5];
+            m_GlobalDate->Tuesday_916 = buf[6];
+            m_GlobalDate->Tuesday_1724 = buf[7];
+            m_GlobalDate->Wednesday_08 = buf[8];
+            m_GlobalDate->Wednesday_916 = buf[9];
+            m_GlobalDate->Wednesday_1724 = buf[12];
+            m_GlobalDate->Thursday_08 = buf[11];
+            m_GlobalDate->Thursday_916 = buf[12];
+            m_GlobalDate->Thursday_1724 = buf[13];
+            m_GlobalDate->Friday_08 = buf[14];
+            m_GlobalDate->Friday_916 = buf[15];
+            m_GlobalDate->Friday_1724 = buf[16];
+            m_GlobalDate->Saturday_08 = buf[17];
+            m_GlobalDate->Saturday_916 = buf[18];
+            m_GlobalDate->Saturday_1724 = buf[19];
+            m_GlobalDate->Sunday_08 = buf[20];
+            m_GlobalDate->Sunday_916 = buf[21];
+            m_GlobalDate->Sunday_1724 = buf[22];
+        CGlobalDate::Instance()->panrecord8.unlock();
+        if(updatecall!=NULL)
+            updatecall(VIDEOCONFIG);
     }
  }
 

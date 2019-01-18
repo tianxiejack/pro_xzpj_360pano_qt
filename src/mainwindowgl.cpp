@@ -365,6 +365,7 @@ void MainWindowgl::panorama_hand_password()
 
 void MainWindowgl::exit_1()
 {
+    panorama_auto_edit->clear();
     if(m_GlobalDate2->value_1 == 1)
     {
         this->openStack[3]->setChecked(true);
@@ -390,6 +391,7 @@ void MainWindowgl::exit_1()
 
 void MainWindowgl::exit_2()
 {
+    PTZ_hand_edit->clear();
     if(m_GlobalDate2->value_1 == 1)
     {
         this->openStack[3]->setChecked(true);
@@ -415,6 +417,7 @@ void MainWindowgl::exit_2()
 
 void MainWindowgl::exit_3()
 {
+    panorama_hand_edit->clear();
     if(m_GlobalDate2->value_1 == 1)
     {
         this->openStack[3]->setChecked(true);

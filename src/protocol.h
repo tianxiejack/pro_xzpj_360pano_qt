@@ -17,6 +17,7 @@ public:
         PPICONFIG=0x04,
         VERSIONGET=0x05,
         UPDATE=0x06,
+        VIDEOCONFIG=0x07,
     }CONFIG;
     typedef enum
     {
@@ -107,6 +108,7 @@ public:
         GETMONAGE=0x88,
         GETPPI=0x86,
         GETUPDATEFILE=0x35,
+        GETVIDEO=0x83,
 
     }ACKPROTOCOL;
 public:

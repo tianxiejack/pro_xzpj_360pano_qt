@@ -151,6 +151,7 @@ public:
     int crossshow;
     int crossmove;
     int saveornot;
+    int timeormove;
     QVector<QuerryDate> querrydate;
 public:
     int collectionenableonece;
@@ -166,6 +167,7 @@ public:
     QMutex panrecord5;
     QMutex panrecord6;
     QMutex panrecord7;
+    QMutex panrecord8;
 private:
 CGlobalDate();
 static CGlobalDate* instance;
