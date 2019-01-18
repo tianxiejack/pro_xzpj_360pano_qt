@@ -191,6 +191,7 @@ void MainWindowgl::slotssendprotocol(Protocol::PROTOCOL protocol)
 }
 void MainWindowgl::liveshow()
 {
+    openStack[8]->setEnabled(false);
     value = 3;
     reset();
     this->openStack[0]->setChecked(true);
@@ -200,6 +201,7 @@ void MainWindowgl::liveshow()
 }
 void MainWindowgl::playback()
 {
+    openStack[8]->setEnabled(false);
     value = 4;
     reset();
     g->addWidget(s,0,1);
@@ -238,6 +240,7 @@ void MainWindowgl::PTZ_hand_show()
     if(a=="1234")
     {
         value = 1;
+        openStack[8]->setEnabled(false);
         reset();
         g->addWidget(w2,0,1);
         ui->openGLWidget->resize(1500,1200);
@@ -261,6 +264,7 @@ void MainWindowgl::panorama_hand_show()
     if(a=="1234")
     {
         value = 2;
+        openStack[8]->setEnabled(false);
         reset();
         g->addWidget(w1,0,1);
         ui->openGLWidget->resize(1500,1200);
