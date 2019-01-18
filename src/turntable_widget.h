@@ -35,7 +35,6 @@ public:
     QPushButton *aperture_plus;
 
 
-
 signals:
 
 public slots:

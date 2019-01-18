@@ -281,8 +281,6 @@ void MainWindowgl::init_Turntable()
    speed->addItem("63");
    speed->addItem("64");
    gbox_tur = new QGroupBox();
-
-
    QFormLayout *f2=new QFormLayout();
    f2->addRow(tur_s[0],addresschoose);
    f2->addRow(tur_s[1],protocolchoose);
@@ -876,6 +874,7 @@ void MainWindowgl::init_montage()
 void MainWindowgl::showTurntable()
 {
     m_GlobalDate2->Select_configure = 0;
+    this->openStack[6]->setChecked(true);
     this->openStack[7]->setChecked(false);
     this->openStack[8]->setChecked(false);
     this->openStack[9]->setChecked(false);
@@ -911,6 +910,7 @@ void MainWindowgl::showTherm()
 {
     m_GlobalDate2->Select_configure = 1;
     this->openStack[6]->setChecked(false);
+    this->openStack[7]->setChecked(true);
     this->openStack[8]->setChecked(false);
     this->openStack[9]->setChecked(false);
     this->openStack[10]->setChecked(false);
@@ -970,6 +970,7 @@ void MainWindowgl::showZero()
     m_GlobalDate2->Select_configure = 2;
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
+    this->openStack[8]->setChecked(true);
     this->openStack[9]->setChecked(false);
     this->openStack[10]->setChecked(false);
     this->openStack[11]->setChecked(false);
@@ -998,6 +999,7 @@ void MainWindowgl::showSystem()
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
     this->openStack[8]->setChecked(false);
+    this->openStack[9]->setChecked(true);
     this->openStack[10]->setChecked(false);
     this->openStack[11]->setChecked(false);
     this->openStack[12]->setChecked(false);
@@ -1028,6 +1030,7 @@ void MainWindowgl::showVideo()
     this->openStack[7]->setChecked(false);
     this->openStack[8]->setChecked(false);
     this->openStack[9]->setChecked(false);
+    this->openStack[10]->setChecked(true);
     this->openStack[11]->setChecked(false);
     this->openStack[12]->setChecked(false);
     this->openStack[13]->setChecked(false);
@@ -1056,6 +1059,7 @@ void MainWindowgl::showMove()
     this->openStack[8]->setChecked(false);
     this->openStack[9]->setChecked(false);
     this->openStack[10]->setChecked(false);
+    this->openStack[11]->setChecked(true);
     this->openStack[12]->setChecked(false);
     this->openStack[13]->setChecked(false);
     this->openStack[14]->setChecked(false);
@@ -1118,6 +1122,7 @@ void MainWindowgl::showPPI()
     this->openStack[9]->setChecked(false);
     this->openStack[10]->setChecked(false);
     this->openStack[11]->setChecked(false);
+    this->openStack[12]->setChecked(true);
     this->openStack[13]->setChecked(false);
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
@@ -1153,6 +1158,7 @@ void MainWindowgl::showTime()
     this->openStack[10]->setChecked(false);
     this->openStack[11]->setChecked(false);
     this->openStack[12]->setChecked(false);
+    this->openStack[13]->setChecked(true);
     this->openStack[14]->setChecked(false);
     this->openStack[15]->setChecked(false);
     Time->show();
@@ -1180,6 +1186,7 @@ void MainWindowgl::showRoadsave()
     this->openStack[11]->setChecked(false);
     this->openStack[12]->setChecked(false);
     this->openStack[13]->setChecked(false);
+    this->openStack[14]->setChecked(true);
     this->openStack[15]->setChecked(false);
     Roadsave->show();
     Turntable->close();
@@ -1208,6 +1215,7 @@ void MainWindowgl::showMontage()
     this->openStack[12]->setChecked(false);
     this->openStack[13]->setChecked(false);
     this->openStack[14]->setChecked(false);
+    this->openStack[15]->setChecked(true);
     Montage->show();
     Turntable->close();
     Therm->close();
@@ -1231,6 +1239,7 @@ void MainWindowgl::showMontage()
 
 void MainWindowgl::tur_btn_click()
 {
+    this->openStack[6]->setChecked(false);
     m_GlobalDate2->publicvar_v.addresschoose_var = addresschoose->currentIndex();
     qDebug()<<m_GlobalDate2->publicvar_v.addresschoose_var;
     m_GlobalDate2->publicvar_v.protocolchoose_var = protocolchoose->currentIndex();
@@ -1245,6 +1254,7 @@ void MainWindowgl::tur_btn_click()
 
 void MainWindowgl::ppi_confirm_click()
 {
+    this->openStack[12]->setChecked(false);
     m_GlobalDate2->ppi = ppi_choose_comb->currentIndex();
     qDebug()<<m_GlobalDate2->ppi;
     emit slotssendprotocol(Protocol::PPICONFIRM);
@@ -1253,12 +1263,14 @@ void MainWindowgl::ppi_confirm_click()
 
 void MainWindowgl::zero_emit()
 {
+    this->openStack[8]->setChecked(false);
     emit slotssendprotocol(Protocol::ZEROCONFIRM);
     Zero->close();
 }
 
 void MainWindowgl::therm_btn_click()
 {
+    this->openStack[7]->setChecked(false);
     m_GlobalDate2->bright = slider_bright->value();
     m_GlobalDate2->contest = slider_contrast->value();
     if(auto_bright->checkState()==2)
@@ -1301,6 +1313,7 @@ void MainWindowgl::therm_btn_click()
 
 void MainWindowgl::montage_confirm_click()
 {
+    this->openStack[15]->setChecked(false);
     m_GlobalDate2->swiveltable_speed = swiveltable_speed_comb->currentIndex();
     m_GlobalDate2->pixfocus = pixfocus_edit->text().toInt();
     m_GlobalDate2->imagerate = imagerate_edit->text().toInt();
@@ -1311,6 +1324,7 @@ void MainWindowgl::montage_confirm_click()
 
 void MainWindowgl::time_confirm_click()
 {
+    this->openStack[13]->setChecked(false);
     QDate date = QDate::currentDate();
     m_GlobalDate2->current_year = date.year();
     m_GlobalDate2->current_mouth = date.month();
@@ -1332,6 +1346,7 @@ void MainWindowgl::time_setting_click()
 
 void MainWindowgl::move_confirm_click()
 {
+    this->openStack[11]->setChecked(false);
     if (move_enable_checkbox->checkState()==2)
     {
         m_GlobalDate2-> move_enable_= 1;
@@ -3976,6 +3991,7 @@ void MainWindowgl::vedio_clear_click()
 
 void MainWindowgl::vedio_confirm_click()
 {
+    this->openStack[10]->setChecked(false);
       qDebug()<<m_GlobalDate2->Monday_08<<m_GlobalDate2->Monday_916<<m_GlobalDate2->Monday_1724<<m_GlobalDate2->Tuesday_08<<m_GlobalDate2->Tuesday_916<<m_GlobalDate2->Tuesday_1724<<
                 m_GlobalDate2->Wednesday_08<<m_GlobalDate2->Wednesday_916<<m_GlobalDate2->Wednesday_1724<<m_GlobalDate2->Thursday_08<<m_GlobalDate2->Thursday_916<<m_GlobalDate2->Thursday_1724<<
                 m_GlobalDate2->Friday_08<<m_GlobalDate2->Friday_916<<m_GlobalDate2->Friday_1724<<m_GlobalDate2->Saturday_08<<m_GlobalDate2->Saturday_916<<m_GlobalDate2->Saturday_1724<<

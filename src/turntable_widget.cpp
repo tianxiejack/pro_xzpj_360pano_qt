@@ -131,7 +131,6 @@ Turntable_widget::Turntable_widget(QWidget *parent) : QWidget(parent)
     location_collect->setStyleSheet("QPushButton{background-color:rgb(182,221,232);}");
     Turntable_control->setGeometry(65,350,80,30);
     location_collect->setGeometry(145,350,80,30);
-
     Turntable_control->setParent(this);
     location_collect->setParent(this);
 

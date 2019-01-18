@@ -126,6 +126,7 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     connect(w1->panoramafresh,SIGNAL(clicked(bool)),this,SLOT(panoramafresh_btnclicked()));
     connect(w2->location_collect,SIGNAL(clicked(bool)),this,SLOT(show1()));
     connect(w3->Turntable_control2,SIGNAL(clicked(bool)),this,SLOT(show2()));
+    connect(w3->reset_default,SIGNAL(clicked(bool)),this,SLOT(reset_default_clicked()));
    // connect(w3->test,SIGNAL(clicked(bool)),this,SLOT(locationcollect_slot()));
     connect(w3,SIGNAL(locationcollect_signal(int)),this,SLOT(locationcollect_slotnew(int )));
     connect(w3->recoveryListWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(jumpto()));
@@ -190,6 +191,7 @@ void MainWindowgl::liveshow()
 {
     value = 3;
     reset();
+    this->openStack[0]->setChecked(true);
     this->openStack[1]->setChecked(false);
     emit slotssendprotocol(Protocol::LIVESHOW);
 
@@ -202,6 +204,7 @@ void MainWindowgl::playback()
     g->addWidget(s2,1,0);
     g->addWidget(s3,1,1);
     this->openStack[0]->setChecked(false);
+    this->openStack[1]->setChecked(true);
     emit slotssendprotocol(Protocol::VIDEOPLAYBACK);
     qDebug()<<s->calendarWidget->selectedDate();
 }
@@ -453,7 +456,12 @@ void MainWindowgl::getslidervalue()
 {
     m_GlobalDate2->ptspeed = w2->slider->value();
     qDebug() << m_GlobalDate2->ptspeed <<endl;
+}
 
+void MainWindowgl::reset_default_clicked()
+{
+    qDebug() << "resetdef";
+    emit slotssendprotocol(Protocol::RESETDEFOUT);
 }
 
 void MainWindowgl::left_up_btnclicked()

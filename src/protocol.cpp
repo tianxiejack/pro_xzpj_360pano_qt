@@ -685,7 +685,13 @@ QByteArray Protocol::Formatprotocol(PROTOCOL id)
         send_arr[5]=1;
         return formatoneframe(2);
     }
-
+    else if(id==RESETDEFOUT)
+    {
+        send_arr[4]=0x08;
+        send_arr[5]=m_GlobalDate->eraseid;
+        send_arr[6]=0x02;
+        return formatoneframe(3);
+    }
 }
 
 

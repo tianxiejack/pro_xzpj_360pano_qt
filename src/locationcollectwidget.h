@@ -33,6 +33,7 @@ public:
     QPushButton *test;
     void initListWidget();
     ListWidget *recoveryListWidget;
+    QPushButton *reset_default;
 private:
     //Videowidget *vw;
 

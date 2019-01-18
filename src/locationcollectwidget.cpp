@@ -13,8 +13,8 @@ locationcollectwidget::locationcollectwidget(QWidget *parent) : QWidget(parent),
     location_collect2 = new QPushButton("位置收藏");
     location_collect2->setStyleSheet("QPushButton{background-color:rgb(84,141,212);}");
     Turntable_control2->setStyleSheet("QPushButton{background-color:rgb(182,221,232);}");
-    Turntable_control2->setGeometry(65,530,80,30);
-    location_collect2->setGeometry(145,530,80,30);
+    Turntable_control2->setGeometry(65,540,80,30);
+    location_collect2->setGeometry(145,540,80,30);
     test = new QPushButton();
     Turntable_control2->setParent(this);
     location_collect2->setParent(this);
@@ -24,7 +24,9 @@ locationcollectwidget::locationcollectwidget(QWidget *parent) : QWidget(parent),
     test->setStyleSheet("QPushButton{border:none;background-image:url(:/Resources/Rsouces/plus.png);background-position:center;}"
                         "QPushButton:pressed{border:3px solid black;}"
                         );
-
+    reset_default = new QPushButton("恢复默认");
+    reset_default->setGeometry(65,505,80,30);
+    reset_default->setParent(this);
     test->setParent(confirmWidget);
     //connect(test,SIGNAL(clicked(bool)),this,SLOT(showimage()));
     connect(test,SIGNAL(clicked(bool)),this,SLOT(showaddimage()));

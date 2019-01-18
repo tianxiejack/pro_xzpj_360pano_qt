@@ -92,6 +92,7 @@ public:
         EXPORTCONFIG,
         MVCONFIGEABLE,
         DEVICERESET,
+        RESETDEFOUT,
 
     }PROTOCOL;
 

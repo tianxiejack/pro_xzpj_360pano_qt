@@ -243,6 +243,7 @@ private slots:
     void show1();
     void show2();
     void getslidervalue();
+    void reset_default_clicked();
 
     /*PTZ*/
     void left_up_btnclicked();
