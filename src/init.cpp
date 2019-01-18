@@ -1076,7 +1076,7 @@ void MainWindowgl::showVideo()
     update_dialog->close();
     import_dialog->close();
     export_dialog->close();
-
+/*
     if(m_GlobalDate2->timeormove == 0)
     {
             time_item = new QWidget();
@@ -1089,6 +1089,7 @@ void MainWindowgl::showVideo()
             s4->setCellWidget(2,2,move_item);
 
     }
+    */
     Video->update();
 }
 
@@ -4284,6 +4285,7 @@ void MainWindowgl::updateupdate()
 
 void MainWindowgl::vedioupdate()
 {
+/*
     if(m_GlobalDate2->timeormove == 0)
     {
 
@@ -4291,11 +4293,37 @@ void MainWindowgl::vedioupdate()
             time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
             s4->setCellWidget(1,1,time_item);
 
-         } else if (m_GlobalDate2->timeormove == 1) {
+     } else if (m_GlobalDate2->timeormove == 1) {
             move_item = new QWidget;
             move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
-            s4->setCellWidget(2,2,move_item);
+            s4->setCellWidget(2,5,move_item);
     }
+
+*/
+    for(int i=0;i<2;i++)
+        for(int j=0;j<7;j++)
+        {
+            for(int k=0;k<24;k++)
+            {
+                if(m_GlobalDate2->protectiontime[i][j][k]==1)
+                {
+                    move_item = new QWidget;
+                    if(i==0)
+                        move_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+                    else
+                        move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+
+                    s4->setCellWidget(j,k,move_item);
+                    //qDebug()<<"k="<<k<<"j="<<j<<endl;
+
+
+
+                }
+                // printf("%d \t",m_GlobalDate2->protectiontime[i][j][k]);
+            }
+           // printf("\n");
+        }
+
     Video->update();
 }
 void MainWindowgl::netupdate(int num)

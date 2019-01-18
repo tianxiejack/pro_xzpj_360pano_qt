@@ -86,6 +86,7 @@ private slots:
     void eraseitem();
     void showimage();
     void showaddimage();
+    void defaultsave();
 };
 
 #endif // LOCATIONCOLLECTWIDGET_H

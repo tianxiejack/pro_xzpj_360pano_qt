@@ -840,7 +840,7 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->Tuesday_1724 = buf[7];
             m_GlobalDate->Wednesday_08 = buf[8];
             m_GlobalDate->Wednesday_916 = buf[9];
-            m_GlobalDate->Wednesday_1724 = buf[12];
+            m_GlobalDate->Wednesday_1724 = buf[10];
             m_GlobalDate->Thursday_08 = buf[11];
             m_GlobalDate->Thursday_916 = buf[12];
             m_GlobalDate->Thursday_1724 = buf[13];
@@ -853,6 +853,31 @@ void Protocol::recvevent(unsigned char *buf)
             m_GlobalDate->Sunday_08 = buf[20];
             m_GlobalDate->Sunday_916 = buf[21];
             m_GlobalDate->Sunday_1724 = buf[22];
+            for(int i=0;i<7;i++)
+            {
+                for(int j=0;j<24;j++)
+                {
+                  //  qDebug()<<
+
+                    if(j<8)
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i]>>j)&0x01;
+                    else if(j<16)
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i+1]>>(j-8))&0x01;
+                    else if(j<24)
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i+2]>>(j-16))&0x01;
+
+                   // qDebug()<<m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j];
+                }
+              //  qDebug()<<endl;
+            }
+            for(int i=2;i<23;i++)
+            {
+                ;
+                //qDebug()<<buf[i]<<endl;
+              //  printf("%d\t",buf[i]);
+            }
+           // printf("\n");
+
         CGlobalDate::Instance()->panrecord8.unlock();
         if(updatecall!=NULL)
             updatecall(VIDEOCONFIG);

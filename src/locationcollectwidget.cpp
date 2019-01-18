@@ -114,6 +114,19 @@ void locationcollectwidget::eraseshow(int num)
     delete item;
 
 }
+
+void locationcollectwidget::defaultsave()
+{
+    for(int i=collectionlist.size()-1;i>=0;i--)
+    {
+        eraseimage(i);
+        eraseshow(i);
+
+    }
+    collectionlist.clear();
+    filesave();
+
+}
 void locationcollectwidget::addshow(ListImage &listimage,int num)
 {
     QPixmap pixmap=*(listimage.itemimage);

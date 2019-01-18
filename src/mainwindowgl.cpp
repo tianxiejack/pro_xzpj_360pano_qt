@@ -134,6 +134,8 @@ MainWindowgl::MainWindowgl(QWidget *parent) :
     connect(w3,SIGNAL(delectimage_signal(int )),this,SLOT(delete_image(int)));
     connect(w3->recoveryListWidget->delete1,SIGNAL(triggered()),w3,SLOT(eraseitem()));  
 
+    connect(w3->reset_default,SIGNAL(clicked(bool)),w3,SLOT(defaultsave()));
+
     connect(s->ui->pause_btn,SIGNAL(clicked()),this,SLOT(pause_play()));
     connect(s->ui->rightspeed_btn,SIGNAL(clicked()),this,SLOT(video_fast()));
     connect(s->ui->leftspeed_btn,SIGNAL(clicked()),this,SLOT(video_slow()));

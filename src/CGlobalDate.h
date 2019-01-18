@@ -120,6 +120,7 @@ public:
     int Sunday_916;
     int Sunday_1724;
 
+    int protectiontime[2][7][24];
     int Monday_08_move;
     int Monday_916_move;
     int Monday_1724_move;
