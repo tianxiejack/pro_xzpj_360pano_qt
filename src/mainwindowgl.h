@@ -74,7 +74,6 @@ public:
     QGroupBox *gbox_tur;
     QPushButton *tur_btn;
     /*热像传感器*/
-    QPushButton *test;
 //    QPushButton *test1;
     closeeventwidget *Therm;
     QString therm_s1[4]={"亮度:  ","对比度:  ","自动亮度对比度:  ","极性： "};

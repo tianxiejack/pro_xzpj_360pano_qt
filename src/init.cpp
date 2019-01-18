@@ -49,6 +49,7 @@ void MainWindowgl::menuinit()
     connect(openStack[7], SIGNAL(triggered(bool)), this, SLOT(showTherm()));
 
     openStack[8] = new QAction("图像零位配置");
+    openStack[8]->setEnabled(false);
     menu[2]->addAction(openStack[8]);
     init_Zero();
     connect(openStack[8], SIGNAL(triggered(bool)), this, SLOT(showZero()));
@@ -492,7 +493,6 @@ void MainWindowgl::init_system()
 
 void MainWindowgl::init_video()
 {
-    test = new QPushButton("测试");
     QLabel *label = new QLabel("录像布防");
     label->setGeometry(3,1,60,17);
     Video = new closeeventwidget;
@@ -527,10 +527,6 @@ void MainWindowgl::init_video()
     Video_confirm->setParent(Video);
     Video_clear->setParent(Video);
 
-       test->setGeometry(695,320,40,20);
-       test->setParent(Video);
-       connect(test,SIGNAL(clicked(bool)),this,SLOT(test_click()));
-//    connect(s4,SIGNAL(cellChanged(int,int)),this,SLOT(cellChanged_click(int, int)));
     connect(s4,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(vedio_color_doubleclick(int, int)));
     connect(s4,SIGNAL(cellEntered(int, int)),this,SLOT(vedio_color_click(int, int)));
     connect(s4,SIGNAL(cellClicked(int, int)),this,SLOT(vedio_color_click(int, int)));
@@ -988,33 +984,34 @@ void MainWindowgl::showTherm()
 
 void MainWindowgl::showZero()
 {
-    m_GlobalDate2->Select_configure = 2;
-    this->openStack[6]->setChecked(false);
-    this->openStack[7]->setChecked(false);
-    this->openStack[8]->setChecked(true);
-    this->openStack[9]->setChecked(false);
-    this->openStack[10]->setChecked(false);
-    this->openStack[11]->setChecked(false);
-    this->openStack[12]->setChecked(false);
-    this->openStack[13]->setChecked(false);
-    this->openStack[14]->setChecked(false);
-    this->openStack[15]->setChecked(false);
-    Zero->show();
-    Turntable->close();
-    Therm->close();
-    System->close();
-    Video->close();
-    Move->close();
-    PPI->close();
-    Time->close();
-    Roadsave->close();
-    Montage->close();
-    update_dialog->close();
-    import_dialog->close();
-    export_dialog->close();
-    emit slotssendprotocol(Protocol::OPENZERO);
-    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
-    Zero->update();
+
+        m_GlobalDate2->Select_configure = 2;
+        this->openStack[6]->setChecked(false);
+        this->openStack[7]->setChecked(false);
+        this->openStack[8]->setChecked(true);
+        this->openStack[9]->setChecked(false);
+        this->openStack[10]->setChecked(false);
+        this->openStack[11]->setChecked(false);
+        this->openStack[12]->setChecked(false);
+        this->openStack[13]->setChecked(false);
+        this->openStack[14]->setChecked(false);
+        this->openStack[15]->setChecked(false);
+        Zero->show();
+        Turntable->close();
+        Therm->close();
+        System->close();
+        Video->close();
+        Move->close();
+        PPI->close();
+        Time->close();
+        Roadsave->close();
+        Montage->close();
+        update_dialog->close();
+        import_dialog->close();
+        export_dialog->close();
+        emit slotssendprotocol(Protocol::OPENZERO);
+        emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+        Zero->update();
 }
 
 void MainWindowgl::showSystem()
@@ -1076,36 +1073,6 @@ void MainWindowgl::showVideo()
     update_dialog->close();
     import_dialog->close();
     export_dialog->close();
-
-    if (m_GlobalDate2->timeormove == 0) {
-
-        int str[8];
-        int i,value;
-        for(i=0; i<8; i++)
-        {
-           value = (m_GlobalDate2->Monday_08 >> i) & 1;
-           str[i] = value;
-           if(value = 1)
-           {
-              time_item = new QWidget();
-              time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-              s4->setCellWidget(1,7-i,time_item);
-           }
-        }
-
-
-
-
-
-
-
-
-     } else if (m_GlobalDate2->timeormove == 1) {
-            move_item = new QWidget;
-            move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
-            s4->setCellWidget(2,2,move_item);
-
-    }
     Video->update();
 }
 
@@ -4301,19 +4268,31 @@ void MainWindowgl::updateupdate()
 
 void MainWindowgl::vedioupdate()
 {
-    if(m_GlobalDate2->timeormove == 0)
-    {
-            time_item = new QWidget();
-            time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-            s4->setCellWidget(1,1,time_item);
 
-         } else if (m_GlobalDate2->timeormove == 1) {
-            move_item = new QWidget;
-            move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
-            s4->setCellWidget(2,2,move_item);
-    }
+    for(int i=0;i<2;i++)
+        for(int j=0;j<7;j++)
+        {
+            for(int k=0;k<24;k++)
+            {
+                if(m_GlobalDate2->protectiontime[i][j][k]==1)
+                {
+                    move_item = new QWidget;
+                    if(i==0)
+                        move_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+                    else
+                        move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+
+                    s4->setCellWidget(j,k,move_item);
+                    //qDebug()<<"k="<<k<<"j="<<j<<endl;
+                }
+                // printf("%d \t",m_GlobalDate2->protectiontime[i][j][k]);
+            }
+           // printf("\n");
+        }
+
     Video->update();
 }
+
 void MainWindowgl::netupdate(int num)
 {
 
@@ -4346,32 +4325,5 @@ void MainWindowgl::netupdate(int num)
 
 void MainWindowgl::test_click()
 {
-    int str[8];
-    int i,value;
-    for(i=0; i<8; i++)
-    {
-       value = (1 >> i) & 1;
-       str[i] = value;
-       if(str[i] == 1)
-       {
-          time_item = new QWidget();
-          time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
-          s4->setCellWidget(0,7-i,time_item);
-       }
-    }
 
-//    m_GlobalDate2->timeormove = 1;
-//    m_GlobalDate2->max_width=20;
-//    m_GlobalDate2->publicvar_v.addresschoose_var=1;
-//    m_GlobalDate2->publicvar_v.protocolchoose_var=1;
-//    m_GlobalDate2->publicvar_v.baud_rate_var=1;
-//    m_GlobalDate2->publicvar_v.speed_var=1;
-//    m_GlobalDate2->bright =12;
-//    m_GlobalDate2->contest= 15;
-//    m_GlobalDate2->correct_the=1;
-//    m_GlobalDate2->auto_bright=1;
-//    m_GlobalDate2->noice_the=1;
-//    m_GlobalDate2->detail_the=1;
-//    m_GlobalDate2->blackorwhite=1;
-//    m_GlobalDate2->ios=2;
 }
