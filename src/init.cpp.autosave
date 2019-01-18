@@ -1079,12 +1079,12 @@ void MainWindowgl::showVideo()
 
     if (m_GlobalDate2->timeormove == 0) {
 
-        int str[8];
+        int Monday_08[8],Monday_916[8];
         int i,value;
         for(i=0; i<8; i++)
         {
            value = (m_GlobalDate2->Monday_08 >> i) & 1;
-           str[i] = value;
+           Monday_08[i] = value;
            if(value = 1)
            {
               time_item = new QWidget();
@@ -1092,7 +1092,18 @@ void MainWindowgl::showVideo()
               s4->setCellWidget(1,7-i,time_item);
            }
         }
-
+        
+        for(i=0; i<8; i++)
+        {
+           value = (m_GlobalDate2->Monday_916 >> i) & 1;
+           Monday_916[i] = value;
+           if(value = 1)
+           {
+              time_item = new QWidget();
+              time_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+              s4->setCellWidget(1,7-i,time_item);
+           }
+        }
 
 
 
