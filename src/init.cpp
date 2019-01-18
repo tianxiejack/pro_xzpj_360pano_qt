@@ -106,9 +106,7 @@ void MainWindowgl::menuinit()
     openStack[15]->setCheckable(true);
     menubar->addMenu(menu[2]);
     menubar->setParent(titlebar);
-
 }
-
 void MainWindowgl::panorama_auto_password_init()
 {
     panorama_auto_password_w = new QWidget();
@@ -195,6 +193,7 @@ void MainWindowgl::panorama_hand_password_init()
     connect(exit3,SIGNAL(clicked(bool)),this,SLOT(exit_3()));
     connect(panorama_hand_btn,SIGNAL(clicked(bool)),this,SLOT(panorama_hand_show()));
 }
+
 void MainWindowgl::init_Turntable()
 {
 //   test1 = new QPushButton("测试");
@@ -4044,6 +4043,7 @@ void MainWindowgl::sw_export_exit_click()
 {
     export_dialog->close();
 }
+
 void MainWindowgl::sw_updateing()
 {
     update_dialog->close();
@@ -4051,6 +4051,7 @@ void MainWindowgl::sw_updateing()
     protocol->updatesoft(filePath);
 
 }
+
 void MainWindowgl::sw_exporting()
 {
     export_dialog->close();
@@ -4072,6 +4073,7 @@ void MainWindowgl::mvwidgetclose()
     m_GlobalDate2->mvconfigenable=0;
      emit slotssendprotocol(Protocol::MVCONFIGEABLE);
 }
+
 void MainWindowgl::zerocloseslotssendprotocol()
 {
     this->openStack[8]->setChecked(false);
@@ -4093,7 +4095,6 @@ void MainWindowgl::Videocloseslotssendprotocol()
 {
     this->openStack[10]->setChecked(false);
 }
-
 
 void MainWindowgl::PPIcloseslotssendprotocol()
 {
@@ -4262,9 +4263,15 @@ void MainWindowgl::vedioupdate()
                 {
                     move_item = new QWidget;
                     if(i==0)
+                    {
+                        check_time->setChecked(true);
                         move_item->setStyleSheet( "QWidget{background-color:rgb(0,179,244)}");
+                    }
                     else
+                    {
+                        check_move->setChecked(true);
                         move_item->setStyleSheet( "QWidget{background-color:rgb(146,208,80)}");
+                    }
 
                     s4->setCellWidget(j,k,move_item);
                     //qDebug()<<"k="<<k<<"j="<<j<<endl;
