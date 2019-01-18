@@ -164,15 +164,15 @@ public:
     QPushButton *device_reset;
     /*系统升级*/
     QDialog *update_dialog;
-    QLabel *lab1,*lab2,*lab3;
+    QLabel *lab1;
     QPushButton *sw_update_confirm,*sw_update_exit;
     /*参数导入*/
     QDialog *import_dialog;
-    QLabel *lab_1,*lab_2,*lab_3;
+    QLabel *lab_1;
     QPushButton *sw_import_confirm,*sw_import_exit;
     /*参数导出*/
     QDialog *export_dialog;
-    QLabel *lab_1_,*lab_2_,*lab_3_;
+    QLabel *lab_1_;
     QPushButton *sw_export_confirm,*sw_export_exit;
 
     void init_Turntable();

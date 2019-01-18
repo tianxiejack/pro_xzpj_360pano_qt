@@ -1508,24 +1508,19 @@ void MainWindowgl::sw_export_click()
 void MainWindowgl::sw_update_click1()
 {
     update_dialog->setWindowTitle("软件升级");
-    lab1 = new QLabel("您确定升级软件");
-    lab2 = new QLabel;
-    lab3 = new QLabel("吗？");
-    QHBoxLayout *h = new QHBoxLayout;
-    h->addWidget(lab1);
-    h->addWidget(lab2);
-    h->addWidget(lab3);
-    QString text = sw_update_edit->text();
-    lab2->setText(text);
+    lab1 = new QLabel("您确定升级此软件吗？");
+    lab1->setGeometry(20,20,150,30);
+
     sw_update_confirm = new QPushButton("确认");
     sw_update_exit = new QPushButton("取消");
     update_dialog->setMaximumSize(320,100);
     update_dialog->setMinimumSize(320,100);
-    update_dialog->setLayout(h);
+
     sw_update_confirm->setGeometry(210,70,40,20);
     sw_update_exit->setGeometry(260,70,40,20);
     sw_update_confirm->setParent(update_dialog);
     sw_update_exit->setParent(update_dialog);
+    lab1->setParent(update_dialog);
     update_dialog->show();
     connect(sw_update_exit,SIGNAL(clicked(bool)),this,SLOT(sw_update_exit_click()));
     connect(sw_update_confirm,SIGNAL(clicked(bool)),this,SLOT(sw_updateing()));
@@ -1534,20 +1529,15 @@ void MainWindowgl::sw_update_click1()
 void MainWindowgl::sw_import_click1()
 {
     import_dialog->setWindowTitle("参数导入");
-    lab_1 = new QLabel("您确定导入参数");
-    lab_2 = new QLabel;
-    lab_3 = new QLabel("吗？");
-    QHBoxLayout *h = new QHBoxLayout;
-    h->addWidget(lab_1);
-    h->addWidget(lab_2);
-    h->addWidget(lab_3);
+    lab_1 = new QLabel("您确定导入参数吗？");
+    lab_1->setGeometry(20,20,150,30);
     QString text = sw_import_edit->text();
-    lab_2->setText(text);
     sw_import_confirm = new QPushButton("确认");
     sw_import_exit = new QPushButton("取消");
     import_dialog->setMaximumSize(320,100);
     import_dialog->setMinimumSize(320,100);
-    import_dialog->setLayout(h);
+
+    lab_1->setParent(import_dialog);
     sw_import_confirm->setGeometry(210,70,40,20);
     sw_import_exit->setGeometry(260,70,40,20);
     sw_import_confirm->setParent(import_dialog);
@@ -1560,24 +1550,19 @@ void MainWindowgl::sw_import_click1()
 void MainWindowgl::sw_export_click1()
 {
     export_dialog->setWindowTitle("参数导出");
-    lab_1_ = new QLabel("您确定导出参数");
-    lab_2_ = new QLabel;
-    lab_3_ = new QLabel("吗？");
-    QHBoxLayout *h = new QHBoxLayout;
-    h->addWidget(lab_1_);
-    h->addWidget(lab_2_);
-    h->addWidget(lab_3_);
+    lab_1_ = new QLabel("您确定导出参数吗？");
+    lab_1_->setGeometry(20,20,150,30);
     QString text = sw_export_edit->text();
-    lab_2_->setText(text);
     sw_export_confirm = new QPushButton("确认");
     sw_export_exit = new QPushButton("取消");
     export_dialog->setMaximumSize(320,100);
     export_dialog->setMinimumSize(320,100);
-    export_dialog->setLayout(h);
+
     sw_export_confirm->setGeometry(210,70,40,20);
     sw_export_exit->setGeometry(260,70,40,20);
     sw_export_confirm->setParent(export_dialog);
     sw_export_exit->setParent(export_dialog);
+    lab_1_->setParent(export_dialog);
     export_dialog->show();
     connect(sw_export_exit,SIGNAL(clicked(bool)),this,SLOT(sw_export_exit_click()));
     connect(sw_export_confirm,SIGNAL(clicked(bool)),this,SLOT(sw_exporting()));
@@ -4061,16 +4046,15 @@ void MainWindowgl::sw_export_exit_click()
 }
 void MainWindowgl::sw_updateing()
 {
-
     update_dialog->close();
-    QString filePath = lab2->text();
+    QString filePath =sw_update_edit->text();
     protocol->updatesoft(filePath);
 
 }
 void MainWindowgl::sw_exporting()
 {
     export_dialog->close();
-    QString filePath=lab_2_->text();
+    QString filePath=sw_export_edit->text();
     filePath=filePath+"/config.xml";
     protocol->setexportfile(filePath);
     emit slotssendprotocol(Protocol::EXPORTCONFIG);
