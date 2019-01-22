@@ -1046,9 +1046,18 @@ void MainWindowgl::showSystem()
 void MainWindowgl::showVideo()
 {
     m_GlobalDate2->Select_configure = 3;
-    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    for(int i=0;i<3;i++)
+    {
+        emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+        Sleep(2);
+    }
+
     m_GlobalDate2->Select_configure = 10;
-    emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+    for(int i=0;i<3;i++)
+    {
+        emit slotssendprotocol(Protocol::SELECTCONFIGURE);
+        Sleep(1);
+    }
     this->openStack[6]->setChecked(false);
     this->openStack[7]->setChecked(false);
     this->openStack[8]->setChecked(false);
@@ -1625,7 +1634,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=~(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Monday_08 &= v;
      m_GlobalDate2->Monday_08_move &= v;
      v = 0;
@@ -1662,7 +1671,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Monday_916 &= v;
      m_GlobalDate2->Monday_916_move &= v;
      v = 0;
@@ -1699,7 +1708,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Monday_1724 &= v;
      m_GlobalDate2->Monday_1724_move &= v;
      v = 0;
@@ -1736,7 +1745,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Tuesday_08 &= v;
      m_GlobalDate2->Tuesday_08_move &= v;
      v = 0;
@@ -1773,7 +1782,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Tuesday_916 &= v;
      m_GlobalDate2->Tuesday_916_move &= v;
      v = 0;
@@ -1810,7 +1819,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Tuesday_1724 &= v;
      m_GlobalDate2->Tuesday_1724_move &= v;
      v = 0;
@@ -1847,7 +1856,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Wednesday_08 &= v;
      m_GlobalDate2->Wednesday_08_move &= v;
      v = 0;
@@ -1884,7 +1893,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Wednesday_916 &= v;
      m_GlobalDate2->Wednesday_916_move &= v;
      v = 0;
@@ -1921,7 +1930,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Wednesday_1724 &= v;
      m_GlobalDate2->Wednesday_1724_move &= v;
      v = 0;
@@ -1958,7 +1967,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Thursday_08 &= v;
      m_GlobalDate2->Thursday_08_move &= v;
      v = 0;
@@ -1995,7 +2004,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Thursday_916 &= v;
      m_GlobalDate2->Thursday_916_move &= v;
      v = 0;
@@ -2033,7 +2042,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Thursday_1724 &= v;
      m_GlobalDate2->Thursday_1724_move &= v;
      v = 0;
@@ -2071,7 +2080,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Friday_08 &= v;
      m_GlobalDate2->Friday_08_move &= v;
      v = 0;
@@ -2109,7 +2118,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Friday_916 &= v;
      m_GlobalDate2->Friday_916_move &= v;
      v = 0;
@@ -2147,7 +2156,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Friday_1724 &= v;
      m_GlobalDate2->Friday_1724_move &= v;
      v = 0;
@@ -2185,7 +2194,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Saturday_08 &= v;
      m_GlobalDate2->Saturday_08_move &= v;
      v = 0;
@@ -2223,7 +2232,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Saturday_916 &= v;
      m_GlobalDate2->Saturday_916_move &= v;
      v = 0;
@@ -2261,7 +2270,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Saturday_1724 &= v;
      m_GlobalDate2->Saturday_1724_move &= v;
      v = 0;
@@ -2299,7 +2308,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Sunday_08 &= v;
      m_GlobalDate2->Sunday_08_move &= v;
      v = 0;
@@ -2337,7 +2346,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Sunday_916 &= v;
      m_GlobalDate2->Sunday_916_move &= v;
      v = 0;
@@ -2375,7 +2384,7 @@ void MainWindowgl::vedio_color_doubleclick(int row, int column )
          break;
      }
      int v = 0;
-     v &=(1<<n);
+     v =(~(1<<n))&0xff;
      m_GlobalDate2->Sunday_1724 &= v;
      m_GlobalDate2->Sunday_1724_move &= v;
      v = 0;
@@ -2395,6 +2404,7 @@ void MainWindowgl::vedio_color_click(int row, int column)
             if(s4->cellWidget(row,column) == NULL){
                 s4->setCellWidget(row,column,time_item);
             }
+       qDebug()<<"col="<<column<<"row="<<row<<endl;
       if ((row==0)&&(column<8&&column>=0))
    {
        int n;
@@ -4253,7 +4263,7 @@ void MainWindowgl::updateupdate()
 
 void MainWindowgl::vedioupdate()
 {
-
+    qDebug()<<"recored vedioupdate"<<endl;
     for(int i=0;i<2;i++)
         for(int j=0;j<7;j++)
         {
@@ -4275,6 +4285,18 @@ void MainWindowgl::vedioupdate()
 
                     s4->setCellWidget(j,k,move_item);
                     //qDebug()<<"k="<<k<<"j="<<j<<endl;
+                }
+                else
+                {
+                    if((i==1)&&(m_GlobalDate2->protectiontime[0][j][k]==0)&&(m_GlobalDate2->protectiontime[1][j][k]==0))
+                    {
+                        move_item = new QWidget;
+                        move_item->setStyleSheet( "QWidget{background-color:rgb(255,255,255)}");
+                        s4->setCellWidget(j,k,move_item);
+                    }
+                  //
+                  //
+                   //
                 }
                 // printf("%d \t",m_GlobalDate2->protectiontime[i][j][k]);
             }

@@ -856,48 +856,28 @@ void Protocol::recvevent(unsigned char *buf)
                 m_GlobalDate->Sunday_916 = buf[21];
                 m_GlobalDate->Sunday_1724 = buf[22];
             } else {
-                m_GlobalDate->Monday_08 = buf[2];
-                m_GlobalDate->Monday_08_move = m_GlobalDate->Monday_08;
-                m_GlobalDate->Monday_916 = buf[3];
-                m_GlobalDate->Monday_916_move = m_GlobalDate->Monday_916;
-                m_GlobalDate->Monday_1724 = buf[4];
-                m_GlobalDate->Monday_1724_move = m_GlobalDate->Monday_1724;
-                m_GlobalDate->Tuesday_08 = buf[5];
-                m_GlobalDate->Tuesday_08_move = m_GlobalDate->Tuesday_08;
-                m_GlobalDate->Tuesday_916 = buf[6];
-                m_GlobalDate->Tuesday_916_move = m_GlobalDate->Tuesday_916;
-                m_GlobalDate->Tuesday_1724 = buf[7];
-                m_GlobalDate->Tuesday_1724_move = m_GlobalDate->Tuesday_1724;
-                m_GlobalDate->Wednesday_08 = buf[8];
-                m_GlobalDate->Wednesday_08_move = m_GlobalDate->Wednesday_08;
-                m_GlobalDate->Wednesday_916 = buf[9];
-                m_GlobalDate->Wednesday_916_move = m_GlobalDate->Wednesday_916;
-                m_GlobalDate->Wednesday_1724 = buf[10];
-                m_GlobalDate->Wednesday_1724_move = m_GlobalDate->Wednesday_1724;
-                m_GlobalDate->Thursday_08 = buf[11];
-                m_GlobalDate->Thursday_08_move = m_GlobalDate->Thursday_08;
-                m_GlobalDate->Thursday_916 = buf[12];
-                m_GlobalDate->Thursday_916_move = m_GlobalDate->Thursday_916;
-                m_GlobalDate->Thursday_1724 = buf[13];
-                m_GlobalDate->Thursday_1724_move = m_GlobalDate->Thursday_1724;
-                m_GlobalDate->Friday_08 = buf[14];
-                m_GlobalDate->Friday_08_move = m_GlobalDate->Friday_08;
-                m_GlobalDate->Friday_916 = buf[15];
-                m_GlobalDate->Friday_916_move = m_GlobalDate->Friday_916;
-                m_GlobalDate->Friday_1724 = buf[16];
-                m_GlobalDate->Friday_1724_move = m_GlobalDate->Friday_1724;
-                m_GlobalDate->Saturday_08 = buf[17];
-                m_GlobalDate->Saturday_08_move = m_GlobalDate->Saturday_08;
-                m_GlobalDate->Saturday_916 = buf[18];
-                m_GlobalDate->Saturday_916_move = m_GlobalDate->Saturday_916;
-                m_GlobalDate->Saturday_1724 = buf[19];
-                m_GlobalDate->Saturday_1724_move = m_GlobalDate->Saturday_1724;
-                m_GlobalDate->Sunday_08 = buf[20];
-                m_GlobalDate->Sunday_08_move = m_GlobalDate->Sunday_08;
-                m_GlobalDate->Sunday_916 = buf[21];
-                m_GlobalDate->Sunday_916_move = m_GlobalDate->Sunday_916;
-                m_GlobalDate->Sunday_1724 = buf[22];
-                m_GlobalDate->Sunday_1724_move = m_GlobalDate->Sunday_1724;
+
+                m_GlobalDate->Monday_08_move = buf[2];
+                m_GlobalDate->Monday_916_move = buf[3];
+                m_GlobalDate->Monday_1724_move = buf[4];
+                m_GlobalDate->Tuesday_08_move = buf[5];
+                m_GlobalDate->Tuesday_916_move = buf[6];
+                m_GlobalDate->Tuesday_1724_move = buf[7];
+                m_GlobalDate->Wednesday_08_move = buf[8];
+                m_GlobalDate->Wednesday_916_move = buf[9];
+                m_GlobalDate->Wednesday_1724_move = buf[10];
+                m_GlobalDate->Thursday_08_move = buf[11];
+                m_GlobalDate->Thursday_916_move = buf[12];
+                m_GlobalDate->Thursday_1724_move = buf[13];
+                m_GlobalDate->Friday_08_move = buf[14];
+                m_GlobalDate->Friday_916_move = buf[15];
+                m_GlobalDate->Friday_1724_move = buf[16];
+                m_GlobalDate->Saturday_08_move = buf[17];
+                m_GlobalDate->Saturday_916_move = buf[18];
+                m_GlobalDate->Saturday_1724_move = buf[19];
+                m_GlobalDate->Sunday_08_move = buf[20];
+                m_GlobalDate->Sunday_916_move = buf[21];
+                m_GlobalDate->Sunday_1724_move =  buf[22];
             }
 
             for(int i=0;i<7;i++)
@@ -907,11 +887,11 @@ void Protocol::recvevent(unsigned char *buf)
                   //  qDebug()<<
 
                     if(j<8)
-                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i]>>j)&0x01;
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][8-1-j]=(buf[2+3*i]>>j)&0x01;
                     else if(j<16)
-                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i+1]>>(j-8))&0x01;
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][16-1-(j-8)]=(buf[2+3*i+1]>>(j-8))&0x01;
                     else if(j<24)
-                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j]=(buf[2+3*i+2]>>(j-16))&0x01;
+                        m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][24-1-(j-16)]=(buf[2+3*i+2]>>(j-16))&0x01;
 
                    // qDebug()<<m_GlobalDate->protectiontime[m_GlobalDate->timeormove][i][j];
                 }
@@ -921,7 +901,7 @@ void Protocol::recvevent(unsigned char *buf)
             {
                 ;
                 //qDebug()<<buf[i]<<endl;
-              //  printf("%d\t",buf[i]);
+                printf("%d\t",buf[i]);
             }
            // printf("\n");
 
